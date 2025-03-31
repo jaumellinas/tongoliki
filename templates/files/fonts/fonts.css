@@ -1,0 +1,79 @@
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-Bold.woff2') format('woff2'),
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-LightItalic.woff2') format('woff2'),
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-Italic.woff2') format('woff2'),
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-BoldItalic.woff2') format('woff2'),
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-Black.woff2') format('woff2'),
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-Light.woff2') format('woff2'),
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-BlackItalic.woff2') format('woff2'),
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-SemiBoldItalic.woff2') format('woff2'),
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-SemiBold.woff2') format('woff2'),
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RM Neue';
+    url('RMNeue-Regular.woff2') format('woff2'),
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
