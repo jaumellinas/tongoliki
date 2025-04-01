@@ -61,6 +61,16 @@
     <div class="plantilla">
         <div class="contenedor-plantilla">
             <h1>La nostra plantilla</h1>
+            <ul>
+                {% for persona in personas if not is_trainer%}
+                    <div class="carousel">
+                        <div class="card">
+                            <h2>{{ persona.name }}</h2>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+            </div>
         </div>
     </div>
     <div class="tv">

@@ -25,7 +25,8 @@ class Persona(db.Model):
 
 @app.route('/')
 def get_index():
-    return render_template("index.html")    
+    personas = Persona.query.all()
+    return render_template("index.html", personas = personas)
     
 @app.route('/personas')
 def get_personas():
