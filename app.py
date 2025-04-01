@@ -1,11 +1,13 @@
-import dotenv
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+import os
 from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
-URL_SUPABASE = dotenv.load_dotenv(URL_SUPABASE)
+URL_SUPABASE = os.getenv("URL_SUPABASE")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = URL_SUPABASE
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
