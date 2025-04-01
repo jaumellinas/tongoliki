@@ -29,15 +29,26 @@ def get_personas():
     return render_template("personas.html", personas = personas)
 
 
-@app.route('/add_persona/<name>/<surname>/<age>/<is_trainer>')
-def add_user(name, surname, age, is_trainer):
-    is_trainer = request.args.get('is_trainer', 'False')  # Obtiene el valor como string (por defecto 'False')
-    is_trainer = is_trainer.lower() == 'true'  # Convierte 'True'/'False' a booleano
+@app.route('/add_persona', methods=['GET', 'POST'])
+def add_persona():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        age = request.form.get('age')
+        is_trainer = request.form.get('is_trainer') == 'on'
 
-    new_persona = Persona(name=name, surname=surname, age=age, is_trainer=is_trainer)
-    db.session.add(new_persona)
-    db.session.commit()
-    return f"{name} añadido correctamente."
+        new_persona = Persona(
+            name=name, 
+            surname=surname, 
+            age=int(age),
+            is_trainer=is_trainer
+        )
+
+        db.session.add(new_persona)
+        db.session.commit()
+        return redirect(url_for('get_personas'))
+
+    return render_template("add_persona.html")
 
 
 if __name__ == "__main__":
