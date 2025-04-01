@@ -46,7 +46,7 @@ def editar_persona(id):
         persona.name = request.form.get('name')
         persona.surname = request.form.get('surname')
         persona.age = int(request.form.get('age'))
-        persona.is_trainer = request.form.get('is_trainer') == 'on'
+        persona.is_trainer = request.form.get('is_trainer')     == 'on'
         db.session.commit()
         return redirect(url_for('get_personas'))
     
