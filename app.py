@@ -1,11 +1,14 @@
+import dotenv
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///example.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+URL_SUPABASE = dotenv.load_dotenv(URL_SUPABASE)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = URL_SUPABASE
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Persona(db.Model):
@@ -17,8 +20,7 @@ class Persona(db.Model):
     
     def __repr__(self):
         return f'Persona {self.name}'
-    
-    
+
 @app.route('/')
 def get_index():
     return render_template("index.html")    
@@ -27,7 +29,6 @@ def get_index():
 def get_personas():
     personas = Persona.query.all()
     return render_template("personas.html", personas = personas)
-
 
 @app.route('/add_persona', methods=['GET', 'POST'])
 def add_persona():
@@ -49,7 +50,6 @@ def add_persona():
         return redirect(url_for('get_personas'))
 
     return render_template("add_persona.html")
-
 
 if __name__ == "__main__":
     with app.app_context():
