@@ -9,6 +9,31 @@
     <script src="https://kit.fontawesome.com/c3c63f74a9.js" crossorigin="anonymous"></script>
     <title>RCD Mallorca</title>
 </head>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const carousel = document.querySelector(".carousel ul");
+        const prevBtn = document.querySelector(".jugador-previo");
+        const nextBtn = document.querySelector(".jugador-siguiente");
+        const cardWidth = 300 + 30; // Asegúrate de que coincide con el CSS
+        let scrollAmount = 0;
+
+        // Mover hacia la izquierda
+        prevBtn.addEventListener("click", function () {
+            if (scrollAmount > 0) {
+                scrollAmount -= cardWidth;
+                carousel.style.transform = `translateX(-${scrollAmount}px)`;
+            }
+        });
+
+        // Mover hacia la derecha
+        nextBtn.addEventListener("click", function () {
+            if (scrollAmount < carousel.scrollWidth - carousel.parentElement.clientWidth) {
+                scrollAmount += cardWidth;
+                carousel.style.transform = `translateX(-${scrollAmount}px)`;
+            }
+        });
+    });
+</script>
 <body>
 <header>
     <div class="contenedor-nav">
@@ -33,16 +58,15 @@
             </div>
             <ul>
                 <li><a href="#">Club</a></li>
-                <li><a href="#">Jugadors</a></li>
+                <li><a href="#">Plantilla</a></li>
                 <li><a href="#">Actualitat</a></li>
                 <li><a href="#">RCD Mallorca TV</a></li>
                 <li><a href="#">Contacte</a></li>
                 <li></li>
             </ul>
-            <div class="search-box">
-                <button class="btn-search"><i class="fas fa-search"></i></button>
-                <input type="text" class="input-search" placeholder="Què estàs cercant?">
-            </div>
+            <a href="/login">
+                <button class="boton-login"><i class="fa-solid fa-user"></i></button>
+            </a>
         </nav>
     </div>
     <div class="titular">
@@ -61,16 +85,30 @@
     <div class="plantilla">
         <div class="contenedor-plantilla">
             <h1>La nostra plantilla</h1>
-            <ul>
-                {% for persona in personas if not is_trainer%}
-                    <div class="carousel">
-                        <div class="card">
-                            <h2>{{ persona.name }}</h2>
+            <div class="carousel">
+                <div class="botones">
+                    <button class="jugador-previo"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="jugador-siguiente"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <ul>
+                    {% for persona in personas if not is_trainer%}
+                    <li>
+                        <div class="contenedor-imagen">
+                            <div class="numero-jugador">
+                                <p>{{ persona.number }}</p>
+                            </div>
+                            <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
                         </div>
-                    </div>
-                {% endfor %}
-            </ul>
+                        <div class="contenedor-datos">
+                            <h2>{{ persona.display_name }}</h2>
+                            <h3>{{ persona.position }}</h3>
+                            <a href="#"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
+            <a href="/persones">Veure'ls tots <i class="fa-solid fa-arrow-right"></i></a>
         </div>
     </div>
     <div class="tv">

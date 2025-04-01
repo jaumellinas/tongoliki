@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -17,7 +18,14 @@ class Persona(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)    
     surname = db.Column(db.String(100), nullable=False)
-    age = db.Column(db.Integer, nullable=False)
+    display_name = db.Column(db.String(100), nullable=True)
+    number = db.Column(db.Integer(), nullable=True)
+    position = db.Column(db.String(100), nullable=True)
+    dob = db.Column(db.Date, nullable=False)
+    birthplace = db.Column(db.String(100), nullable=False)
+    nationality = db.Column(db.String(100), nullable=False)
+    dominant_leg = db.Column(db.String(100), nullable=True)
+    is_international = db.Column(db.Boolean, nullable=False)
     is_trainer = db.Column(db.Boolean, nullable=False)
     
     def __repr__(self):
@@ -38,13 +46,27 @@ def add_persona():
     if request.method == 'POST':
         name = request.form.get('name')
         surname = request.form.get('surname')
-        age = request.form.get('age')
+        display_name = request.form.get('display_name')
+        number = int(request.form.get('number')) if request.form.get('number') else None
+        position = request.form.get('position')
+        dob = datetime.strptime(request.form.get('dob'), "%Y-%m-%d").date()
+        birthplace = request.form.get('birthplace')
+        nationality = request.form.get('nationality')
+        dominant_leg = request.form.get('dominant_leg')
+        is_international = request.form.get('is_international') == 'on'
         is_trainer = request.form.get('is_trainer') == 'on'
 
         new_persona = Persona(
             name=name, 
-            surname=surname, 
-            age=int(age),
+            surname=surname,
+            display_name=display_name,
+            number=number,
+            position=position,
+            dob=dob,
+            birthplace=birthplace,
+            nationality=nationality,
+            dominant_leg=dominant_leg,
+            is_international=is_international,
             is_trainer=is_trainer
         )
 
