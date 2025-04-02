@@ -36,6 +36,11 @@ def get_index():
     personas = Persona.query.all()
     return render_template("index.html", personas = personas)
 
+@app.route('/personas')
+def get_personas():
+    personas = Persona.query.all()
+    return render_template("personas.html", personas = personas)
+
 @app.route('/personas_admin')
 def get_personas_admin():
     personas = Persona.query.all()
@@ -96,8 +101,9 @@ def add_persona():
         
         db.session.add(new_persona)
         db.session.commit()
+        return redirect(url_for('get_personas'))
 
-    return render_template("forms.html", type = type)
+    return render_template("add_persona.html")
 
 
 @app.route('/login')
