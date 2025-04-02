@@ -1,62 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <script src="https://kit.fontawesome.com/c3c63f74a9.js" crossorigin="anonymous"></script>
-    <title>{% block title %}{% endblock %} - RCD Mallorca</title>
+    <title>{% block title %}RCD Mallorca{% endblock %}</title>
 </head>
+{% block scripts %}{% endblock %}
 <body>
-    <header>
-        <div class="contenedor-nav">
-            <nav class="auxiliar">
-                <ul>
-                    <li><a href="#">TENDA</a></li>
-                    <li><a href="#">SON MOIX</a></li>
-                    <li><a href="#">ENTRADES</a></li>
-                    <li><a href="#">ABONATS</a></li>
-                </ul>
-                <ul>
-                    <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-                </ul>
-            </nav>
-            <nav class="primaria">
-                <div class="contenedor-logo">
-                    <a href="#"><img src="../static/img/logo.png" alt=""></a>
-                </div>
-                <ul>
-                    <li><a href="#">Club</a></li>
-                    <li><a href="#">Jugadors</a></li>
-                    <li><a href="#">Actualitat</a></li>
-                    <li><a href="#">RCD Mallorca TV</a></li>
-                    <li><a href="#">Contacte</a></li>
-                    <li><a href="personas_admin">Login</a></li>
-                    <li></li>
-                </ul>
-                <div class="search-box">
-                    <button class="btn-search"><i class="fas fa-search"></i></button>
-                    <input type="text" class="input-search" placeholder="Què estàs cercant?">
-                </div>
-            </nav>
-        </div>
-        <div class="titular">
-            <div class="titular-text">
-                <h1>Tornam a ésser de primera!</h1>
-            </div>
-            <div class="titular-link">
-                <a href="#"><p>Llegir més <i class="fa-solid fa-arrow-up-long fa-rotate-90"></i></p></a>
-            </div>
-        </div>
-    </header>
+<main>
+    {% block content %}{% endblock %}
+</main>
 
-    {% block content %}
-    {% endblock %}
+<footer>
+    <p>© 2024 RCD Mallorca - Tots els drets reservats.</p>
+</footer>
 </body>
 </html>

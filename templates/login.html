@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/bulma.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='img/main/favicon.png') }}" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/c3c63f74a9.js" crossorigin="anonymous"></script>
+    <title>Login - RCD Mallorca</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "RM Neue", Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="is-flex is-flex-direction-row" style="height: 100%; width: auto;">
+    <div class="columns is-gapless is-fullheight" style="height: 100%; margin: 0;">
+        <div class="column is-three-quarters" style="height: 100%; padding: 0;">
+            <div class="image is-cover" style="height: 100%; width: 100%;">
+                <img src="{{ url_for('static',filename='img/login/bg.jpg') }}" style="width: 100%; object-fit: cover;" alt="Descripción de la imagen">
+            </div>
+        </div>
+        <div class="column is-one-quarter">
+            <img class="ml-4 mt-4" src="{{ url_for('static',filename='img/main/logo.png') }}" style="width: 128px; height: auto;" alt="Logo del RCD Mallorca">
+            <h1 class="title is-2 ml-4">Iniciar sessió</h1>
+            <form class="column pl-4" action="{{ url_for('get_login') }}" method="POST">
+                <div class="field">
+                    <label class="label">Correu electrònic</label>
+                    <div class="control">
+                        <input class="input" type="email" name="username" placeholder="p.ex. bea@rcdmallorca.es" required />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Contrasenya</label>
+                    <div class="control">
+                        <input class="input" type="password" name="password" placeholder="***********" required />
+                    </div>
+                </div>
+
+                <button class="button has-background-danger-40 has-text-white">Accedir</button>
+
+                <a href="/"><p class="has-text-danger-40 mt-5"><i class="fa-solid fa-arrow-left mr-2"></i>Tornar al web principal</p></a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
