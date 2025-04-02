@@ -43,38 +43,114 @@
     </div>
 </header>
 
-<div class="partidos">
-    <h2>Futurs partits</h2>
-</div>
-
-<div class="plantilla">
-    <div class="contenedor-plantilla">
-        <h1>La nostra plantilla</h1>
-        <div class="carousel">
-            <div class="botones">
-                <button class="jugador-previo"><i class="fa-solid fa-arrow-left"></i></button>
-                <button class="jugador-siguiente"><i class="fa-solid fa-arrow-right"></i></button>
-            </div>
-            <ul>
-                {% for persona in personas if not is_trainer %}
-                <li>
-                    <div class="contenedor-imagen">
-                        <div class="numero-jugador">
-                            <p>{{ persona.number }}</p>
-                        </div>
-                        <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
-                    </div>
-                    <div class="contenedor-datos">
-                        <h2>{{ persona.display_name }}</h2>
-                        <h3>{{ persona.position }}</h3>
-                        <a href="#"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul>
+<main>
+    <div class="partidos">
+        <div class="h2-partidos">
+            <h2>Futurs partits</h2>
         </div>
-        <a href="/persones">Veure'ls tots <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="contenedor-principal-partidos">
+            <div class="partido">
+                <div class="partidos-titulo">
+                    <h3>LALIGA EA SPORTS · J30</h3>
+                    <p>Estadi Mallorca Son Moix</p>
+                </div>
+
+                <div class="contenedor-partido-interno">
+                    <div class="partidos-equipo1">
+                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
+                        <p>MLL</p>
+                    </div>
+
+                    <div class="partidos-fecha">
+                        <p>18:30</p>
+                        <p>5 abr 2025</p>
+                    </div>
+
+                    <div class="partidos-equipo2">
+                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
+                        <p>CEL</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="partido">
+                <div class="partidos-titulo">
+                    <h3>LALIGA EA SPORTS · J30</h3>
+                    <p>Estadi Mallorca Son Moix</p>
+                </div>
+
+                <div class="contenedor-partido-interno">
+                    <div class="partidos-equipo1">
+                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
+                        <p>MLL</p>
+                    </div>
+
+                    <div class="partidos-fecha">
+                        <p>18:30</p>
+                        <p>5 abr 2025</p>
+                    </div>
+
+                    <div class="partidos-equipo2">
+                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
+                        <p>CEL</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="partido">
+                <div class="partidos-titulo">
+                    <h3>LALIGA EA SPORTS · J30</h3>
+                    <p>Estadi Mallorca Son Moix</p>
+                </div>
+
+                <div class="contenedor-partido-interno">
+                    <div class="partidos-equipo1">
+                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
+                        <p>MLL</p>
+                    </div>
+
+                    <div class="partidos-fecha">
+                        <p>18:30</p>
+                        <p>5 abr 2025</p>
+                    </div>
+
+                    <div class="partidos-equipo2">
+                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
+                        <p>CEL</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="plantilla">
+        <div class="contenedor-plantilla">
+            <h1>La nostra plantilla</h1>
+            <div class="carousel">
+                <div class="botones">
+                    <button class="jugador-previo"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="jugador-siguiente"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <ul>
+                    {% for persona in personas if not is_trainer %}
+                    <li>
+                        <div class="contenedor-imagen">
+                            <div class="numero-jugador">
+                                <p>{{ persona.number }}</p>
+                            </div>
+                            <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
+                        </div>
+                        <div class="contenedor-datos">
+                            <h2>{{ persona.display_name }}</h2>
+                            <h3>{{ persona.position }}</h3>
+                            <a href="#"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="/persones">Veure'ls tots <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
 </main>
 {% endblock %}
