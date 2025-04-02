@@ -1,12 +1,12 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import os
 from dotenv import load_dotenv
 from datetime import datetime
-
-load_dotenv()
+import os
 
 app = Flask(__name__)
+
+load_dotenv()
 
 URL_SUPABASE = os.getenv("URL_SUPABASE")
 
@@ -76,7 +76,11 @@ def add_persona():
 
     return render_template("add_persona.html")
 
+@app.route('/login')
+def get_login():
+    return render_template("login.html")
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(port=8000, debug=True)

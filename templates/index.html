@@ -1,14 +1,8 @@
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/style.css') }}">
-    <script src="https://kit.fontawesome.com/c3c63f74a9.js" crossorigin="anonymous"></script>
-    <title>RCD Mallorca</title>
-</head>
+{% extends "base.html" %}
+
+{% block title %}Inici - RCD Mallorca{% endblock %}
+
+{% block scripts %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const carousel = document.querySelector(".carousel ul");
@@ -34,89 +28,52 @@
         });
     });
 </script>
-<body>
+{% endblock %}
+
+{% block content %}
 <header>
-    <div class="contenedor-nav">
-        <nav class="auxiliar">
-            <ul>
-                <li><a href="#">TENDA</a></li>
-                <li><a href="#">SON MOIX</a></li>
-                <li><a href="#">ENTRADES</a></li>
-                <li><a href="#">ABONATS</a></li>
-            </ul>
-            <ul>
-                <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-            </ul>
-        </nav>
-        <nav class="primaria">
-            <div class="contenedor-logo">
-                <a href="#"><img src="../static/img/logo.png" alt=""></a>
-            </div>
-            <ul>
-                <li><a href="#">Club</a></li>
-                <li><a href="#">Plantilla</a></li>
-                <li><a href="#">Actualitat</a></li>
-                <li><a href="#">RCD Mallorca TV</a></li>
-                <li><a href="#">Contacte</a></li>
-                <li></li>
-            </ul>
-            <a href="/login">
-                <button class="boton-login"><i class="fa-solid fa-user"></i></button>
-            </a>
-        </nav>
-    </div>
+    {% include "navbar.html" %}
     <div class="titular">
         <div class="titular-text">
-            <h1>Tornam a ésser de primera!</h1>
+            <h1>Tornam a ser de primera!</h1>
         </div>
         <div class="titular-link">
-            <a href="#"><p>Llegir més <i class="fa-solid fa-arrow-up-long fa-rotate-90"></i></p></a>
+            <a href="#"><p>Llegir més <i class="fa-solid fa-arrow-right"></i></p></a>
         </div>
     </div>
 </header>
-<main>
-    <div class="partidos">
-        <h2>Futurs partits</h2>
-    </div>
-    <div class="plantilla">
-        <div class="contenedor-plantilla">
-            <h1>La nostra plantilla</h1>
-            <div class="carousel">
-                <div class="botones">
-                    <button class="jugador-previo"><i class="fa-solid fa-arrow-left"></i></button>
-                    <button class="jugador-siguiente"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
-                <ul>
-                    {% for persona in personas if not is_trainer%}
-                    <li>
-                        <div class="contenedor-imagen">
-                            <div class="numero-jugador">
-                                <p>{{ persona.number }}</p>
-                            </div>
-                            <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
-                        </div>
-                        <div class="contenedor-datos">
-                            <h2>{{ persona.display_name }}</h2>
-                            <h3>{{ persona.position }}</h3>
-                            <a href="#"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+
+<div class="partidos">
+    <h2>Futurs partits</h2>
+</div>
+
+<div class="plantilla">
+    <div class="contenedor-plantilla">
+        <h1>La nostra plantilla</h1>
+        <div class="carousel">
+            <div class="botones">
+                <button class="jugador-previo"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="jugador-siguiente"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
-            <a href="/persones">Veure'ls tots <i class="fa-solid fa-arrow-right"></i></a>
+            <ul>
+                {% for persona in personas if not is_trainer %}
+                <li>
+                    <div class="contenedor-imagen">
+                        <div class="numero-jugador">
+                            <p>{{ persona.number }}</p>
+                        </div>
+                        <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
+                    </div>
+                    <div class="contenedor-datos">
+                        <h2>{{ persona.display_name }}</h2>
+                        <h3>{{ persona.position }}</h3>
+                        <a href="#"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
+        <a href="/persones">Veure'ls tots <i class="fa-solid fa-arrow-right"></i></a>
     </div>
-    <div class="tv">
-
-    </div>
-    <div class="partners">
-
-    </div>
-</main>
-</body>
-</html>
+</div>
+{% endblock %}

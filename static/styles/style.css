@@ -10,26 +10,14 @@ body {
     font-family: 'RM Neue', Helvetica, sans-serif;
 }
 
-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 800px;
-    background-image: url('../img/header.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 40px 0 40px 0;
-}
-
+/* -- (1) Navbar -- */
 .contenedor-nav {
     width: 95%;
     margin: 0 auto;
-    position: sticky;
-    top: 0;
-    overflow: hidden;
+    padding-top: 40px;
 }
 
+/* -- (1.1) Navbar auxiliar -- */
 .auxiliar {
     background: #e12323;
     padding: 15px 30px 15px 30px;
@@ -58,6 +46,7 @@ header {
     transition: 0.3s;
 }
 
+/* -- (1.2) Navbar primaria -- */
 .primaria {
     background: white;
     padding: 20px 30px 20px 30px;
@@ -123,21 +112,35 @@ header {
     transition: 0.3s;
 }
 
+/* -- (2) Header -- */
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 800px;
+    background-image: url('../img/index/header.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0 0 20px 0;
+}
+
+/* -- (2.1) Titular header -- */
 .titular {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 95%;
-    margin: 0 auto;
     color: white;
 }
 
+/* -- (2.1.1) Titular header - Texto -- */
 .titular-text {
     color: white;
     font-size: 36px;
 }
 
+/* -- (2.1.2) Titular header - Enlace -- */
 .titular-link i {
     margin-left: 5px;
 }
@@ -153,13 +156,14 @@ header {
     text-decoration: underline;
 }
 
+/* -- (3) Nuestra plantilla -- */
 .plantilla {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("../img/sonmoix.jpg");
+    background-image: url("../img/index/sonmoix.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
