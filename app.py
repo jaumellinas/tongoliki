@@ -36,39 +36,66 @@ def get_index():
     personas = Persona.query.all()
     return render_template("index.html", personas = personas)
 
-@app.route("/backoffice/add/<type>", methods=["GET", "POST"])
-def get_form(type):
-    if type == "persona":
-        def add_persona():
-            if request.method == 'POST':
-                name = request.form.get('name')
-                surname = request.form.get('surname')
-                display_name = request.form.get('display_name')
-                number = int(request.form.get('number')) if request.form.get('number') else None
-                position = request.form.get('position')
-                dob = datetime.strptime(request.form.get('dob'), "%Y-%m-%d").date()
-                birthplace = request.form.get('birthplace')
-                nationality = request.form.get('nationality')
-                dominant_leg = request.form.get('dominant_leg')
-                is_international = request.form.get('is_international') == 'on'
-                is_trainer = request.form.get('is_trainer') == 'on'
+@app.route('/personas_admin')
+def get_personas_admin():
+    personas = Persona.query.all()
+    return render_template("personas_admin.html", personas = personas)
 
-                new_persona = Persona(
-                    name=name,
-                    surname=surname,
-                    display_name=display_name,
-                    number=number,
-                    position=position,
-                    dob=dob,
-                    birthplace=birthplace,
-                    nationality=nationality,
-                    dominant_leg=dominant_leg,
-                    is_international=is_international,
-                    is_trainer=is_trainer
-                )
+@app.route('/editar_persona/<int:id>', methods=['GET', 'POST'])
+def editar_persona(id):
+    persona = Persona.query.get(id)
+    if not persona:
+        return "Usuario no encontrado", 404
+    if request.method == 'POST':
+        persona.name = request.form.get('name')
+        persona.surname = request.form.get('surname')
+        persona.age = int(request.form.get('age'))
+        persona.is_trainer = request.form.get('is_trainer')     == 'on'
+        db.session.commit()
+        return redirect(url_for('get_personas'))
+    
+    return render_template("editar_persona.html", persona = persona)
 
-                db.session.add(new_persona)
-                db.session.commit()
+@app.route('/borrar_persona/<int:id>', methods=['GET', 'POST'])
+def borrar_persona(id):
+    persona = Persona.query.get(id)
+    if not persona:
+        return "Usuario no encontrado", 404
+    db.session.delete(persona)
+    db.session.commit()
+    return redirect(url_for('get_personas_admin'))
+
+@app.route('/add_persona', methods=['GET', 'POST'])
+def add_persona():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        display_name = request.form.get('display_name')
+        number = int(request.form.get('number')) if request.form.get('number') else None
+        position = request.form.get('position')
+        dob = datetime.strptime(request.form.get('dob'), "%Y-%m-%d").date()
+        birthplace = request.form.get('birthplace')
+        nationality = request.form.get('nationality')
+        dominant_leg = request.form.get('dominant_leg')
+        is_international = request.form.get('is_international') == 'on'
+        is_trainer = request.form.get('is_trainer') == 'on'
+        
+        new_persona = Persona(
+            name=name,
+            surname=surname,
+            display_name=display_name,
+            number=number,
+            position=position,
+            dob=dob,
+            birthplace=birthplace,
+            nationality=nationality,
+            dominant_leg=dominant_leg,
+            is_international=is_international,
+            is_trainer=is_trainer
+        )
+        
+        db.session.add(new_persona)
+        db.session.commit()
 
     return render_template("forms.html", type = type)
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personas</title>
+</head>
+<body>
+    <h1>Lista de personas - Admin</h1>
+    <a href="{{ url_for('add_persona') }}">Añadir</a>
+    <ul>
+            {% for persona in personas %}
+            <li>ID: {{persona.id}}, Nombre: {{persona.name}}, Apellido: {{persona.surname}}, Edad: {{persona.age}}, Rol: {% if persona.is_trainer %}Entrenador{% else %}Jugador{% endif %}
+                <a href="{{ url_for('editar_persona', id = persona.id) }}">Editar</a>
+                <form action="{{ url_for('borrar_persona', id=persona.id) }}" method="post">
+                    <button type="submit">Eliminar</button>
+                </form>
+                <br>
+            </li>
+
+            {% endfor %}
+    </ul>
+</body>
+</html>
