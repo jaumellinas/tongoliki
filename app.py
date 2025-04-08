@@ -95,10 +95,6 @@ def get_persona_by_id(id):
         return render_template("datos_jugador.html", persona = persona)
         
 
-
-
-
-
 @app.route('/borrar_persona/<int:id>', methods=['GET', 'POST'])
 def borrar_persona(id):
     persona = Persona.query.get(id)
@@ -193,9 +189,18 @@ def get_forms():
     tipo = "personas"
     return render_template("forms.html", tipo = tipo)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def get_login():
+    if request.method == "POST":
+        email_get = request.form.get('email')
+        password_get = request.form.get('password')
+        correo = "tongoliki@gmail.com"
+        contraseña = "12345"
+        if email_get == correo and password_get == contraseña:
+            return redirect(url_for('get_personas_admin'))
+        
     return render_template("login.html")
+
 
 if __name__ == "__main__":
     with app.app_context():
