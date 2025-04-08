@@ -6,58 +6,137 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/forms.css') }}">
+    <script src="https://kit.fontawesome.com/c3c63f74a9.js" crossorigin="anonymous"></script>
     <title>Formularis - RCD Mallorca</title>
 </head>
 <body>
 {% if tipo == "personas" %}
     {% block personas %}
     <form action="{{ url_for('add_persona') }}" method="post">
-        <div class="nice-form-group">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required>
+        <h1><i class="fa-solid fa-circle-user"></i> Afegir persona</h1>
+        <div class="fila">
+            <div class="elemento">
+                <label for="name">Nom</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="elemento">
+                <label for="surname">Llinatge</label>
+                <input type="text" id="surname" name="surname" required>
+            </div>
+
+            <div class="elemento">
+                <label for="display_name">Àlies</label>
+                <input type="text" id="display_name" name="display_name">
+            </div>
         </div>
 
-        <label for="surname">Apellido:</label>
-        <input type="text" id="surname" name="surname" required>
+        <div class="fila">
+            <div class="elemento">
+                <label for="number">Dorsal</label>
+                <input type="number" id="number" name="number">
+            </div>
 
-        <label for="display_name">Alias:</label>
-        <input type="text" id="display_name" name="display_name">
+            <div class="elemento">
+                <label for="position">Posició</label>
+                <input type="text" id="position" name="position">
+            </div>
 
-        <label for="number">Dorsal:</label>
-        <input type="number" id="number" name="number">
+            <div class="elemento">
+                <label for="dominant_leg">Cama dominant</label>
+                <input type="text" id="dominant_leg" name="dominant_leg">
+            </div>
+        </div>
 
-        <label for="position">Posición:</label>
-        <input type="text" id="position" name="position">
+        <div class="fila">
+            <div class="elemento">
+                <label for="dob">Data de naixement</label>
+                <input type="text" id="dob" name="dob" required>
+            </div>
 
-        <label for="dob">Fecha de nacimiento:</label>
-        <input type="date" id="dob" name="dob" required>
+            <div class="elemento">
+                <label for="birthplace">Lloc de naixement</label>
+                <input type="text" id="birthplace" name="birthplace" required>
+            </div>
 
-        <label for="birthplace">Lugar de nacimiento:</label>
-        <input type="text" id="birthplace" name="birthplace" required>
+            <div class="elemento">
+                <label for="nationality">Nacionalitat</label>
+                <input type="text" id="nationality" name="nationality" required>
+            </div>
+        </div>
 
-        <label for="nationality">Nacionalidad:</label>
-        <input type="text" id="nationality" name="nationality" required>
+        <div class="fila">
+            <div class="elemento-2">
+                <input type="checkbox" id="is_international" name="is_international">
+                <label for="is_international">És internacional?</label>
+            </div>
 
-        <label for="dominant_leg">Pierna dominante:</label>
-        <input type="text" id="dominant_leg" name="dominant_leg">
+            <div class="elemento-2">
+                <input type="checkbox" id="is_trainer" name="is_trainer">
+                <label for="is_trainer">És entrenador?</label>
+            </div>
+        </div>
 
-        <label for="is_international">¿Es internacional?:</label>
-        <input type="checkbox" id="is_international" name="is_international">
-
-        <label for="is_trainer">¿Es entrenador?:</label>
-        <input type="checkbox" id="is_trainer" name="is_trainer">
-
-        <button type="submit">Agregar persona</button>
+        <button type="submit">Afegir</button>
     </form>
     {% endblock %}
+
 {% elif tipo == "partido" %}
-{% block empresas %}
-<form>
-    <label>Empresa:</label>
-    <input type="text" name="empresa">
-    <button type="submit">Enviar</button>
-</form>
-{% endblock %}
+    {% block partido %}
+    <form action="{{ url_for('add_partido') }}" method="post">
+        <h1><i class="fa-solid fa-person-running"></i> Afegir partit</h1>
+        <div class="fila">
+            <div class="elemento">
+                <label for="name">Nom</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="elemento">
+                <label for="location">Ubicació</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="elemento">
+                <label for="local_team_id">Local</label>
+                <select name="local_team_id" id="local_team_id">
+                    <option value="">Selecciona un equip</option>
+                    {% for equipo in equipos %}
+                    <option value="{{ equipo.id }}">{{ equipo.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="elemento">
+                <label for="visitor_team_id">Visitant</label>
+                <select name="visitor_team_id" id="visitor_team_id">
+                    <option value="">Selecciona un equip</option>
+                    {% for equipo in equipos %}
+                    <option value="{{ equipo.id }}">{{ equipo.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="elemento">
+                <label for="date">Data</label>
+                <input type="date" id="date" name="date">
+            </div>
+
+            <div class="elemento">
+                <label for="time">Hora</label>
+                <input type="text" id="time" name="time" required>
+            </div>
+        </div>
+
+        <button type="submit">Afegir</button>
+    </form>
+    {% endblock %}
+{% elif tipo == "equipo" %}
+    {% block equipo %}
+    {% endblock %}
 {% else %}
 <p>Selecciona un formulario.</p>
 {% endif %}

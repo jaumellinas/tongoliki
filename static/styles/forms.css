@@ -1,12 +1,19 @@
+@import "files/fonts/fonts.css";
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'RM Neue', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f9;
     padding: 20px;
     color: #333;
 }
 
 form {
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
     margin: 0 auto;
     background: white;
     padding: 30px;
@@ -15,15 +22,16 @@ form {
 }
 
 form label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
+    margin-bottom: 5px;
+    font-weight: 400;
     font-size: 0.95rem;
 }
 
+
 form input[type="text"],
 form input[type="number"],
-form input[type="date"] {
+form input[type="date"],
+select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -38,15 +46,15 @@ form input[type="checkbox"] {
 }
 
 form input:focus {
-    border-color: #5c9ded;
-    box-shadow: 0 0 6px rgba(92, 157, 237, 0.3);
+    border-color: #e12323;
+    box-shadow: 0 0 6px rgba(237, 92, 92, 0.3);
     outline: none;
 }
 
 button[type="submit"] {
     display: block;
     width: 100%;
-    background: #5c9ded;
+    background: #e12323;
     color: white;
     border: none;
     padding: 12px;
@@ -58,5 +66,20 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background: #457fca;
+    background: #c61111;
+}
+
+.fila {
+    display: flex;
+    gap: 50px;
+}
+
+.elemento {
+    display: flex;
+    flex-direction: column;
+}
+
+i {
+    font-size: 1.8rem;
+    margin-right: 5px;
 }
