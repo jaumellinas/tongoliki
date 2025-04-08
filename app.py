@@ -86,11 +86,24 @@ def editar_persona(id):
     
     return render_template("editar_persona.html", persona = persona)
 
+@app.route('/persona/<int:id>', methods=['GET', 'POST'])
+def get_persona_by_id(id):
+    persona = Persona.query.get(id)
+    if not persona:
+        return "Persona no encontrada", 404
+    else:
+        return render_template("datos_jugador.html", persona = persona)
+        
+
+
+
+
+
 @app.route('/borrar_persona/<int:id>', methods=['GET', 'POST'])
 def borrar_persona(id):
     persona = Persona.query.get(id)
     if not persona:
-        return "Usuario no encontrado", 404
+        return "Persona no encontrada", 404
     db.session.delete(persona)
     db.session.commit()
     return redirect(url_for('get_personas_admin'))
@@ -177,7 +190,7 @@ def add_equipo():
 
 @app.route('/forms')
 def get_forms():
-    tipo = personas
+    tipo = "personas"
     return render_template("forms.html", tipo = tipo)
 
 @app.route('/login')

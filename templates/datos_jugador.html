@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personas</title>
+  </head>
+  <body>
+    <h1>Datos de jugador</h1>
+    <ul>
+      <li>Nombre: {{persona.name}}</li>
+      <li>Apellido: {{persona.surname}}</li>
+      <li>Número: {{persona.number}}</li>
+      <li>Posición: {{persona.position}}</li>
+      <li>Fecha de nacimiento: {{persona.dob}}</li>
+      <li>Lugar de nacimiento: {{persona.birthplace}}</li>
+      <li>Nacionalidad: {{persona.nationality}}</li>
+      <li>Pierna dominante: {{persona.dominant_leg}}</li>
+      <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="" width="200px">
+    </ul>
+  </body>
+</html>

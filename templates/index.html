@@ -95,7 +95,7 @@
                         <div class="contenedor-datos">
                             <h2>{{ persona.display_name }}</h2>
                             <h3>{{ persona.position }}</h3>
-                            <a href="#"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
+                            <a href="{{ url_for('get_persona_by_id', id = persona.id) }}"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
                         </div>
                     </li>
                     {% endfor %}
