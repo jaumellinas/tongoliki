@@ -312,6 +312,7 @@ header {
     margin-left: 5px;
 }
 
+
 /* -- Futuros partidos -- */
 .partidos {
     width: 100%;
@@ -352,6 +353,8 @@ header {
     cursor: pointer;
 }
 
+
+/* Equipo */
 .equipo {
     display: flex;
     flex-direction: column;
@@ -396,4 +399,44 @@ header {
 .hora {
     font-size: 22px;
     font-weight: 700;
+}
+
+
+
+
+/* Footer */
+footer {
+    width: 100%;
+    background: linear-gradient(to right, #e12323, #e12323 10%, #999999); /* degradado de rojo a gris */
+    padding: 20px 0 20px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+footer p{
+    color: black;
+    font-size: 16px;
+    font-weight: 800;
+    margin-left: 20px;
+}
+
+.footer-link {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-link a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+
+footer img{
+    width: 50px;
+    height: auto;
+    margin-right: 20px;
 }
