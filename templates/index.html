@@ -27,6 +27,18 @@
             }
         });
     });
+
+    const slides = document.querySelectorAll('.carousel-slide');
+    let currentIndex = 0;
+
+    function nextSlide() {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].classList.add('active');
+    }
+
+    // Cambia de imagen cada 3 segundos (3000 milisegundos)
+    setInterval(nextSlide, 3000);
 </script>
 {% endblock %}
 
@@ -123,7 +135,6 @@
                         height="auto"
                         src="https://www.youtube.com/embed/ygdWi2g8IXI?si=gl33ws0PuSZPlWzr"
                         title="YouTube video player"
-                        frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin"
                         allowfullscreen>
@@ -133,7 +144,6 @@
                         height="auto"
                         src="https://www.youtube.com/embed/2zDVcP-U4Cs?si=9VzFy1CQ6k7wcVhi"
                         title="YouTube video player"
-                        frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin"
                         allowfullscreen>
@@ -143,11 +153,31 @@
                         height="auto"
                         src="https://www.youtube.com/embed/4_cG-_49v7Q?si=bs2vALG-LzsK8db3"
                         title="YouTube video player"
-                        frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin" 
                         allowfullscreen>
                 </iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="patrocinadores">
+        <div class="contenedor-patrocinadores">
+            <h2>Moltes gràcies als nostres patrocinadors!</h2>
+            <div class="carousel-sponsors">
+                <div class="carousel-track">
+                    {% for i in range(1, 15) %}
+                    <div class="carousel-item">
+                        <img src="../static/img/sponsors/{{ i }}.png" alt="Patrocinador {{ i }}">
+                    </div>
+                    {% endfor %}
+                    {# Duplicamos para simular bucle infinito #}
+                    {% for i in range(1, 11) %}
+                    <div class="carousel-item">
+                        <img src="../static/img/sponsors/{{ i }}.png" alt="Patrocinador {{ i }}">
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

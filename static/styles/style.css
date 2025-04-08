@@ -481,3 +481,48 @@ footer img{
     height: auto;
     margin-right: 20px;
 }
+
+.contenedor-patrocinadores {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.carousel-track {
+    display: flex;
+    width: max-content;
+    animation: scrollSponsors 30s linear infinite;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-sponsors:hover .carousel-track {
+    animation-play-state: paused;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    margin-right: 30px;
+}
+
+.carousel-item img {
+    width: auto;
+    height: 50px;
+    object-fit: contain;
+    opacity: 75%;
+    transition: 0.3s;
+}
+
+.carousel-item img:hover {
+    opacity: 1;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+@keyframes scrollSponsors {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
