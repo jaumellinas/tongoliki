@@ -354,7 +354,7 @@ header {
 }
 
 
-/* Equipo */
+/* EQUIPO */
 .equipo {
     display: flex;
     flex-direction: column;
@@ -402,9 +402,50 @@ header {
 }
 
 
+/* VIDEOS */
+.contenedor-videos {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* VIDEO PRINCIPAL */
+.video-principal {
+    width: 100%;
+    height: 400px; /* Puedes ajustar la altura si lo necesitas */
+}
+
+/* VIDEOS PEQUEÑOS */
+.videos-pequeños {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.videos-pequeños iframe {
+    flex: 1;
+    height: 150px;
+    margin: 0 5px;
+}
+
+/* ESTILO GLOBAL PARA IFRAME */
+iframe {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+iframe:hover {
+    transform: scale(1.02);
+}
 
 
-/* Footer */
+/* FOOTER */
 footer {
     width: 100%;
     background: linear-gradient(to right, #e12323, #e12323 10%, #999999); /* degradado de rojo a gris */
