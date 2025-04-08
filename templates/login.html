@@ -5,49 +5,42 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/bulma.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="shortcut icon" href="{{ url_for('static',filename='img/main/favicon.png') }}" type="image/x-icon">
     <script src="https://kit.fontawesome.com/c3c63f74a9.js" crossorigin="anonymous"></script>
     <title>Login - RCD Mallorca</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "RM Neue", Arial, sans-serif;
-        }
-    </style>
 </head>
-<body class="is-flex is-flex-direction-row" style="height: 100%; width: auto;">
-    <div class="columns is-gapless is-fullheight" style="height: 100%; margin: 0;">
-        <div class="column is-three-quarters" style="height: 100%; padding: 0;">
-            <div class="image is-cover" style="height: 100%; width: 100%;">
-                <img src="{{ url_for('static',filename='img/login/bg.jpg') }}" style="width: 100%; object-fit: cover;" alt="Descripción de la imagen">
+<style>
+    body {
+        background-image: url("{{ url_for('static',filename='img/login/bg.jpg') }}");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+<body>
+    <div id="login" class="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
+        <div class="flex flex-row gap-3 pb-4">
+            <div>
+                <img src="{{ url_for('static',filename='img/main/logo.png') }}" alt="Logo" width="50">
             </div>
         </div>
-        <div class="column is-one-quarter">
-            <img class="ml-4 mt-4" src="{{ url_for('static',filename='img/main/logo.png') }}" style="width: 128px; height: auto;" alt="Logo del RCD Mallorca">
-            <h1 class="title is-2 ml-4">Iniciar sessió</h1>
-            <form class="column pl-4" action="{{ url_for('get_login') }}" method="POST">
-                <div class="field">
-                    <label class="label">Correu electrònic</label>
-                    <div class="control">
-                        <input class="input" type="email" name="username" placeholder="p.ex. bea@rcdmallorca.es" required />
-                    </div>
+        <!---->
+        <form class="flex flex-col">
+            <div class="pb-2">
+                <label for="email" class="block mb-2 text-sm font-medium text-[#111827]">Correu electrònic</label>
+                <div class="relative text-gray-400"><span class="absolute inset-y-0 left-0 flex items-center p-1 pl-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></span>
+                    <input type="email" name="email" id="email" class="pl-12 mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring-3 ring-transparent focus:ring-1 focus:outline-hidden focus:ring-gray-400 block w-full p-2.5 rounded-l-lg py-3 px-4" placeholder="p.ex bea@rcdmallorca.es" autocomplete="off">
                 </div>
-
-                <div class="field">
-                    <label class="label">Contrasenya</label>
-                    <div class="control">
-                        <input class="input" type="password" name="password" placeholder="***********" required />
-                    </div>
+            </div>
+            <div class="pb-6">
+                <label for="password" class="block mb-2 text-sm font-medium text-[#111827]">Contrasenya</label>
+                <div class="relative text-gray-400"><span class="absolute inset-y-0 left-0 flex items-center p-1 pl-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-asterisk"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M12 8v8"></path><path d="m8.5 14 7-4"></path><path d="m8.5 10 7 4"></path></svg></span>
+                    <input type="password" name="password" id="password" placeholder="••••••••••" class="pl-12 mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring-3 ring-transparent focus:ring-1 focus:outline-hidden focus:ring-gray-400 block w-full p-2.5 rounded-l-lg py-3 px-4" autocomplete="new-password">
                 </div>
-
-                <button class="button has-background-danger-40 has-text-white">Accedir</button>
-
-                <a href="/"><p class="has-text-danger-40 mt-5"><i class="fa-solid fa-arrow-left mr-2"></i>Tornar al web principal</p></a>
-            </form>
-        </div>
+            </div>
+            <button type="submit" class="w-full text-[#FFFFFF] bg-[#e12323] focus:ring-4 focus:outline-hidden focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6">Iniciar sessió</button>
+        </form>
+        <!---->
     </div>
 </body>
 </html>

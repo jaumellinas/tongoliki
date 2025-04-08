@@ -43,85 +43,39 @@
     </div>
 </header>
 <main>
-    <div class="partidos">
-        <div class="h2-partidos">
-            <h2>Futurs partits</h2>
-        </div>
-        <div class="contenedor-principal-partidos">
-            <div class="partido">
-                <div class="partidos-titulo">
-                    <h3>LALIGA EA SPORTS · J30</h3>
-                    <p>Estadi Mallorca Son Moix</p>
-                </div>
-
-                <div class="contenedor-partido-interno">
-                    <div class="partidos-equipo1">
-                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
-                        <p>MLL</p>
-                    </div>
-
-                    <div class="partidos-fecha">
-                        <p>18:30</p>
-                        <p>5 abr 2025</p>
-                    </div>
-
-                    <div class="partidos-equipo2">
-                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
-                        <p>CEL</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="partido">
-                <div class="partidos-titulo">
-                    <h3>LALIGA EA SPORTS · J30</h3>
-                    <p>Estadi Mallorca Son Moix</p>
-                </div>
-
-                <div class="contenedor-partido-interno">
-                    <div class="partidos-equipo1">
-                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
-                        <p>MLL</p>
-                    </div>
-
-                    <div class="partidos-fecha">
-                        <p>18:30</p>
-                        <p>5 abr 2025</p>
-                    </div>
-
-                    <div class="partidos-equipo2">
-                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
-                        <p>CEL</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="partido">
-                <div class="partidos-titulo">
-                    <h3>LALIGA EA SPORTS · J30</h3>
-                    <p>Estadi Mallorca Son Moix</p>
-                </div>
-
-                <div class="contenedor-partido-interno">
-                    <div class="partidos-equipo1">
-                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
-                        <p>MLL</p>
-                    </div>
-
-                    <div class="partidos-fecha">
-                        <p>18:30</p>
-                        <p>5 abr 2025</p>
-                    </div>
-
-                    <div class="partidos-equipo2">
-                        <img src="../static/img/main/logo.png" alt="Logo del RCD Mallorca">
-                        <p>CEL</p>
-                    </div>
-                </div>
+    <div id="partits" class="partidos">
+        <div class="contenedor-partidos">
+            <h1>Pròxims partits</h1>
+            <div class="partidos">
+                <ul>
+                    {% for partido in partidos %}
+                    <li>
+                        <div class="partido">
+                            <h2>{{ partido.name }}</h2>
+                            <p class="ubicacion">{{ partido.location }}</p>
+                            <div class="partido-datos">
+                                <div class="equipo">
+                                    <img src="../static/img/teams//{{ partido.local_team.abbreviation }}.png" alt="">
+                                    <p>{{ partido.local_team.abbreviation }}</p>
+                                </div>
+                                <div class="tiempo">
+                                    <p class="fecha">{{ partido.date.strftime("%d/%m/%Y") }}</p>
+                                    <p class="hora">{{ partido.time }}</p>
+                                </div>
+                                <div class="equipo">
+                                    <img src="../static/img/teams//{{ partido.visitor_team.abbreviation }}.png" alt="">
+                                    <p>{{ partido.visitor_team.abbreviation }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
-    <div class="plantilla">
+
+    <div id="plantilla" class="plantilla">
         <div class="botones">
             <button class="jugador-previo"><i class="fa-solid fa-arrow-left"></i></button>
             <button class="jugador-siguiente"><i class="fa-solid fa-arrow-right"></i></button>
@@ -147,6 +101,12 @@
                     {% endfor %}
                 </ul>
             </div>
+        </div>
+    </div>
+
+    <div class="videos">
+        <div class="contenedor-videos">
+            <h1>RCD Mallorca TV</h1>
         </div>
     </div>
 </main>
