@@ -12,7 +12,7 @@ body {
 
 /* -- (1) Navbar -- */
 .contenedor-nav {
-    width: 95%;
+    width: 90%;
     margin: 0 auto;
     padding-top: 40px;
 }
@@ -117,7 +117,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 800px;
+    height: 100vh;
     background-image: url('../img/index/header.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -170,13 +170,19 @@ header {
 }
 
 .contenedor-plantilla {
-    width: 95%;
+    width: 90%;
     margin: 30px 0 30px 0;
 }
 
+.contenedor-plantilla h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 42px;
+}
+
 .botones {
-    width: 100%;
-    height: 100%;
+    width: 93%;
+    height: 93%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -197,15 +203,15 @@ header {
     gap: 30px;
     list-style: none;
     transition: transform 1s ease-in-out;
+    padding: 0;
 }
 
 .contenedor-plantilla li {
-    min-width: 300px;
+    width: calc((100% - 90px) / 4);
     background: white;
     margin-bottom: 20px;
     border-radius: 10px;
-    overflow: hidden;
-    position: relative;
+    box-sizing: border-box;
 }
 
 .contenedor-imagen {
@@ -272,13 +278,16 @@ header {
 }
 
 .contenedor-datos h2 {
+    font-size: 30px;
     font-weight: 800;
 }
 
 .contenedor-datos h3 {
+    font-size: 16px;
     margin-top: 5px;
     margin-bottom: 10px;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .contenedor-datos button {
@@ -301,4 +310,90 @@ header {
 
 .contenedor-datos button i {
     margin-left: 5px;
+}
+
+/* -- Futuros partidos -- */
+.partidos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 30px 0 30px 0;
+}
+
+.contenedor-partidos {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.contenedor-partidos h1 {
+    color: black;
+    margin-bottom: 20px;
+    font-size: 42px;
+}
+
+.partidos ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.partidos ul li {
+    display: flex;
+    flex-direction: row;
+    background: rgb(247, 249, 249);
+    padding: 20px 60px 20px 60px;
+    border-radius: 10px;
+    list-style: none;
+    box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.55);
+    cursor: pointer;
+}
+
+.equipo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.equipo img {
+    width: 60px;
+    height: auto;
+}
+
+.equipo p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.partido-datos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.ubicacion {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.tiempo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fecha {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.hora {
+    font-size: 22px;
+    font-weight: 700;
 }

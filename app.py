@@ -31,10 +31,40 @@ class Persona(db.Model):
     def __repr__(self):
         return f'Persona {self.name}'
 
+class Partido(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+
+    local_team_id = db.Column(db.Integer, db.ForeignKey('equipo.id'), nullable=False)
+    visitor_team_id = db.Column(db.Integer, db.ForeignKey('equipo.id'), nullable=False)
+
+    date = db.Column(db.Date, nullable=False)
+    time = db.Column(db.String(5), nullable=False)
+
+    local_team = db.relationship('Equipo', foreign_keys=[local_team_id], backref='partidos_local')
+    visitor_team = db.relationship('Equipo', foreign_keys=[visitor_team_id], backref='partidos_visitantes')
+
+class Equipo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    abbreviation = db.Column(db.String(3), nullable=False)
+
+class Video(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    url = db.Column(db.String(100), nullable=False)
+
 @app.route('/')
 def get_index():
     personas = Persona.query.all()
-    return render_template("index.html", personas = personas)
+    partidos = Partido.query.order_by(Partido.date.asc()).all()
+    return render_template("index.html", personas = personas, partidos = partidos)
+
+@app.route('/personas')
+def get_personas():
+    personas = Persona.query.all()
+    return render_template("personas.html", personas = personas)
 
 @app.route('/personas_admin')
 def get_personas_admin():
@@ -96,9 +126,59 @@ def add_persona():
         
         db.session.add(new_persona)
         db.session.commit()
+        return redirect(url_for('get_personas'))
 
-    return render_template("forms.html", type = type)
+    return render_template("add_persona.html")
 
+@app.route('/add_partido', methods=['GET', 'POST'])
+def add_partido():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        location = request.form.get('location')
+        local_team_id = request.form.get('local_team_id')
+        visitor_team_id = request.form.get('visitor_team_id')
+        date_str = request.form.get('date')
+        time_str = request.form.get('time')
+
+        date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        time = time_str
+
+        new_partido = Partido(
+            name=name,
+            location=location,
+            local_team_id=local_team_id,
+            visitor_team_id=visitor_team_id,
+            date=date,
+            time=time,
+        )
+
+        db.session.add(new_partido)
+        db.session.commit()
+        return redirect(url_for('get_personas'))
+
+    return render_template("add_partido.html")
+
+@app.route('/add_equipo', methods=['GET', 'POST'])
+def add_equipo():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        abbreviation = request.form.get('abbreviation')
+
+        new_equipo = Equipo(
+            name=name,
+            abbreviation=abbreviation,
+        )
+
+        db.session.add(new_equipo)
+        db.session.commit()
+        return redirect(url_for('get_personas'))
+
+    return render_template("add_equipo.html")
+
+@app.route('/forms')
+def get_forms():
+    tipo = personas
+    return render_template("forms.html", tipo = tipo)
 
 @app.route('/login')
 def get_login():

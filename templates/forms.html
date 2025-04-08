@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/forms.css') }}">
+    <title>Formularis - RCD Mallorca</title>
+</head>
+<body>
+{% if tipo == "personas" %}
+    {% block personas %}
+    <form action="{{ url_for('add_persona') }}" method="post">
+        <div class="nice-form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <label for="surname">Apellido:</label>
+        <input type="text" id="surname" name="surname" required>
+
+        <label for="display_name">Alias:</label>
+        <input type="text" id="display_name" name="display_name">
+
+        <label for="number">Dorsal:</label>
+        <input type="number" id="number" name="number">
+
+        <label for="position">Posición:</label>
+        <input type="text" id="position" name="position">
+
+        <label for="dob">Fecha de nacimiento:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="birthplace">Lugar de nacimiento:</label>
+        <input type="text" id="birthplace" name="birthplace" required>
+
+        <label for="nationality">Nacionalidad:</label>
+        <input type="text" id="nationality" name="nationality" required>
+
+        <label for="dominant_leg">Pierna dominante:</label>
+        <input type="text" id="dominant_leg" name="dominant_leg">
+
+        <label for="is_international">¿Es internacional?:</label>
+        <input type="checkbox" id="is_international" name="is_international">
+
+        <label for="is_trainer">¿Es entrenador?:</label>
+        <input type="checkbox" id="is_trainer" name="is_trainer">
+
+        <button type="submit">Agregar persona</button>
+    </form>
+    {% endblock %}
+{% elif tipo == "partido" %}
+{% block empresas %}
+<form>
+    <label>Empresa:</label>
+    <input type="text" name="empresa">
+    <button type="submit">Enviar</button>
+</form>
+{% endblock %}
+{% else %}
+<p>Selecciona un formulario.</p>
+{% endif %}
+</body>
+</html>
