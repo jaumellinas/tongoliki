@@ -401,13 +401,11 @@ header {
     font-weight: 700;
 }
 
-
 /* VIDEOS */
 .contenedor-videos {
     width: 90%;
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 20px;
+    height: 100%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -416,7 +414,7 @@ header {
 /* VIDEO PRINCIPAL */
 .video-principal {
     width: 100%;
-    height: 400px; /* Puedes ajustar la altura si lo necesitas */
+    height: 56%;
 }
 
 /* VIDEOS PEQUEÑOS */

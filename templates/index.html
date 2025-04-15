@@ -120,8 +120,9 @@
         <div class="contenedor-videos">
             <h1>RCD Mallorca TV</h1>
             <div class="video-principal">
-                <iframe width="100%" 
-                        height="100%" src="https://www.youtube.com/embed/ELl1lMpHJ3A?si=BVbmZJSa1LyaPyGj"
+                <iframe width="100%"
+                        height="auto"
+                        src="https://www.youtube.com/embed/ELl1lMpHJ3A?si=BVbmZJSa1LyaPyGj"
                         title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -166,15 +167,15 @@
             <h2>Moltes gràcies als nostres patrocinadors!</h2>
             <div class="carousel-sponsors">
                 <div class="carousel-track">
-                    {% for i in range(1, 15) %}
+                    {% for i in range(1, 16) %}
                     <div class="carousel-item">
-                        <img src="../static/img/sponsors/{{ i }}.png" alt="Patrocinador {{ i }}">
+                        <img src="../static/img/sponsors/{{ i }}.png">
                     </div>
                     {% endfor %}
-                    {# Duplicamos para simular bucle infinito #}
-                    {% for i in range(1, 11) %}
+
+                    {% for i in range(1, 16) %}
                     <div class="carousel-item">
-                        <img src="../static/img/sponsors/{{ i }}.png" alt="Patrocinador {{ i }}">
+                        <img src="../static/img/sponsors/{{ i }}.png">
                     </div>
                     {% endfor %}
                 </div>
