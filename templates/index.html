@@ -8,10 +8,9 @@
         const carousel = document.querySelector(".carousel ul");
         const prevBtn = document.querySelector(".jugador-previo");
         const nextBtn = document.querySelector(".jugador-siguiente");
-        const cardWidth = 300 + 30; // Asegúrate de que coincide con el CSS
+        const cardWidth = 300 + 30;
         let scrollAmount = 0;
 
-        // Mover hacia la izquierda
         prevBtn.addEventListener("click", function () {
             if (scrollAmount > 0) {
                 scrollAmount -= cardWidth;
@@ -19,7 +18,6 @@
             }
         });
 
-        // Mover hacia la derecha
         nextBtn.addEventListener("click", function () {
             if (scrollAmount < carousel.scrollWidth - carousel.parentElement.clientWidth) {
                 scrollAmount += cardWidth;
@@ -37,7 +35,6 @@
         slides[currentIndex].classList.add('active');
     }
 
-    // Cambia de imagen cada 3 segundos (3000 milisegundos)
     setInterval(nextSlide, 3000);
 </script>
 {% endblock %}
@@ -167,16 +164,13 @@
             <h2>Moltes gràcies als nostres patrocinadors!</h2>
             <div class="carousel-sponsors">
                 <div class="carousel-track">
-                    {% for i in range(1, 16) %}
-                    <div class="carousel-item">
-                        <img src="../static/img/sponsors/{{ i }}.png">
-                    </div>
-                    {% endfor %}
 
-                    {% for i in range(1, 16) %}
-                    <div class="carousel-item">
-                        <img src="../static/img/sponsors/{{ i }}.png">
-                    </div>
+                    {% for arxiu in sponsors %}
+                        {% if arxiu.endswith('.png') %}
+                            <div class="carousel-item">
+                                <img src="../static/img/sponsors/{{ arxiu }}">
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

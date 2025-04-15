@@ -59,7 +59,8 @@ class Video(db.Model):
 def get_index():
     personas = Persona.query.all()
     partidos = Partido.query.order_by(Partido.date.asc()).all()
-    return render_template("index.html", personas = personas, partidos = partidos)
+    sponsors = os.listdir('static/img/sponsors')
+    return render_template("index.html", personas = personas, partidos = partidos, sponsors = sponsors)
 
 @app.route('/personas')
 def get_personas():
@@ -205,4 +206,4 @@ def get_login():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(port=8000, debug=True)
+    app.run(debug=True)
