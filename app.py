@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from datetime import datetime
@@ -23,7 +23,7 @@ class Persona(db.Model):
     position = db.Column(db.String(100), nullable=True)
     dob = db.Column(db.Date, nullable=False)
     birthplace = db.Column(db.String(100), nullable=False)
-    nationality = db.Column(db.String(100), nullable=False)
+    nationality = db.Column(db.String(100), nullable=True)
     dominant_leg = db.Column(db.String(100), nullable=True)
     is_international = db.Column(db.Boolean, nullable=False)
     is_trainer = db.Column(db.Boolean, nullable=False)
