@@ -568,7 +568,7 @@ footer img{
 }
 
 .datosJugador {
-    flex: 1 1 50%; /* Que ocupe el 50% como máximo */
+    flex: 1 1 50%; /* Que ocupe el 60% como máximo */
 }
 
 .datosJugador ul {
