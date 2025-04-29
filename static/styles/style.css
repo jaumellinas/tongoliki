@@ -549,6 +549,60 @@ footer img{
     transition: 0.3s;
 }
 
+/* INFORMACIÓN JUGADORES */
+.tituloDatosJugador {
+    color: #b31c1c;
+    font-size: 30px;
+    font-weight: 800;
+    margin: 50px 100px;
+}
+
+.containerJugador {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 30px auto;
+    gap: 10px;
+}
+
+.datosJugador {
+    flex: 1 1 50%; /* Que ocupe el 50% como máximo */
+}
+
+.datosJugador ul {
+    padding: 0;
+}
+
+.datosJugador li {
+    display: block;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #e12323;
+    color: white;
+    border-radius: 10px;
+    list-style: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.imgJugador {
+    flex: 1 1 45%; /* Que ocupe el 45% como máximo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgJugador img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
 @keyframes scrollSponsors {
     0% {
         transform: translateX(0);

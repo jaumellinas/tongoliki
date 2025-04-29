@@ -4,19 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Personas</title>
+    <link rel="stylesheet" href="../static/styles/style.css">
   </head>
   <body>
-    <h1>Datos de jugador</h1>
-    <ul>
-      <li>Nombre: {{persona.name}}</li>
-      <li>Apellido: {{persona.surname}}</li>
-      <li>Número: {{persona.number}}</li>
-      <li>Posición: {{persona.position}}</li>
-      <li>Fecha de nacimiento: {{persona.dob}}</li>
-      <li>Lugar de nacimiento: {{persona.birthplace}}</li>
-      <li>Nacionalidad: {{persona.nationality}}</li>
-      <li>Pierna dominante: {{persona.dominant_leg}}</li>
-      <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="" width="200px">
-    </ul>
+    <h1 class="tituloDatosJugador">Datos de jugador</h1>
+    <div class="containerJugador">
+      <div class="datosJugador">
+        <ul>
+          <li>Nombre: {{persona.name}}</li>
+          <li>Apellido: {{persona.surname}}</li>
+          <li>Número: {{persona.number}}</li>
+          <li>Posición: {{persona.position}}</li>
+          <li>Fecha de nacimiento: {{persona.dob}}</li>
+          <li>Lugar de nacimiento: {{persona.birthplace}}</li>
+          <li>Nacionalidad: {{persona.nationality}}</li>
+          <li>Pierna dominante: {{persona.dominant_leg}}</li>
+        </ul>
+      </div>
+      
+      <div class="imgJugador">
+        <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="Imagen Jugador" width="200px">
+      </div>
+    </div>
   </body>
 </html>
