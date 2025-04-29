@@ -6,19 +6,46 @@
     <title>Personas</title>
 </head>
 <body>
-    <h1>Lista de personas - Admin</h1>
+    <h1>Panel de admin</h1>
     <a href="{{ url_for('add_persona') }}">Añadir</a>
     <ul>
+        {% if tipo == "personas" %}
             {% for persona in personas %}
-            <li>ID: {{persona.id}}, Nombre: {{persona.name}}, Apellido: {{persona.surname}}, Edad: {{persona.age}}, Rol: {% if persona.is_trainer %}Entrenador{% else %}Jugador{% endif %}
-                <a href="{{ url_for('editar_persona', id = persona.id) }}">Editar</a>
-                <form action="{{ url_for('borrar_persona', id=persona.id) }}" method="post">
-                    <button type="submit">Eliminar</button>
-                </form>
-                <br>
-            </li>
-
+                <li>ID: {{persona.id}}, Nombre: {{persona.name}}, Apellido: {{persona.surname}}, Edad: {{persona.age}}, Rol: {% if persona.is_trainer %}Entrenador{% else %}Jugador{% endif %}
+                    <a href="{{ url_for('editar_persona', id=persona.id) }}">Editar</a>
+                    <form action="{{ url_for('borrar_persona', id=persona.id) }}" method="post">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <br>
+                </li>
             {% endfor %}
+        {% elif tipo == "equipos" %}
+            {% for equipo in equipos %}
+                <li>Nombre: {{equipo.name}}, Abreviatura: {{equipo.abbreviation}}</li>
+            {% endfor %}
+
+        {% elif tipo == "partidos" %}
+            {% for partido in partidos %}
+            <li>
+                Nombre: {{partido.name}}, 
+                Ubicación: {{partido.location}}, 
+                Local: {{partido.local_team_id}}, 
+                Visitante: {{partido.visitor_team_id}}, 
+                Fecha: {{partido.date}}, 
+                Hora: {{partido.time}}
+            </li>
+            {% endfor %}    
+
+        
+            
+        {% elif tipo == "videos" %}
+            {% for video in videos %}
+                <li>ID: {{video.id}}, URL: {{video.url}}, Identificador: {{video.identificador}}</li>
+            {% endfor %} 
+
+        {% endif %}
+
+        
     </ul>
 </body>
 </html>

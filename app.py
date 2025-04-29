@@ -52,8 +52,8 @@ class Equipo(db.Model):
 
 class Video(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
     url = db.Column(db.String(100), nullable=False)
+    identificador = db.Column(db.String(100), nullable=False)
 
 @app.route('/')
 def get_index():
@@ -70,7 +70,11 @@ def get_personas():
 @app.route('/personas_admin')
 def get_personas_admin():
     personas = Persona.query.all()
-    return render_template("personas_admin.html", personas = personas)
+    equipos = Equipo.query.all()
+    partidos = Partido.query.all()
+    videos = Video.query.all()
+    tipo = "personas"
+    return render_template("personas_admin.html", tipo = tipo, personas = personas, equipos = equipos, partidos = partidos, videos = videos)
 
 @app.route('/editar_persona/<int:id>', methods=['GET', 'POST'])
 def editar_persona(id):
