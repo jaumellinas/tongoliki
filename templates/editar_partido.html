@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head><title>Editar Partido</title></head>
+<body>
+  <h1>Editar Partido</h1>
+  <form method="post">
+    <label>Nombre: <input type="text" name="name" value="{{ partido.name }}" required></label><br>
+    <label>Ubicación: <input type="text" name="location" value="{{ partido.location }}" required></label><br>
+    <label>Local:
+      <select name="local_team_id">
+        {% for eq in equipos %}
+          <option value="{{eq.id}}"
+            {% if eq.id == partido.local_team_id %}selected{% endif %}>
+            {{eq.name}}
+          </option>
+        {% endfor %}
+      </select>
+    </label><br>
+    <label>Visitante:
+      <select name="visitor_team_id">
+        {% for eq in equipos %}
+          <option value="{{eq.id}}"
+            {% if eq.id == partido.visitor_team_id %}selected{% endif %}>
+            {{eq.name}}
+          </option>
+        {% endfor %}
+      </select>
+    </label><br>
+    <label>Fecha: <input type="date" name="date" value="{{ partido.date }}"></label><br>
+    <label>Hora: <input type="text" name="time" value="{{ partido.time }}"></label><br>
+    <button type="submit">Guardar</button>
+  </form>
+  <a href="{{ url_for('get_personas_admin', tipo='partidos') }}">Cancelar</a>
+</body>
+</html>

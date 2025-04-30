@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/admin.css') }}">
     <title>Personas</title>
 </head>
 <body>
     <h1>Panel de admin</h1>
-    <a href="{{ url_for('add_persona') }}">Añadir</a>
+    <div class="button-container">
+        <a href="{{ url_for('get_forms', tipo=tipo) }}" class="anadir-verde">Añadir</a>
+        <a href="{{ url_for('get_personas_admin', tipo='personas') }}" class="botones-azules">Jugadores</a>
+        <a href="{{ url_for('get_personas_admin', tipo='equipos') }}" class="botones-azules">Equipos</a>
+        <a href="{{ url_for('get_personas_admin', tipo='partidos') }}" class="botones-azules">Partidos</a>
+        <a href="{{ url_for('get_personas_admin', tipo='videos') }}" class="botones-azules">Videos</a> 
+    </div>
+    
     <ul>
         {% if tipo == "personas" %}
             {% for persona in personas %}
@@ -22,26 +30,44 @@
         {% elif tipo == "equipos" %}
             {% for equipo in equipos %}
                 <li>Nombre: {{equipo.name}}, Abreviatura: {{equipo.abbreviation}}</li>
+                <a href="{{ url_for('editar_equipo', id=equipo.id) }}">Editar</a>
+                    <form action="{{ url_for('borrar_equipo', id=equipo.id) }}" method="post">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <br>
             {% endfor %}
 
-        {% elif tipo == "partidos" %}
+            {% elif tipo == "partidos" %}
             {% for partido in partidos %}
             <li>
                 Nombre: {{partido.name}}, 
                 Ubicación: {{partido.location}}, 
-                Local: {{partido.local_team_id}}, 
-                Visitante: {{partido.visitor_team_id}}, 
+                Local: {{partido.local_team.name}}, 
+                Visitante: {{partido.visitor_team.name}}, 
                 Fecha: {{partido.date}}, 
                 Hora: {{partido.time}}
+                <!-- Editar -->
+                <a href="{{ url_for('editar_partido', id=partido.id) }}">Editar</a>
+                <!-- Borrar -->
+                <form action="{{ url_for('borrar_partido', id=partido.id) }}" method="post" style="display:inline">
+                    <button type="submit">Eliminar</button>
+                </form>
             </li>
-            {% endfor %}    
-
+            {% endfor %}
         
-            
         {% elif tipo == "videos" %}
             {% for video in videos %}
-                <li>ID: {{video.id}}, URL: {{video.url}}, Identificador: {{video.identificador}}</li>
-            {% endfor %} 
+                <li>
+                    ID: {{video.id}}, URL: {{video.url}}, Identificador: {{video.identificador}}
+                    <!-- Editar -->
+                    <a href="{{ url_for('editar_video', id=video.id) }}">Editar</a>
+                    <!-- Borrar -->
+                    <form action="{{ url_for('borrar_video', id=video.id) }}" method="post" style="display:inline">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        
 
         {% endif %}
 

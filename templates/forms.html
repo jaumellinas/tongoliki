@@ -81,7 +81,7 @@
     </form>
     {% endblock %}
 
-{% elif tipo == "partido" %}
+{% elif tipo == "partidos" %}
     {% block partido %}
     <form action="{{ url_for('add_partido') }}" method="post">
         <h1><i class="fa-solid fa-person-running"></i> Afegir partit</h1>
@@ -134,7 +134,7 @@
         <button type="submit">Afegir</button>
     </form>
     {% endblock %}
-{% elif tipo == "equipo" %}
+{% elif tipo == "equipos" %}
     {% block equipo %}
     {% endblock %}
 {% else %}

@@ -67,14 +67,14 @@ def get_personas():
     personas = Persona.query.all()
     return render_template("personas.html", personas = personas)
 
-@app.route('/personas_admin')
+@app.route('/personas_admin', methods=["GET", "POST"])
 def get_personas_admin():
+    tipo = request.args.get("tipo", "personas")  # Usa 'personas' como valor por defecto
     personas = Persona.query.all()
     equipos = Equipo.query.all()
     partidos = Partido.query.all()
     videos = Video.query.all()
-    tipo = "personas"
-    return render_template("personas_admin.html", tipo = tipo, personas = personas, equipos = equipos, partidos = partidos, videos = videos)
+    return render_template("personas_admin.html", tipo=tipo, personas=personas, equipos=equipos, partidos=partidos, videos=videos)
 
 @app.route('/editar_persona/<int:id>', methods=['GET', 'POST'])
 def editar_persona(id):
@@ -87,7 +87,7 @@ def editar_persona(id):
         persona.age = int(request.form.get('age'))
         persona.is_trainer = request.form.get('is_trainer')     == 'on'
         db.session.commit()
-        return redirect(url_for('get_personas'))
+        return redirect(url_for('get_personas_admin'))
     
     return render_template("editar_persona.html", persona = persona)
 
@@ -140,7 +140,7 @@ def add_persona():
         
         db.session.add(new_persona)
         db.session.commit()
-        return redirect(url_for('get_personas'))
+        return redirect(url_for('get_personas_admin'))
 
     return render_template("add_persona.html")
 
@@ -168,7 +168,7 @@ def add_partido():
 
         db.session.add(new_partido)
         db.session.commit()
-        return redirect(url_for('get_personas'))
+        return redirect(url_for('get_personas_admin'))
 
     return render_template("add_partido.html")
 
@@ -185,14 +185,19 @@ def add_equipo():
 
         db.session.add(new_equipo)
         db.session.commit()
-        return redirect(url_for('get_personas'))
+        return redirect(url_for('get_personas_admin'))
 
     return render_template("add_equipo.html")
 
+
 @app.route('/forms')
 def get_forms():
-    tipo = "personas"
-    return render_template("forms.html", tipo = tipo)
+    tipo = request.args.get("tipo", None)      
+    equipos = Equipo.query.all()
+    personas = Persona.query.all()
+    partidos = Partido.query.all()
+    videos = Video.query.all()
+    return render_template("forms.html", tipo=tipo, personas=personas, equipos=equipos, partidos=partidos, videos=videos)
 
 @app.route('/login', methods=['GET', 'POST'])
 def get_login():
@@ -206,6 +211,80 @@ def get_login():
         
     return render_template("login.html")
 
+@app.route('/editar_equipo/<int:id>', methods=['GET', 'POST'])
+def editar_equipo(id):
+    equipo = Equipo.query.get_or_404(id)
+    if request.method == 'POST':
+        equipo.name = request.form.get('name')
+        equipo.abbreviation = request.form.get('abbreviation')
+        db.session.commit()
+        return redirect(url_for('get_personas_admin', tipo='equipos'))
+    return render_template('editar_equipo.html', equipo=equipo)
+
+# Ruta para borrar Equipo
+@app.route('/borrar_equipo/<int:id>', methods=['POST'])
+def borrar_equipo(id):
+    equipo = Equipo.query.get_or_404(id)
+    db.session.delete(equipo)
+    db.session.commit()
+    return redirect(url_for('get_personas_admin', tipo='equipos'))
+
+@app.route('/editar_partido/<int:id>', methods=['GET', 'POST'])
+def editar_partido(id):
+    partido = Partido.query.get(id)
+    if not partido:
+        return "Partido no encontrado", 404
+
+    if request.method == 'POST':
+        partido.name = request.form.get('name')
+        partido.location = request.form.get('location')
+        partido.local_team_id = request.form.get('local_team_id')
+        partido.visitor_team_id = request.form.get('visitor_team_id')
+        partido.date = datetime.strptime(request.form.get('date'), "%Y-%m-%d").date()
+        partido.time = request.form.get('time')
+        db.session.commit()
+        return redirect(url_for('get_personas_admin', tipo='partidos'))
+
+    equipos = Equipo.query.all()
+    return render_template('editar_partido.html', partido=partido, equipos=equipos)
+
+
+# --- BORRAR PARTIDO ---
+@app.route('/borrar_partido/<int:id>', methods=['POST'])
+def borrar_partido(id):
+    partido = Partido.query.get(id)
+    if not partido:
+        return "Partido no encontrado", 404
+    db.session.delete(partido)
+    db.session.commit()
+    return redirect(url_for('get_personas_admin', tipo='partidos'))
+
+
+# --- EDITAR VIDEO ---
+@app.route('/editar_video/<int:id>', methods=['GET', 'POST'])
+def editar_video(id):
+    video = Video.query.get(id)
+    if not video:
+        return "Vídeo no encontrado", 404
+
+    if request.method == 'POST':
+        video.url = request.form.get('url')
+        video.identificador = request.form.get('identificador')
+        db.session.commit()
+        return redirect(url_for('get_personas_admin', tipo='videos'))
+
+    return render_template('editar_video.html', video=video)
+
+
+# --- BORRAR VIDEO ---
+@app.route('/borrar_video/<int:id>', methods=['POST'])
+def borrar_video(id):
+    video = Video.query.get(id)
+    if not video:
+        return "Vídeo no encontrado", 404
+    db.session.delete(video)
+    db.session.commit()
+    return redirect(url_for('get_personas_admin', tipo='videos'))
 
 if __name__ == "__main__":
     with app.app_context():
