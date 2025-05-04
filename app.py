@@ -88,6 +88,7 @@ def get_personas_admin():
     equipos = Equipo.query.order_by(Equipo.id.asc()).all()
     partidos = Partido.query.order_by(Partido.id.asc()).all()
     videos = Video.query.all()
+
     return render_template("admin/admin_panel.html", accion=accion, tipo=tipo, personas=personas, equipos=equipos, partidos=partidos, videos=videos)
 
 @app.route('/forms')
@@ -157,8 +158,16 @@ def editar_persona(id):
     if request.method == 'POST':
         persona.name = request.form.get('name')
         persona.surname = request.form.get('surname')
-        persona.age = int(request.form.get('age'))
-        persona.is_trainer = request.form.get('is_trainer')     == 'on'
+        persona.display_name = request.form.get('display_name')
+        persona.number = int(request.form.get('number')) if request.form.get('number') else None
+        persona.position = request.form.get('position')
+        persona.dob = datetime.strptime(request.form.get('dob'), "%Y-%m-%d").date()
+        persona.birthplace = request.form.get('birthplace')
+        persona.nationality = request.form.get('nationality')
+        persona.dominant_leg = request.form.get('dominant_leg')
+        persona.is_international = request.form.get('is_international') == 'on'
+        persona.is_trainer = request.form.get('is_trainer') == 'on'
+
         db.session.commit()
         return redirect(url_for('get_personas_admin'))
     
@@ -285,9 +294,14 @@ def add_video():
     if request.method == 'POST':
         url = request.form.get('url')
 
+        if '/' in url:
+            identificador = url.split('/')[-1]
+        else:
+            return "URL inválida", 400
+
         new_video = Video(
             url=url,
-            identificador=url.split('/')[-1]  # Extrae el identificador de la URL
+            identificador=identificador
         )
 
         db.session.add(new_video)
