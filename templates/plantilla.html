@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Plantilla - RCD Mallorca{% endblock %}
+
+<ul>
+    {% for persona in personas if persona.position is Porter %}
+    <li>
+        <div class="contenedor-imagen">
+            <div class="numero-jugador">
+                <p>{{ persona.number }}</p>
+            </div>
+            <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
+        </div>
+        <div class="contenedor-datos">
+            <h2>{{ persona.display_name }}</h2>
+            <h3>{{ persona.position }}</h3>
+            <a href="{{ url_for('get_persona_by_id', id = persona.id) }}"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

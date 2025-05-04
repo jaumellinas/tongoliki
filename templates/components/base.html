@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/main/favicon.png') }}" type="image/x-icon">
     <script src="https://kit.fontawesome.com/c3c63f74a9.js" crossorigin="anonymous"></script>
     <title>{% block title %}RCD Mallorca{% endblock %}</title>
-    
+    {% block styles %}{% endblock %}
 </head>
 {% block scripts %}{% endblock %}
+
 <body>
-<main>
-    {% block content %}{% endblock %}
-</main>
+{% block content %}
+{% endblock %}
 
 <footer>
-    <p>PÁGINA OFICIAL © 2024 RCD Mallorca - Tots els drets reservats.</p>
+    <div class="footer-text">
+        <p>© <script>document.write(new Date().getFullYear())</script> per <a href="https://www.github.com/Adrig3/tongoliki">Tongoliki</a>, un grup d'estudiants <a href="https://www.santjosepobrer.es">de Sant Josep Obrer</a>.</p>
+        <p>Aquest projecte no està relacionat de cap forma amb l'RCD Mallorca, LaLiga i derivats.</p>
+    </div>
 
     <div class="footer-link">
         <a href="">Avís Legal i Condicions d'Ús</a>

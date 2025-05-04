@@ -57,10 +57,15 @@ class Video(db.Model):
 
 @app.route('/')
 def get_index():
-    personas = Persona.query.all()
-    partidos = Partido.query.order_by(Partido.date.asc()).all()
+    personas = Persona.query.filter_by(is_trainer=False).order_by(Persona.number.asc()).all()
+    partidos = Partido.query.order_by(Partido.date.asc()).limit(3).all()
     sponsors = os.listdir('static/img/sponsors')
     return render_template("index.html", personas = personas, partidos = partidos, sponsors = sponsors)
+
+@app.route('/plantilla')
+def get_plantilla():
+    personas = Persona.query.all()
+    return render_template("plantilla.html", personas = personas)
 
 @app.route('/personas')
 def get_personas():

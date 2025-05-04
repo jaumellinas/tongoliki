@@ -8,6 +8,8 @@
 
 html {
     scroll-behavior: smooth;
+    width: 100vw;
+    height: 100vh;
 }
 
 body {
@@ -550,64 +552,64 @@ footer img{
 }
 
 /* INFORMACIÓN JUGADORES */
-.tituloDatosJugador {
-    color: #b31c1c;
-    font-size: 30px;
-    font-weight: 800;
-    margin: 50px 100px;
-}
 
-.containerJugador {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    flex-wrap: wrap;
+.player-container {
     width: 90%;
-    margin: 30px auto;
-    gap: 10px;
-}
-
-.datosJugador {
-    flex: 1 1 50%; /* Que ocupe el 60% como máximo */
-}
-
-.datosJugador ul {
-    padding: 0;
-}
-
-.datosJugador li {
-    display: block;
-    margin-top: 10px;
-    padding: 20px;
-    background-color: #e12323;
-    color: white;
-    border-radius: 10px;
-    list-style: none;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: 400;
-}
-
-.imgJugador {
-    flex: 1 1 45%; /* Que ocupe el 45% como máximo */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 20px auto;
+    background-color: white;
 }
 
-.imgJugador img {
-    max-width: 100%;
+.player-wrapper {
+    width: 70%;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: row;
 }
 
+.player-data {
+    width: 70%;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-@keyframes scrollSponsors {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+.player-number {
+    font-size: 85px;
+    font-weight: 900;
+    margin-bottom: 0;
+}
+
+.player-display {
+    font-weight: 800;
+}
+
+.player-data h3 {
+    margin-top: 20px;
+}
+
+.player-position {
+    font-weight: normal;
+    margin-bottom: 100px;
+}
+
+.player-miscellaneous {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.player-image {
+    width: 70%;
+    height: 100%;
+}
+
+.player-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }

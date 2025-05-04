@@ -1,31 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personas</title>
-    <link rel="stylesheet" href="../static/styles/style.css">
-    <link rel="icon" href="../static/img/main/favicon.png" type="image/x-icon">
-  </head>
-  <body>
-    <h1 class="tituloDatosJugador">Datos de jugador</h1>
-    <div class="containerJugador">
-      <div class="datosJugador">
-        <ul>
-          <li>Nombre: {{persona.name}}</li>
-          <li>Apellido: {{persona.surname}}</li>
-          <li>Número: {{persona.number}}</li>
-          <li>Posición: {{persona.position}}</li>
-          <li>Fecha de nacimiento: {{persona.dob}}</li>
-          <li>Lugar de nacimiento: {{persona.birthplace}}</li>
-          <li>Nacionalidad: {{persona.nationality}}</li>
-          <li>Pierna dominante: {{persona.dominant_leg}}</li>
-        </ul>
+{% extends "base.html" %}
+
+{% block title %}{{persona.display_name}} - RCD Mallorca{% endblock %}
+
+{% block styles %}
+<style>
+body {
+  height: 100%;
+  min-height: 100%;
+  background-color: #F7F9F9;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "navbar.html" %}
+
+<div class="player">
+  <div class="player-container">
+    <div class="player-wrapper">
+      <div class="player-data">
+        <h1 class="player-number">{{persona.number}}</h1>
+        <h1 class="player-display">{{persona.display_name}}</h1>
+        <h3>{{persona.name}} {{persona.surname}}</h3>
+        <h4 class="player-position">{{persona.position}}</h4>
+        <div class="player-miscellaneous">
+  
+          {% if persona.dob %}
+          <div class="miscellaneous-data">
+            <h4>Data de naixement</h4>
+            <p>{{persona.dob}}</p>
+          </div>
+          {% endif %}
+  
+          {% if persona.birthplace %}
+          <div class="miscellaneous-data">
+            <h4>Lloc de naixement</h4>
+            <p>{{persona.birthplace}}</p>
+          </div>
+          {% endif %}
+  
+          {% if persona.nationality %}	
+          <div class="miscellaneous-data">
+            <h4>Nacionalitat</h4>
+            <p>{{persona.nationality}}</p>
+          </div>
+          {% endif %}
+  
+          {% if persona.dominant_leg %}
+          <div class="miscellaneous-data">
+            <h4>Cama dominant</h4>
+            <p>{{persona.dominant_leg}}</p>
+          </div>
+          {% endif %}
+
+          {% if persona.is_international %}
+          <div class="miscellaneous-data">
+            <h4>És interacional?</h4>
+            <p>Sí</p>
+          </div>
+          {% endif %}
+        </div>
       </div>
-      
-      <div class="imgJugador">
-        <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="Imagen Jugador" width="400px">
+  
+      <div class="player-image">
+        <img src="../static/img/players/page/{{ persona.number }}.jpg" alt="{{persona.display_name}}" class="player-img">
       </div>
     </div>
-  </body>
-</html>
+  </div>
+    
+</div>
+{% endblock %}
