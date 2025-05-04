@@ -60,6 +60,13 @@ O bien, desde Visual Studio Code, seleccionando el archivo app.py y haciendo cli
 
 Asegúrate de tener configurada la variable de entorno FLASK_APP=app.py si ejecutas manualmente
 
+### 3. Configuración del archivo '.env'
+
+Es necesario crear un archivo llamado '.env' en la raíz del proyecto. Este archivo debe contener la URL de conexión a la base de datos de Supabase:
+
+```env
+URL_SUPABASE=postgresql://postgres.mgeowanoyldrlixcqmwe:asbli7Ia9E54TNIB@aws-0-eu-central-1.pooler.supabase.com:5432/postgres
+```
 ---
 
 ## 🛢️ Base de datos
