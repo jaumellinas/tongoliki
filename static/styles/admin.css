@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+    font-size: 16px;
+    font-family: 'Inter Tight', sans-serif;
+}
+
 body {
-    font-family: 'Inter Tight', Arial, Helvetica, sans-serif;
     background-color: #f4f4f9;
     padding: 20px;
     color: #333;
@@ -12,7 +18,9 @@ ul {
 }
 
 li {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
 }
 
 li a {
@@ -20,8 +28,23 @@ li a {
 }
 
 form {
-    margin-top: 10px;
     display: block;
+}
+
+button[type="edit"] {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-left: 10px;
+}
+
+button[type="edit"]:hover {
+    background: #1A237E;
 }
 
 button[type="submit"] {
@@ -48,7 +71,6 @@ a.botones-azules {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-bottom: 10px;
 }
 
 a.botones-azules:hover {
@@ -64,7 +86,6 @@ a.anadir-verde {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-bottom: 10px;
 }
 
 a.anadir-verde:hover {
@@ -72,5 +93,7 @@ a.anadir-verde:hover {
 }
 
 .button-container {
+    display: flex;
+    gap: 15px;
     margin-bottom: 20px;
 }

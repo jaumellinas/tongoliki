@@ -10,135 +10,338 @@
     <title>Formularis - RCD Mallorca</title>
 </head>
 <body>
-{% if tipo == "personas" %}
-    {% block personas %}
-    <form action="{{ url_for('add_persona') }}" method="post">
-        <h1><i class="fa-solid fa-circle-user"></i> Afegir persona</h1>
-        <div class="fila">
-            <div class="elemento">
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" required>
+{% if accion == "add" %}
+    {% if tipo == "personas" %}
+        {% block add_persona %}
+        <form action="{{ url_for('add_persona') }}" method="post">
+            <h1><i class="fa-solid fa-circle-user"></i> Afegir persona</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="surname">Llinatge</label>
+                    <input type="text" id="surname" name="surname" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="display_name">Àlies</label>
+                    <input type="text" id="display_name" name="display_name">
+                </div>
             </div>
 
-            <div class="elemento">
-                <label for="surname">Llinatge</label>
-                <input type="text" id="surname" name="surname" required>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="number">Dorsal</label>
+                    <input type="number" id="number" name="number">
+                </div>
+
+                <div class="elemento">
+                    <label for="position">Posició</label>
+                    <input type="text" id="position" name="position">
+                </div>
+
+                <div class="elemento">
+                    <label for="dominant_leg">Cama dominant</label>
+                    <input type="text" id="dominant_leg" name="dominant_leg">
+                </div>
             </div>
 
-            <div class="elemento">
-                <label for="display_name">Àlies</label>
-                <input type="text" id="display_name" name="display_name">
-            </div>
-        </div>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="dob">Data de naixement</label>
+                    <input type="text" id="dob" name="dob" required>
+                </div>
 
-        <div class="fila">
-            <div class="elemento">
-                <label for="number">Dorsal</label>
-                <input type="number" id="number" name="number">
-            </div>
+                <div class="elemento">
+                    <label for="birthplace">Lloc de naixement</label>
+                    <input type="text" id="birthplace" name="birthplace" required>
+                </div>
 
-            <div class="elemento">
-                <label for="position">Posició</label>
-                <input type="text" id="position" name="position">
-            </div>
-
-            <div class="elemento">
-                <label for="dominant_leg">Cama dominant</label>
-                <input type="text" id="dominant_leg" name="dominant_leg">
-            </div>
-        </div>
-
-        <div class="fila">
-            <div class="elemento">
-                <label for="dob">Data de naixement</label>
-                <input type="text" id="dob" name="dob" required>
+                <div class="elemento">
+                    <label for="nationality">Nacionalitat</label>
+                    <input type="text" id="nationality" name="nationality" required>
+                </div>
             </div>
 
-            <div class="elemento">
-                <label for="birthplace">Lloc de naixement</label>
-                <input type="text" id="birthplace" name="birthplace" required>
+            <div class="fila">
+                <div class="elemento-2">
+                    <input type="checkbox" id="is_international" name="is_international">
+                    <label for="is_international">És internacional?</label>
+                </div>
+
+                <div class="elemento-2">
+                    <input type="checkbox" id="is_trainer" name="is_trainer">
+                    <label for="is_trainer">És entrenador?</label>
+                </div>
             </div>
 
-            <div class="elemento">
-                <label for="nationality">Nacionalitat</label>
-                <input type="text" id="nationality" name="nationality" required>
-            </div>
-        </div>
+            <button type="submit">Afegir</button>
+        </form>
+        {% endblock %}
 
-        <div class="fila">
-            <div class="elemento-2">
-                <input type="checkbox" id="is_international" name="is_international">
-                <label for="is_international">És internacional?</label>
-            </div>
+    {% elif tipo == "partidos" %}
+        {% block add_partido %}
+        <form action="{{ url_for('add_partido') }}" method="post">
+            <h1><i class="fa-solid fa-person-running"></i> Afegir partit</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
 
-            <div class="elemento-2">
-                <input type="checkbox" id="is_trainer" name="is_trainer">
-                <label for="is_trainer">És entrenador?</label>
-            </div>
-        </div>
-
-        <button type="submit">Afegir</button>
-    </form>
-    {% endblock %}
-
-{% elif tipo == "partidos" %}
-    {% block partido %}
-    <form action="{{ url_for('add_partido') }}" method="post">
-        <h1><i class="fa-solid fa-person-running"></i> Afegir partit</h1>
-        <div class="fila">
-            <div class="elemento">
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" required>
+                <div class="elemento">
+                    <label for="location">Ubicació</label>
+                    <input type="text" id="location" name="location" required>
+                </div>
             </div>
 
-            <div class="elemento">
-                <label for="location">Ubicació</label>
-                <input type="text" id="location" name="location" required>
-            </div>
-        </div>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="local_team_id">Local</label>
+                    <select name="local_team_id" id="local_team_id">
+                        <option value="">Selecciona un equip</option>
+                        {% for equipo in equipos %}
+                        <option value="{{ equipo.id }}">{{ equipo.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-        <div class="fila">
-            <div class="elemento">
-                <label for="local_team_id">Local</label>
-                <select name="local_team_id" id="local_team_id">
-                    <option value="">Selecciona un equip</option>
-                    {% for equipo in equipos %}
-                    <option value="{{ equipo.id }}">{{ equipo.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="elemento">
-                <label for="visitor_team_id">Visitant</label>
-                <select name="visitor_team_id" id="visitor_team_id">
-                    <option value="">Selecciona un equip</option>
-                    {% for equipo in equipos %}
-                    <option value="{{ equipo.id }}">{{ equipo.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-
-        <div class="fila">
-            <div class="elemento">
-                <label for="date">Data</label>
-                <input type="date" id="date" name="date">
+                <div class="elemento">
+                    <label for="visitor_team_id">Visitant</label>
+                    <select name="visitor_team_id" id="visitor_team_id">
+                        <option value="">Selecciona un equip</option>
+                        {% for equipo in equipos %}
+                        <option value="{{ equipo.id }}">{{ equipo.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
 
-            <div class="elemento">
-                <label for="time">Hora</label>
-                <input type="text" id="time" name="time" required>
-            </div>
-        </div>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="date">Data</label>
+                    <input type="date" id="date" name="date">
+                </div>
 
-        <button type="submit">Afegir</button>
-    </form>
-    {% endblock %}
-{% elif tipo == "equipos" %}
-    {% block equipo %}
-    {% endblock %}
-{% else %}
-<p>Selecciona un formulario.</p>
+                <div class="elemento">
+                    <label for="time">Hora</label>
+                    <input type="text" id="time" name="time" required>
+                </div>
+            </div>
+
+            <button type="submit">Afegir</button>
+        </form>
+        {% endblock %}
+
+    {% elif tipo == "equipos" %}
+        {% block add_equipo %}
+        <form action="{{ url_for('add_equipo') }}" method="post">
+            <h1><i class="fa-solid fa-people-group"></i> Afegir equip</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="abbreviation">Abreviatura</label>
+                    <input type="text" id="abbreviation" name="abbreviation" required>
+                </div>
+            </div>
+
+            <button type="submit">Afegir</button>
+        </form>
+        {% endblock %}
+
+    {% elif tipo == "videos" %}
+        {% block add_video %}
+        <form action="{{ url_for('add_video') }}" method="post">
+            <h1><i class="fa-solid fa-video"></i> Afegir video</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="url">URL</label>
+                    <input type="text" id="url" name="url" required>
+                </div>
+            </div>
+
+            <button type="submit">Afegir</button>
+        </form>
+        {% endblock %}
+    {% endif %}
+
+{% elif accion == "edit" %}
+    {% if tipo == "personas" %}
+        {% block edit_persona %}
+        <form action="{{ url_for('editar_persona', id=persona.id)}}" method="post">
+            <h1><i class="fa-solid fa-circle-user"></i> Editar persona</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" value="{{persona.name}}" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="surname">Llinatge</label>
+                    <input type="text" id="surname" name="surname" value="{{persona.surname}}" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="display_name">Àlies</label>
+                    <input type="text" id="display_name" name="display_name" value="{{persona.display_name}}">
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="elemento">
+                    <label for="number">Dorsal</label>
+                    <input type="number" id="number" name="number" value="{{persona.number}}">
+                </div>
+
+                <div class="elemento">
+                    <label for="position">Posició</label>
+                    <input type="text" id="position" name="position" value="{{persona.position}}">
+                </div>
+
+                <div class="elemento">
+                    <label for="dominant_leg">Cama dominant</label>
+                    <input type="text" id="dominant_leg" name="dominant_leg" value="{{persona.dominant_leg}}">
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="elemento">
+                    <label for="dob">Data de naixement</label>
+                    <input type="text" id="dob" name="dob" value="{{persona.dob}}" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="birthplace">Lloc de naixement</label>
+                    <input type="text" id="birthplace" name="birthplace" value="{{persona.birthplace}}" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="nationality">Nacionalitat</label>
+                    <input type="text" id="nationality" name="nationality" value="{{persona.nationality}}" required>
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="elemento-2">
+                    <input type="checkbox" id="is_international" name="is_international" {% if persona.is_international %} checked {% endif %}>
+                    <label for="is_international">És internacional?</label>
+                </div>
+
+                <div class="elemento-2">
+                    <input type="checkbox" id="is_trainer" name="is_trainer" {% if persona.is_trainer %} checked {% endif %}>
+                    <label for="is_trainer">És entrenador?</label>
+                </div>
+            </div>
+
+            <button type="submit">Editar</button>
+        </form>
+        {% endblock %}
+
+    {% elif tipo == "partidos" %}
+        {% block edit_partido %}
+        <form action="{{ url_for('editar_partido', id=partido.id) }}" method="post">
+            <h1><i class="fa-solid fa-person-running"></i> Editar partit</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" value="{{partido.name}}" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="location">Ubicació</label>
+                    <input type="text" id="location" name="location" value="{{partido.location}}" required>
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="elemento">
+                    <label for="local_team_id">Local</label>
+                    <select name="local_team_id" id="local_team_id">
+                        {% for equipo in equipos %}
+                        <option value="{{equipo.id}}"
+                            {% if equipo.id == partido.local_team_id %}selected{% endif %}>
+                            {{equipo.name}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="elemento">
+                    <label for="visitor_team_id">Visitant</label>
+                    <select name="visitor_team_id" id="visitor_team_id">
+                        {% for equipo in equipos %}
+                        <option value="{{equipo.id}}"
+                            {% if equipo.id == partido.visitor_team_id %}selected{% endif %}>
+                            {{equipo.name}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="elemento">
+                    <label for="date">Data</label>
+                    <input type="date" id="date" name="date" value="{{partido.date}}">
+                </div>
+
+                <div class="elemento">
+                    <label for="time">Hora</label>
+                    <input type="text" id="time" name="time" value="{{partido.time}}" required>
+                </div>
+            </div>
+
+            <button type="submit">Editar</button>
+        </form>
+        {% endblock %}
+
+    {% elif tipo == "equipos" %}
+        {% block edit_equipo %}
+        <form action="{{ url_for('editar_equipo', id=equipo.id) }}" method="post">
+            <h1><i class="fa-solid fa-people-group"></i> Editar equip</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" value="{{equipo.name}}" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="abbreviation">Abreviatura</label>
+                    <input type="text" id="abbreviation" name="abbreviation" value="{{equipo.abbreviation}}" required>
+                </div>
+            </div>
+
+            <button type="submit">Editar</button>
+        </form>
+        {% endblock %}
+
+    {% elif tipo == "videos" %}
+        {% block edit_video %}
+        <form action="{{ url_for('editar_video', id=video.id) }}" method="post">
+            <h1><i class="fa-solid fa-video"></i> Editar video</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="url">URL</label>
+                    <input type="text" id="url" name="url" value="{{video.url}}" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="identificador">Identificador</label>
+                    <input type="text" id="identificador" name="identificador" value="{{video.identificador}}" required>
+                </div>
+            </div>
+
+            <button type="submit">Editar</button>
+        </form>
+        {% endblock %}
+    {% endif %}
 {% endif %}
 </body>
 </html>
