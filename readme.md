@@ -35,7 +35,7 @@ El grupo se ha organizado en dos departamentos para dividir responsabilidades:
 - **Integrantes**: Dani y Adri  
 - **Responsabilidades**:
   - Implementación de la lógica de la aplicación con Flask.
-  - Gestión de rutas, sesiones y controladores.
+  - Gestión de rutas / endpoints,
   - Conexión con la base de datos Supabase.
   - Buenas prácticas de programación y legibilidad del código.
 
