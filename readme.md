@@ -59,12 +59,11 @@ Puedes iniciar el servidor con:
 flask run
 ```
 O bien, desde Visual Studio Code, seleccionando el archivo app.py y haciendo clic en el botón de Play (▶️).
-
-Asegúrate de tener configurada la variable de entorno FLASK_APP=app.py si ejecutas manualmente
+Asegúrate de tener configurada la variable de entorno FLASK_APP=app.py si ejecutas manualmente.
 
 ### 3. Configuración del archivo '.env'
+Es necesario crear un archivo llamado '.env' en la raíz del proyecto. Este archivo debe contener la URL de conexión a la base de datos de Supabase. En nuestro caso, dicho secreto de entorno se encuentra ya creado **en la versión entregable del proyecto**.
 
-Es necesario crear un archivo llamado '.env' en la raíz del proyecto. Este archivo debe contener la URL de conexión a la base de datos de Supabase. En nuestro caso, dicho secreto de entorno se encuentra ya creado en la **versión entregable del proyecto**.
 ---
 
 ## 🛢️ Base de datos
@@ -73,7 +72,7 @@ La base de datos utilizada está alojada en la nube, utilizando el servicio Supa
 
 ---
 
-## Diagramas UML
+## 📋 Diagramas UML
 
 Hemos creado unos diagramas UML, concretamente de clases y de estado, para facilitar la documentación del proyecto.
 
