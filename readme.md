@@ -1,10 +1,12 @@
+![Mockup](static/img/mockup.png)
+
 # Proyecto página RCD Mallorca
 
 ## Integrantes
-- Irene  
-- Jaume  
-- Dani  
-- Adri  
+- Irene Fontcuberta León
+- Jaume Llinàs Sansó
+- Daniel Cobo Palao
+- Adrià Garí Sagrera
 
 ---
 
@@ -62,11 +64,7 @@ Asegúrate de tener configurada la variable de entorno FLASK_APP=app.py si ejecu
 
 ### 3. Configuración del archivo '.env'
 
-Es necesario crear un archivo llamado '.env' en la raíz del proyecto. Este archivo debe contener la URL de conexión a la base de datos de Supabase:
-
-```env
-URL_SUPABASE=postgresql://postgres.mgeowanoyldrlixcqmwe:asbli7Ia9E54TNIB@aws-0-eu-central-1.pooler.supabase.com:5432/postgres
-```
+Es necesario crear un archivo llamado '.env' en la raíz del proyecto. Este archivo debe contener la URL de conexión a la base de datos de Supabase. En nuestro caso, dicho secreto de entorno se encuentra ya creado en la **versión entregable del proyecto**.
 ---
 
 ## 🛢️ Base de datos
