@@ -1,0 +1,24 @@
+<form action="{{ url_for('editar_producto', id=producto.id) }}" method="post">
+    <h1><i class="fa-solid fa-person-running"></i> Editar producto</h1>
+    <div class="fila">
+        <div class="elemento">
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" value="{{producto.name}}" required>
+        </div>
+
+        <div class="elemento">
+            <label for="desc">Descripción</label>
+            <input type="text" id="desc" name="desc" value="{{producto.desc}}" required>
+        </div>
+    </div>
+
+    <div class="fila">
+        <div class="elemento">
+            <label for="price">Precio</label>
+            <input type="price" id="price" name="price" value="{{producto.price}}">
+        </div>
+
+
+
+    <button type="submit">Editar</button>
+</form>

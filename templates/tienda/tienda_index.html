@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Tienda</h1>
+    <p>Aquí va la tienda, cuando funcione</p>
+
+    <a href="{{ url_for('get_productos_admin') }}"
+      ><button>PANEL ADMIN</button></a
+    >
+
+    {% for producto in productos %}
+    <li>
+      {{producto.id}}. {{producto.name}} {{producto.desc}} - {{producto.price}}€
+    </li>
+    <br />
+    {% endfor %}
+  </body>
+</html>

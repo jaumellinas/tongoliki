@@ -55,6 +55,12 @@ class Video(db.Model):
     url = db.Column(db.String(100), nullable=False)
     identificador = db.Column(db.String(100), nullable=False)
 
+class Producto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    desc = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+
 @app.route('/')
 def get_index():
     personas = Persona.query.filter_by(is_trainer=False).order_by(Persona.number.asc()).all()
@@ -335,6 +341,80 @@ def borrar_video(id):
     db.session.delete(video)
     db.session.commit()
     return redirect(url_for('get_personas_admin', tipo='videos'))
+
+
+
+
+# ----------- TIENDA ------------
+
+# ver tienda - index
+
+@app.route('/tienda/', methods=['GET', 'POST'])
+def mostrar_inicio():
+    productos = Producto.query.order_by(Producto.id.asc()).all()
+    return render_template("tienda/tienda_index.html", productos=productos)
+
+
+# admin tienda
+@app.route('/tienda/admin', methods=["GET", "POST"])
+def get_productos_admin():
+    productos = Producto.query.order_by(Producto.id.asc()).all()
+    return render_template("tienda/plantillas_back/admin.html", productos=productos)
+
+
+
+
+# formulario para añadir productos
+
+@app.route('/tienda/add_producto', methods=['GET', 'POST'])
+def add_producto():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        desc = request.form.get('desc')
+        price = request.form.get('price')
+        
+        
+        new_producto = Producto(
+            name=name,
+            desc=desc,
+            price=price
+        )
+        
+        db.session.add(new_producto)
+        db.session.commit()
+        return redirect(url_for('mostrar_inicio'))
+
+    return render_template("tienda/formularios_back/add_producto.html")
+
+
+# borrar productos
+@app.route('/tienda/borrar_producto/<int:id>', methods=['GET', 'POST'])
+def borrar_producto(id):
+    producto = Producto.query.get(id)
+    if not producto:
+        return "producto no encontrado", 404
+    db.session.delete(producto)
+    db.session.commit()
+    return redirect(url_for('get_productos_admin'))
+
+
+
+# editar productos
+@app.route('/editar_producto/<int:id>', methods=['GET', 'POST'])
+def editar_producto(id):
+    producto = Producto.query.get(id)
+    if not producto:
+        return "producto no encontrado", 404
+    if request.method == 'POST':
+        producto.name = request.form.get('name')
+        producto.desc = request.form.get('desc')
+        producto.price = request.form.get('price')
+        db.session.commit()
+        return redirect(url_for('get_productos_admin'))
+    
+    return render_template("tienda/formularios_back/editar_producto.html", producto=producto)
+
+
 
 if __name__ == "__main__":
     with app.app_context():

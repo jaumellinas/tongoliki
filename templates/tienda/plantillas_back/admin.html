@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Tienda</h1>
+    <p>Panel de admin</p>
+
+    <a href="{{ url_for('add_producto') }}"><button>AÑADIR PRODUCTO</button></a>
+
+    {% for producto in productos %}
+    <li>
+      {{producto.id}}. {{producto.name}} {{producto.desc}} - {{producto.price}}
+      <a href="{{ url_for('editar_producto', id=producto.id) }}"
+        ><button type="edit">Editar</button></a
+      >
+      <form
+        action="{{ url_for('borrar_producto', id=producto.id) }}"
+        method="post"
+      >
+        <button type="submit">Eliminar</button>
+      </form>
+    </li>
+    {% endfor %}
+  </body>
+</html>
