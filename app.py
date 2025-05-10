@@ -60,6 +60,14 @@ class Producto(db.Model):
     name = db.Column(db.String(100), nullable=False)
     desc = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Integer, nullable=False)
+    in_cart = db.Column(db.Boolean, nullable=True)
+    cantidad = db.Column(db.Integer, default=1)
+
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    mail = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+
 
 @app.route('/')
 def get_index():
@@ -348,18 +356,50 @@ def borrar_video(id):
 # ----------- TIENDA ------------
 
 # ver tienda - index
-
+user_login = False
 @app.route('/tienda/', methods=['GET', 'POST'])
 def mostrar_inicio():
+    global user_login
+
+    if request.method == 'POST':
+        mail = request.form.get('mail')
+        password = request.form.get('password')
+        user = Usuario.query.filter_by(mail=mail, password=password).first()
+        
+        if user:
+            user_login = True
+
     productos = Producto.query.order_by(Producto.id.asc()).all()
-    return render_template("tienda/tienda_index.html", productos=productos)
+    return render_template("tienda/tienda_index.html", productos=productos, user_login=user_login)
+
+
+
+# registrar usuario
+@app.route('/tienda/register', methods=['GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        mail = request.form.get('mail')
+        password = request.form.get('password')
+        
+        
+        new_user = Usuario(
+            mail=mail,
+            password=password
+        )
+        
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('mostrar_inicio'))
+
+    return render_template("tienda/tienda_register.html")
 
 
 # admin tienda
 @app.route('/tienda/admin', methods=["GET", "POST"])
 def get_productos_admin():
     productos = Producto.query.order_by(Producto.id.asc()).all()
-    return render_template("tienda/plantillas_back/admin.html", productos=productos)
+    usuarios = Usuario.query.order_by(Usuario.id.asc()).all()
+    return render_template("tienda/plantillas_back/admin.html", productos=productos, usuarios=usuarios)
 
 
 
@@ -413,6 +453,59 @@ def editar_producto(id):
         return redirect(url_for('get_productos_admin'))
     
     return render_template("tienda/formularios_back/editar_producto.html", producto=producto)
+
+# añadir productos al carrito
+@app.route('/añadir_al_carrito/<int:producto_id>', methods=['POST'])
+def añadir_al_carrito(producto_id):
+    global user_login
+
+    if user_login:
+        producto = Producto.query.get(producto_id)
+        if producto:
+            producto.in_cart = True
+            db.session.commit()
+    
+    return redirect(url_for('mostrar_inicio'))
+
+# carrito
+@app.route('/tienda/carrito', methods=['GET', 'POST'])
+def ver_carrito():
+    global user_login
+
+    if not user_login:
+        return redirect(url_for('mostrar_inicio'))
+
+    productos_en_carrito = Producto.query.filter_by(in_cart=True).all()
+    precio_total = None
+
+    if request.method == 'POST':
+        if 'actualizar' in request.form:
+            producto_id = int(request.form['actualizar'])
+            cantidad = int(request.form.get(f'cantidad_{producto_id}'))
+            
+            producto = Producto.query.get(producto_id)
+            if producto:
+                producto.cantidad = cantidad
+                db.session.commit()
+
+        elif 'eliminar' in request.form:
+            producto_id = int(request.form['eliminar'])
+            
+            producto = Producto.query.get(producto_id)
+            if producto:
+                producto.in_cart = False
+                db.session.commit()
+
+        elif 'checkout' in request.form:
+            total = 0
+            for producto in productos_en_carrito:
+                total += producto.price * producto.cantidad
+            precio_total = total
+
+        return render_template("tienda/tienda_carrito.html", productos_en_carrito=productos_en_carrito, precio_total=precio_total)
+
+    return render_template("tienda/tienda_carrito.html", productos_en_carrito=productos_en_carrito)
+
 
 
 

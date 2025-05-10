@@ -25,5 +25,10 @@
       </form>
     </li>
     {% endfor %}
+
+    <h2>USUARIOS</h2>
+    {% for usuario in usuarios %}
+    <li>{{usuario.id}}. {{usuario.mail}} - {{usuario.password}}</li>
+    {% endfor %}
   </body>
 </html>
