@@ -24,6 +24,13 @@
                 <img src="{{ url_for('static',filename='img/main/logo.png') }}" alt="Logo" width="50">
             </div>
         </div>
+
+        {% if error == "badlogin"%}
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <span class="font-medium"><i class="fa-solid fa-circle-exclamation"></i></span> Error amb credencials.
+        </div>
+        {% endif %}
+
         <!---->
         <form class="flex flex-col" action="{{ url_for('get_login') }}" method="post">
             <div class="pb-2">

@@ -1,0 +1,49 @@
+{% extends "components/base.html" %}
+
+{% block title %}{{producto.name}} - RCD Mallorca{% endblock %}
+
+{% block styles %}
+<style>
+body {
+  height: 100%;
+  min-height: 100%;
+  background-color: #F7F9F9;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "components/navbar.html" %}
+
+<div class="player">
+  <div class="player-container">
+    <div class="player-wrapper">
+      <div class="player-data">
+        <h1 class="player-display">{{producto.name}}</h1>
+        <h3>{{producto.collection}}</h3>
+        <h2>{{producto.price}} €</h2>
+
+        {% if user_login == True %}
+        <button>
+            <a href="{{ url_for('añadir_al_carrito', producto_id = producto.id) }}">AFEGIR A LA CISTELLA</a>
+        </button>
+        {% else %}
+        <div class="alerta-nologin">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <p>Per afegir productes a la cistella, has d'iniciar sessió</p>
+        </div>
+        {% endif %}
+
+        <div class="product-miscellaneous">
+            {{producto.desc}}
+        </div>
+      </div>
+  
+      <div class="player-image">
+        <img src="../../../static/img/tenda/products/{{ producto.id }}.webp" class="player-img">
+      </div>
+    </div>
+  </div>
+    
+</div>
+{% endblock %}

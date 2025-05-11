@@ -2,9 +2,20 @@
 
 {% block title %}Tenda - RCD Mallorca{% endblock %}
 
-{% include "components/navbar.html" %}
-
 {% block content %}
+<header class="tenda-header">
+    {% include "components/navbar.html" %}
+    <div class="titular">
+        <div class="titular-text">
+            <h1>SEMPREAMUNT15</h1>
+        </div>
+        <div class="titular-link">
+            <p>Empra aquest codi promocional per a rebre un 15% de descompte a la teva primera comanda.</p>
+            <p><b>Cap amunt, sempre amunt!</b></p>
+        </div>
+    </div>
+</header>
+
 <div class="coleccions">
     <div class="coleccions-header">
         <h1>Les nostres col·leccions</h1>
@@ -45,12 +56,40 @@
 <div class="promos">
     <div class="promos-wrapper">
         <h1>En promoció</h1>
-        {% for producto in productos if is_promo %}
+        <ul>
+        {% for producto in productos %}
+            {% if producto.in_promo %}
+                <li>
+                    <div class="contenedor-imagen">
+                            <div class="etiqueta-promo">
+                                <b>PROMO</b>
+                            </div>
+                        <img src="../static/img/tenda/products/{{ producto.id }}.webp" alt="">
+                    </div>
+                    <div class="contenedor-datos-producto">
+                        <h2>{{ producto.name }}</h2>
+                        <h3>{{ producto.price }} €</h3>
+                        <a href="#"><button>VEURE PRODUCTE<i class="fa-solid fa-arrow-right"></i></button></a>
+                    </div>
+                </li>
+            {% endif %}
         {% endfor %}
+        </ul>
     </div>
 </div>
 
-<div class="tendes-oficials"></div>
+<div class="tendes-oficials">
+    <div class="tendes-wrapper">
+        <div class="tendes-container">
+            <div class="tendes-foto"></div>
+            <div class="tendes-text">
+                <h1>BOTIGUES OFICIALS</h1>
+                <p>Visiteu el punt de trobada dels millors aficionats del RCD Mallorca! La ubicació privilegiada d'ambdues botigues físiques al centre i al propi estadi de Son Moix et permetrà adquirir una àmplia gamma de productes del nostre estimat RCD Mallorca.</p>
+                <a href="#"><button>SABER MÉS</button></a>
+        </div>
+    </div>
+    </div>
+    </div>
 
 <div class="newsletter">
     <div class="newsletter-wrapper">

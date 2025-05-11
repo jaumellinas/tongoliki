@@ -1,0 +1,87 @@
+{% extends "components/base.html" %}
+
+{% block title %}Els nostres productes - RCD Mallorca{% endblock %}
+
+{% block styles %}
+<style>
+    body {
+        height: 100%;
+        min-height: 100%;
+        background-color: #F7F9F9;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "components/navbar.html" %}
+
+<div class="contenedor-plantilla-v2">
+    <h1>Equipacions</h1>
+    <ul>
+        {% for producto in productos %}
+            {% if producto.collection == "Equipacions" %}
+                <li>
+                    <div class="contenedor-imagen">
+                        {% if producto.in_promo %}
+                            <div class="etiqueta-promo">
+                                <b>PROMO</b>
+                            </div>
+                        {% endif %}
+                        <img src="../static/img/tenda/products/{{ producto.id }}.webp" alt="">
+                    </div>
+                    <div class="contenedor-datos-producto">
+                        <h2>{{ producto.name }}</h2>
+                        <h3>{{ producto.price }} €</h3>
+                        <a href="{{ url_for('mostrar_producto', id = producto.id) }}"><button>VEURE PRODUCTE<i class="fa-solid fa-arrow-right"></i></button></a>
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h1>Entrenament</h1>
+    <ul>
+        {% for producto in productos %}
+            {% if producto.collection == "Entrenament" %}
+                <li>
+                    <div class="contenedor-imagen">
+                        {% if producto.in_promo %}
+                            <div class="etiqueta-promo">
+                                <b>PROMO</b>
+                            </div>
+                        {% endif %}
+                        <img src="../static/img/tenda/products/{{ producto.id }}.webp" alt="">
+                    </div>
+                    <div class="contenedor-datos-producto">
+                        <h2>{{ producto.name }}</h2>
+                        <h3>{{ producto.price }} €</h3>
+                        <a href="{{ url_for('mostrar_producto', id = producto.id) }}"><button>VEURE PRODUCTE<i class="fa-solid fa-arrow-right"></i></button></a>
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h1>Infantil</h1>
+    <ul>
+        {% for persona in personas %}
+            {% if not persona.is_trainer and persona.position == "Migcampista" %}
+                    <li>
+                        <div class="contenedor-imagen">
+                            <div class="numero-jugador">
+                                <p>{{ persona.number }}</p>
+                            </div>
+                            <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
+                        </div>
+                        <div class="contenedor-datos">
+                            <h2>{{ persona.display_name }}</h2>
+                            <h3>{{ persona.position }}</h3>
+                            <a href="{{ url_for('get_persona_by_id', id = persona.id) }}"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
+                        </div>
+                    </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

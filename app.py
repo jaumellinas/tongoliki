@@ -91,13 +91,22 @@ def get_plantilla():
 
 @app.route('/login', methods=['GET', 'POST'])
 def get_login():
+    global user_login
     if request.method == "POST":
         email_get = request.form.get('email')
         password_get = request.form.get('password')
-        correo = "tongoliki@gmail.com"
-        contraseña = "12345"
-        if email_get == correo and password_get == contraseña:
-            return redirect(url_for('get_personas_admin'))
+
+        user = Usuario.query.filter_by(mail=email_get, password=password_get).first()
+
+        if user:
+            if user: 
+                user_login = True
+                if user.is_admin:
+                    return redirect(url_for('get_personas_admin', user_login=user_login))
+                else:
+                    return redirect(url_for('mostrar_inicio', user_login=user_login))
+        else:
+            return render_template("auth/login.html", error="badlogin")
         
     return render_template("auth/login.html")
 
@@ -362,7 +371,7 @@ def borrar_video(id):
 
 # ----------- TIENDA ------------
 
-# ver tienda - index
+# ÍNDEX
 user_login = False
 
 @app.route('/tenda/', methods=['GET', 'POST'])
@@ -382,7 +391,28 @@ def mostrar_inicio():
     productos = Producto.query.order_by(Producto.id.asc()).all()
     return render_template("tienda/index.html", pagina = pagina, productos = productos, user_login = user_login)
 
-# registrar usuario
+# PRODUCTOS
+@app.route('/tenda/productes', methods=['GET'])
+def mostrar_productos():
+    pagina = "store"
+    
+    global user_login
+
+    productos = Producto.query.order_by(Producto.id.asc()).all()
+    return render_template("tienda/productes.html", pagina = pagina, productos = productos, user_login = user_login)
+
+# PRODUCTO ESPECÍFICO
+@app.route('/tenda/producte/<int:id>', methods=['GET'])
+def mostrar_producto(id):
+    global user_login
+    pagina = "store"
+
+    producto = Producto.query.get(id)
+    if not producto:
+        return "producto no encontrado", 404
+    return render_template("tienda/producte.html", pagina = pagina, producto = producto, user_login = user_login)
+
+# REGISTRO USUARIO
 @app.route('/tenda/register', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':

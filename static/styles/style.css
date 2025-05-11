@@ -884,3 +884,144 @@ footer img{
 .contenedor-plantilla-v2 h1 {
     margin-bottom: 10px;
 }
+
+/* -- Tenda -- */
+
+.tenda-header {
+    width: 100%;
+    height: 75vh;
+    background-image: url("../img/tenda/static/header.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.tendes-wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.tendes-container {
+    display: flex;
+    flex-direction: row;
+    height: 480px;
+}
+
+.tendes-foto {
+    width: 70%;
+    height: auto;
+    background-image: url("../img/tenda/static/tendes.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.tendes-text {
+    width: 30%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-end;
+    height: auto;
+    background-color: #e12323;
+    padding: 40px;
+    color: white;
+    gap: 20px;
+}
+
+.tendes-foto, .tendes-text {
+    grid-area: 1 / 1;
+}
+
+.tendes-text h1 {
+    font-size: 36px;
+}
+
+.tendes-text p {
+    text-align: justify;
+    line-height: 1.4;
+}
+
+.tendes-text button {
+    padding: 10px 20px 10px 20px;
+    border: none;
+    background: white;
+    color: #e12323;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+/* -- Tenda - Productes -- */
+.etiqueta-promo {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e12323;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.2);
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.contenedor-datos-producto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 25px 0;
+    padding: 0px 20px 0px 20px;
+}
+
+.contenedor-datos-producto h2 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.contenedor-datos-producto h3 {
+    font-size: 22px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.contenedor-datos-producto button {
+    cursor: pointer;
+    padding: 10px 15px 10px 15px;
+    border: 2px solid #e12323;
+    background: white;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.contenedor-datos-producto button:hover {
+    cursor: pointer;
+    border: 2px solid #e12323;
+    background: #e12323;
+    color: white;
+    transition: 0.3s;
+}
+
+.contenedor-datos-producto button i {
+    margin-left: 8px;
+}
+
+.product-miscellaneous {
+    margin-top: 20px;
+}
+
+.alerta-nologin {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    border: #e12323 2px solid;
+    background: #e123233c;
+    padding: 10px;
+    margin-top: 20px;
+}
