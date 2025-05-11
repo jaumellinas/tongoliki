@@ -583,6 +583,66 @@ header {
     transition: 0.3s;
 }
 
+/* -- TIENDA  -- */
+
+.coleccions{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.coleccions-header{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 100px 30px 100px;
+}
+
+.coleccions-wrapper{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.coleccions-item{
+    width: calc(40% - 40px);
+    min-width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #e12323;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.coleccions-item:hover{
+    cursor: pointer;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+    transform: scale(1.02);
+    transition: 0.3s;
+}
+
+.coleccions-item img{
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+}
 
 /* -- Footer -- */
 footer {
