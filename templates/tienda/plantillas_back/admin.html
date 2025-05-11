@@ -22,7 +22,7 @@
       <ul>
         {% for producto in productos %}
           <li>
-            {{producto.id}}. {{producto.name}} {{producto.desc}} - {{producto.price}}
+            {{producto.id}}. {{producto.name}} - {{producto.price}}
             <a href="{{ url_for('editar_producto', id=producto.id) }}"
               ><button type="edit">Editar</button></a
             >
@@ -40,7 +40,7 @@
     <div class="tienda-admin-usuarios">
       <h2>USUARIOS</h2>
       {% for usuario in usuarios %}
-      <li>{{usuario.id}}. {{usuario.mail}} - {{usuario.password}}</li>
+      <li>{{usuario.id}}. {{usuario.mail}}</li>
       {% endfor %}
     </div>
   </body>

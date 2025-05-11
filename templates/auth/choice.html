@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elige un panel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: 'Inter Tight', Helvetica, sans-serif;
+            background-color: #f7f9f9;
+        }
+
+        .choice-container {
+            display: grid;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .choice-container button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #e12323;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .choice-container button:hover {
+            background-color: #9a1515;
+        }
+    </style>
+</head>
+<body>
+    <div class="choice-container">
+        <h1>A quin panell vols accedir?</h1>
+        <button onclick="location.href='{{ url_for('get_personas_admin') }}'">Admin Landing</button>
+        <button onclick="location.href='{{ url_for('get_productos_admin') }}'">Admin Tenda</button>
+    </div>
+</body>
+</html>

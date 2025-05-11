@@ -18,31 +18,34 @@
 
 {% if pagina == 'store' %}
 <footer class="footer-store">
-    <h3>Acceptem els següents mètodes de pagament</h3>
-    <ul>
-        <li><i class="fa-brands fa-cc-visa"></i></li>
-        <li><i class="fa-brands fa-cc-mastercard"></i></li>
-        <li><i class="fa-brands fa-cc-amex"></i></li>
-        <li><i class="fa-brands fa-paypal"></i></li>
-        <li><i class="fa-brands fa-apple-pay"></i></li>
-        <li><i class="fa-brands fa-google-pay"></i></li>
-    </ul>
+    <div class="footer-store-wrapper">
+        <ul>
+            <li><i class="fa-brands fa-cc-visa"></i></li>
+            <li><i class="fa-brands fa-cc-mastercard"></i></li>
+            <li><i class="fa-brands fa-cc-amex"></i></li>
+            <li><i class="fa-brands fa-paypal"></i></li>
+            <li><i class="fa-brands fa-apple-pay"></i></li>
+            <li><i class="fa-brands fa-google-pay"></i></li>
+        </ul>
+    </div>
 </footer>
 {% endif %}
 
 <footer>
-    <div class="footer-text">
-        <p>© <script>document.write(new Date().getFullYear())</script> per <a href="https://www.github.com/Adrig3/tongoliki">Tongoliki</a>, un grup d'estudiants <a href="https://www.santjosepobrer.es">de Sant Josep Obrer</a>.</p>
-        <p>Aquest projecte no està relacionat de cap forma amb l'RCD Mallorca, LaLiga i derivats.</p>
-    </div>
+    <div class="footer-wrapper">
+        <div class="footer-text">
+            <p>© <script>document.write(new Date().getFullYear())</script> per <a href="https://www.github.com/Adrig3/tongoliki">Tongoliki</a>, un grup d'estudiants <a href="https://www.santjosepobrer.es">de Sant Josep Obrer</a>.</p>
+            <p>Aquest projecte no està relacionat de cap forma amb l'RCD Mallorca, LaLiga i derivats.</p>
+        </div>
 
-    <div class="footer-link">
-        <a href="#">Avís legal i condicions d'ús</a>
-        <a href="#">Política de cookies</a>
-        <a href="#">Política de privacitat</a>
-    </div>
+        <div class="footer-link">
+            <a href="#">Avís legal i condicions d'ús</a>
+            <a href="#">Política de cookies</a>
+            <a href="#">Política de privacitat</a>
+        </div>
 
-    <img src="{{ url_for('static', filename='img/main/logo.png') }}" alt="Logo RCD Mallorca" class="logo-footer">
+        <img src="{{ url_for('static', filename='img/main/logo.png') }}" alt="Logo RCD Mallorca" class="logo-footer">
+    </div>
 </footer>
 
 </body>

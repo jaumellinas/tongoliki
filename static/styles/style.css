@@ -177,6 +177,14 @@ header {
 }
 
 /* -- (2.1.2) Titular header - Enlace -- */
+.titular-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
 .titular-link i {
     margin-left: 5px;
 }
@@ -585,45 +593,40 @@ header {
 
 /* -- TIENDA  -- */
 
-.coleccions{
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.coleccions-header{
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 100px 30px 100px;
+.coleccions {
+    margin: 20px 0 40px 0;
 }
 
 .coleccions-wrapper{
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     flex-wrap: wrap;
-    gap: 40px;
+}
+
+.coleccions-wrapper h1, .promos-wrapper h1{
+    color: black;
+    margin-bottom: 20px;
+    font-size: 42px;
+}
+
+.coleccions-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
 .coleccions-item{
     width: calc(40% - 40px);
-    min-width: 200px;
-    height: 200px;
+    min-width: 300px;
+    height: 100px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     background-color: #e12323;
-    border-radius: 10px;
+    border-radius: 0px;
     color: white;
     font-size: 18px;
     font-weight: 400;
@@ -695,21 +698,19 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 .tienda-admin-productos h2{
     font-size: 26px;
     font-weight: 800;
     align-self: flex-start;
-    padding: 20px 0 20px 0;
 }
 
 .tienda-admin-productos ul li{
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 20px;
     align-items: center;
     font-size: 18px;
     font-weight: 400;
@@ -723,7 +724,6 @@ header {
     padding: 10px 20px 10px 20px;
     background-color: #f2f2f2;
     border-radius: 10px;
-    margin-right: 10px;
     border: none;
     transition: 0.3s;
 }
@@ -766,6 +766,15 @@ footer {
     justify-content: space-between;
     align-items: center;
     
+}
+
+.footer-wrapper {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 footer p {
@@ -889,11 +898,22 @@ footer img{
 
 .tenda-header {
     width: 100%;
-    height: 75vh;
+    height: 100vh;
     background-image: url("../img/tenda/static/header.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.promos-wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.promos-wrapper ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
 }
 
 .tendes-wrapper {
@@ -968,11 +988,10 @@ footer img{
     margin-bottom: 5px;
 }
 
-.promos{
+.promos {
     display: flex;
     flex-direction: row;
-    width: 95%;
-    margin: 70px;
+    margin: 20px 0 40px 0;
 }
 
 .promos li{
@@ -1037,12 +1056,40 @@ footer img{
     margin-top: 20px;
 }
 
+.footer-store {
+    padding-bottom: 0px;
+}
+
+.footer-store-wrapper {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white
+}
+
+.footer-store-wrapper ul {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    list-style: none;
+}
+
+
+.footer-store-wrapper ul i {
+    font-size: 35px;
+}
+
+
+
 /* -- Newsletter -- */
 .newsletter {
     width: 100%;
     background: linear-gradient(135deg, #f7f9f9 0%, #e8eaea 100%);
     padding: 80px 0;
-    margin: 50px 0;
+    margin: 20px 0 0 0;
     position: relative;
     overflow: hidden;
 }

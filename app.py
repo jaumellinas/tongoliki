@@ -102,13 +102,17 @@ def get_login():
             if user: 
                 user_login = True
                 if user.is_admin:
-                    return redirect(url_for('get_personas_admin', user_login=user_login))
+                    return redirect(url_for('get_choice', user_login=user_login))
                 else:
                     return redirect(url_for('mostrar_inicio', user_login=user_login))
         else:
             return render_template("auth/login.html", error="badlogin")
         
     return render_template("auth/login.html")
+
+@app.route('/choice', methods=['GET'])
+def get_choice():
+    return render_template("auth/choice.html", user_login = user_login)
 
 @app.route('/admin', methods=["GET", "POST"])
 def get_personas_admin():
@@ -376,17 +380,8 @@ user_login = False
 
 @app.route('/tenda/', methods=['GET', 'POST'])
 def mostrar_inicio():
-    pagina = "store"
-
     global user_login
-
-    if request.method == 'POST':
-        mail = request.form.get('mail')
-        password = request.form.get('password')
-        user = Usuario.query.filter_by(mail=mail, password=password).first()
-        
-        if user:
-            user_login = True
+    pagina = "store"
 
     productos = Producto.query.order_by(Producto.id.asc()).all()
     return render_template("tienda/index.html", pagina = pagina, productos = productos, user_login = user_login)
@@ -402,7 +397,7 @@ def mostrar_productos():
     return render_template("tienda/productes.html", pagina = pagina, productos = productos, user_login = user_login)
 
 # PRODUCTO ESPECÍFICO
-@app.route('/tenda/producte/<int:id>', methods=['GET'])
+@app.route('/tenda/producte/<int:id>', methods=['GET', 'POST'])
 def mostrar_producto(id):
     global user_login
     pagina = "store"
@@ -413,7 +408,7 @@ def mostrar_producto(id):
     return render_template("tienda/producte.html", pagina = pagina, producto = producto, user_login = user_login)
 
 # REGISTRO USUARIO
-@app.route('/tenda/register', methods=['GET', 'POST'])
+@app.route('/registre', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
         mail = request.form.get('mail')
@@ -431,15 +426,12 @@ def add_user():
 
     return render_template("tienda/auth/tienda_register.html")
 
-
-# admin tienda
+# ADMIN TIENDA
 @app.route('/tenda/admin', methods=["GET", "POST"])
 def get_productos_admin():
     productos = Producto.query.order_by(Producto.id.asc()).all()
     usuarios = Usuario.query.order_by(Usuario.id.asc()).all()
     return render_template("tienda/plantillas_back/admin.html", productos=productos, usuarios=usuarios)
-
-
 
 
 # formulario para añadir productos
@@ -493,7 +485,7 @@ def editar_producto(id):
     return render_template("tienda/formularios_back/editar_producto.html", producto=producto)
 
 # añadir productos al carrito
-@app.route('/añadir_al_carrito/<int:producto_id>', methods=['POST'])
+@app.route('/añadir_al_carrito/<int:producto_id>', methods=['GET', 'POST'])
 def añadir_al_carrito(producto_id):
     global user_login
 
@@ -514,6 +506,8 @@ def ver_carrito():
         return redirect(url_for('mostrar_inicio'))
 
     productos_en_carrito = Producto.query.filter_by(in_cart=True).all()
+    promos = Promo.query.all()
+    
     precio_total = None
 
     if request.method == 'POST':
@@ -540,9 +534,22 @@ def ver_carrito():
                 total += producto.price * producto.cantidad
             precio_total = total
 
-        return render_template("tienda/tienda_carrito.html", productos_en_carrito=productos_en_carrito, precio_total=precio_total)
+        elif 'aplicar_descuento' in request.form:
+            codigo_descuento = request.form.get('codigo_descuento')
+            promo = Promo.query.filter_by(tag=codigo_descuento).first()
+            
+            if promo:
+                descuento_aplicado = promo.discount
+                total = 0
+                for producto in productos_en_carrito:
+                    total += producto.price * producto.qty
+                precio_total = total - (total * descuento_aplicado / 100)
+            else:
+                precio_total = None
 
-    return render_template("tienda/tienda_carrito.html", productos_en_carrito=productos_en_carrito)
+        return render_template("tienda/carrito.html", productos_en_carrito=productos_en_carrito, precio_total=precio_total)
+
+    return render_template("tienda/carrito.html", productos_en_carrito=productos_en_carrito)
 
 
 if __name__ == "__main__":
