@@ -5,12 +5,12 @@
   <div class="producto">
     <h3>{{ producto.name }}</h3>
     <p>Precio: ${{ producto.price }}</p>
-    <label for="cantidad_{{ producto.id }}">Cantidad:</label>
+    <label for="qty_{{ producto.id }}">Cantidad:</label>
     <input
       type="number"
-      id="cantidad_{{ producto.id }}"
-      name="cantidad_{{ producto.id }}"
-      value="{{ producto.cantidad }}"
+      id="qty_{{ producto.id }}"
+      name="qty_{{ producto.id }}"
+      value="{{ producto.qty }}"
       min="1"
     />
     <button type="submit" name="actualizar" value="{{ producto.id }}">
@@ -19,10 +19,13 @@
     <button type="submit" name="eliminar" value="{{ producto.id }}">
       Eliminar
     </button>
-    <!-- Botón para eliminar producto -->
   </div>
   {% endfor %}
 
+  <label for="codigo_descuento">Código de descuento: </label>
+  <input type="text" id="codigo_descuento" name="codigo_descuento" />
+
+  <button type="submit" name="aplicar_descuento">Aplicar descuento</button> <br>
   <button type="submit" name="checkout">Checkout</button>
 </form>
 

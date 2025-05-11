@@ -66,7 +66,7 @@ class Producto(db.Model):
     qty = db.Column(db.Integer, default=1)
 
 class Usuario(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     mail = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
@@ -413,11 +413,13 @@ def add_user():
     if request.method == 'POST':
         mail = request.form.get('mail')
         password = request.form.get('password')
+        is_admin = False
         
         
         new_user = Usuario(
             mail=mail,
-            password=password
+            password=password,
+            is_admin=False
         )
         
         db.session.add(new_user)
@@ -497,7 +499,7 @@ def añadir_al_carrito(producto_id):
     
     return redirect(url_for('mostrar_inicio'))
 
-# carrito
+# CARRITO
 @app.route('/tenda/carrito', methods=['GET', 'POST'])
 def ver_carrito():
     global user_login
@@ -509,15 +511,21 @@ def ver_carrito():
     promos = Promo.query.all()
     
     precio_total = None
+    descuento_aplicado = 0
+    codigo_descuento = None
 
     if request.method == 'POST':
         if 'actualizar' in request.form:
             producto_id = int(request.form['actualizar'])
-            cantidad = int(request.form.get(f'cantidad_{producto_id}'))
+            qty_str = request.form.get(f'qty_{producto_id}')
             
+            if qty_str is None or not qty_str.isdigit():
+                return "Cantidad no válida", 400 
+
+            qty = int(qty_str)
             producto = Producto.query.get(producto_id)
             if producto:
-                producto.cantidad = cantidad
+                producto.qty = qty
                 db.session.commit()
 
         elif 'eliminar' in request.form:
@@ -531,7 +539,9 @@ def ver_carrito():
         elif 'checkout' in request.form:
             total = 0
             for producto in productos_en_carrito:
-                total += producto.price * producto.cantidad
+                if producto.qty is None: 
+                    producto.qty = 1
+                total += producto.price * producto.qty
             precio_total = total
 
         elif 'aplicar_descuento' in request.form:
@@ -542,8 +552,11 @@ def ver_carrito():
                 descuento_aplicado = promo.discount
                 total = 0
                 for producto in productos_en_carrito:
+                    if producto.qty is None: 
+                        producto.qty = 1
                     total += producto.price * producto.qty
                 precio_total = total - (total * descuento_aplicado / 100)
+                precio_total = round(precio_total, 2)
             else:
                 precio_total = None
 
