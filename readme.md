@@ -99,4 +99,74 @@ Para acceder al panel de administración (zona privada), puedes usar las siguien
 
 - **Correo**: tongoliki@gmail.com
 
-- **Contraseña**: 12345
+- **Contraseña**: 12345  
+<br><br>
+# 🛍️ Tienda del proyecto RCD Mallorca! ⚽
+
+Esta sección del proyecto es un subproyecto donde hacemos nuestra **réplica** de la **tienda del RCD Mallorca**. En este apartado, contamos con una modificación en los integrantes, puesto que uno de ellos no participa en él.
+
+## Integrantes:
+- Adrià Garí Sagrera
+- Jaume Llinàs Sansó
+- Irene Fontcuberta León
+
+## Explicación del subproyecto
+
+En esta ocasión, estamos recreando la tienda del RCD Mallorca, donde continuamos utilizando lo mismo que en el proyecto principal: Flask como framework principal, Python, HTML y CSS. 
+
+Todos lo relacionado al **frontend** de esta tienda se encontrará dentro de la ruta `/templates/tienda` y sus estilos en `/static/styles` usando el archivo CSS principal. En el caso del **backend** todo se encuentra en el propio archivo `app.py` junto con el proyecto principal.
+
+
+## Funciones de los equipos
+
+Como en el caso anterior, hemos dividido el equipo en dos departamentos:
+
+### 🎨 Frontend:
+- **Integrantes**: Jaume Llinàs e Irene Fontcuberta
+- **Responsabilidades**:
+  - Diseño visual de la tienda, carrito y páginas login/register
+  - Maquetaciones y 'mockups'
+  - Cuidar la experiencia de usuario
+  - Cuidar la imagen de marca
+
+### ⚙️ Backend: 
+- **Integrantes**: Adrià Garí
+- **Responsabilidades**:
+  - Creación de las clases, objetos y modelos
+  - Métodos y funciones de la página web
+  - Implementación de lógica
+  - Funciones Login/Register
+  - Implementar un carrito
+
+
+## Diagramas UML
+
+También hemos creado unos diagramas UML para nuestra tienda!
+
+### Diagrama de Clases
+
+![Diagrama de Clases](static/img/tienda/UML/clases.jpg)
+
+---
+
+### Diagramas de Estado
+
+Producto
+
+![Producto](static/img/tienda/UML/producto.jpg)
+---
+
+Carrito
+
+![Carrito](static/img/tienda/UML/carrito.jpg)
+---
+
+Login
+
+![Login](static/img/tienda/UML/login.jpg)
+---
+
+Registro
+
+![Registro](static/img/tienda/UML/registro.jpg)
+---
