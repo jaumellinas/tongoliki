@@ -145,7 +145,7 @@ También hemos creado unos diagramas UML para nuestra tienda!
 
 ### Diagrama de Clases
 
-![Diagrama de Clases](static/img/tienda/UML/clases.jpg)
+![Diagrama de Clases](static/img/tenda/UML/clases.jpg)
 
 ---
 
@@ -153,20 +153,20 @@ También hemos creado unos diagramas UML para nuestra tienda!
 
 Producto
 
-![Producto](static/img/tienda/UML/producto.jpg)
+![Producto](static/img/tenda/UML/producto.jpg)
 ---
 
 Carrito
 
-![Carrito](static/img/tienda/UML/carrito.jpg)
+![Carrito](static/img/teenda/UML/carrito.jpg)
 ---
 
 Login
 
-![Login](static/img/tienda/UML/login.jpg)
+![Login](static/img/tenda/UML/login.jpg)
 ---
 
 Registro
 
-![Registro](static/img/tienda/UML/registro.jpg)
+![Registro](static/img/tenda/UML/registro.jpg)
 ---
