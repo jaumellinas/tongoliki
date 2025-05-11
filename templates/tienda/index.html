@@ -1,0 +1,49 @@
+{% extends "components/base.html" %}
+
+{% block title %}Tenda - RCD Mallorca{% endblock %}
+
+{% include "components/navbar.html" %}
+
+{% block content %}
+<div class="coleccions">
+    <div class="coleccions-wrapper">
+        <h1>Coleccions</h1>
+
+        <div class="coleccions-item">
+            <h2>Equipacions</h2>
+        </div>
+        <div class="coleccions-item">
+            <h2>Entrenament</h2>
+        </div>
+        <div class="coleccions-item">
+            <h2>Infantil</h2>
+        </div>
+        <div class="coleccions-item">
+            <h2>Tots els productes</h2>
+        </div>
+    </div>
+</div>
+
+<div class="promos">
+    <div class="promos-wrapper">
+        <h1>En promoció</h1>
+        {% for producto in productos if is_promo %}
+        {% endfor %}
+    </div>
+</div>
+
+<div class="tendes-oficials"></div>
+
+<div class="newsletter">
+    <div class="newsletter-wrapper">
+        <h1>Subscriu-te a la nostra newsletter</h1>
+        <p>Rebràs les últimes novetats i ofertes exclusives</p>
+        <form action="" method="POST">
+            <input type="email" name="email" placeholder="Correu electrònic" required>
+            <button type="submit">Subscriure's</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

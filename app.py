@@ -59,15 +59,22 @@ class Producto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     desc = db.Column(db.String(100), nullable=False)
+    collection = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Integer, nullable=False)
     in_cart = db.Column(db.Boolean, nullable=True)
-    cantidad = db.Column(db.Integer, default=1)
+    in_promo = db.Column(db.Boolean, nullable=True)
+    qty = db.Column(db.Integer, default=1)
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mail = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
+class Promo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tag = db.Column(db.String(100), nullable=False)
+    discount = db.Column(db.Integer, nullable=False)
 
 @app.route('/')
 def get_index():
@@ -357,8 +364,11 @@ def borrar_video(id):
 
 # ver tienda - index
 user_login = False
-@app.route('/tienda/', methods=['GET', 'POST'])
+
+@app.route('/tenda/', methods=['GET', 'POST'])
 def mostrar_inicio():
+    pagina = "store"
+
     global user_login
 
     if request.method == 'POST':
@@ -370,12 +380,10 @@ def mostrar_inicio():
             user_login = True
 
     productos = Producto.query.order_by(Producto.id.asc()).all()
-    return render_template("tienda/tienda_index.html", productos=productos, user_login=user_login)
-
-
+    return render_template("tienda/index.html", pagina = pagina, productos = productos, user_login = user_login)
 
 # registrar usuario
-@app.route('/tienda/register', methods=['GET', 'POST'])
+@app.route('/tenda/register', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
         mail = request.form.get('mail')
@@ -395,7 +403,7 @@ def add_user():
 
 
 # admin tienda
-@app.route('/tienda/admin', methods=["GET", "POST"])
+@app.route('/tenda/admin', methods=["GET", "POST"])
 def get_productos_admin():
     productos = Producto.query.order_by(Producto.id.asc()).all()
     usuarios = Usuario.query.order_by(Usuario.id.asc()).all()
@@ -406,7 +414,7 @@ def get_productos_admin():
 
 # formulario para añadir productos
 
-@app.route('/tienda/add_producto', methods=['GET', 'POST'])
+@app.route('/tenda/add_producto', methods=['GET', 'POST'])
 def add_producto():
     if request.method == 'POST':
         name = request.form.get('name')
@@ -428,7 +436,7 @@ def add_producto():
 
 
 # borrar productos
-@app.route('/tienda/borrar_producto/<int:id>', methods=['GET', 'POST'])
+@app.route('/tenda/borrar_producto/<int:id>', methods=['GET', 'POST'])
 def borrar_producto(id):
     producto = Producto.query.get(id)
     if not producto:
@@ -468,7 +476,7 @@ def añadir_al_carrito(producto_id):
     return redirect(url_for('mostrar_inicio'))
 
 # carrito
-@app.route('/tienda/carrito', methods=['GET', 'POST'])
+@app.route('/tenda/carrito', methods=['GET', 'POST'])
 def ver_carrito():
     global user_login
 
@@ -505,8 +513,6 @@ def ver_carrito():
         return render_template("tienda/tienda_carrito.html", productos_en_carrito=productos_en_carrito, precio_total=precio_total)
 
     return render_template("tienda/tienda_carrito.html", productos_en_carrito=productos_en_carrito)
-
-
 
 
 if __name__ == "__main__":

@@ -1,3 +1,43 @@
+{% if pagina == 'store' %}
+<div class="contenedor-nav">
+    <nav class="auxiliar">
+        <ul>
+            <li><a href="/">TORNAR A LA PÀGINA OFICIAL</a></li>
+        </ul>
+        <ul>
+            <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+        </ul>
+    </nav>
+    <nav class="primaria">
+        <div class="contenedor-logo">
+            <a href="/"><img src="../static/img/main/logo.png" alt=""></a>
+        </div>
+        <ul>
+            <li><a href="/">Inici</a></li>
+            <li><a href="/tenda/productes">Productes</a></li>
+            <li><a href="/#coleccions">Coleccions</a></li>
+            <li><a href="/#promos">En promoció</a></li>
+            <li><a href="/#tendes">Tendes oficials</a></li>
+            <li><a href="/#newsletter">Newsletter</a></li>
+        </ul>
+        
+        {% if user_login %}
+        <a href="/carrito">
+            <button class="boton-login"><i class="fa-solid fa-cart-shopping"></i></button>
+        </a>
+        {% else %}
+        <a href="/login">
+            <button class="boton-login"><i class="fa-solid fa-user"></i></button>
+        </a>
+        {% endif %}
+    </nav>
+</div>
+
+{% else %}
 <div class="contenedor-nav">
     <nav class="auxiliar">
         <ul>
@@ -27,3 +67,4 @@
         </a>
     </nav>
 </div>
+{% endif %}

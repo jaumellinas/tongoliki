@@ -16,6 +16,20 @@
 {% block content %}
 {% endblock %}
 
+{% if pagina == 'store' %}
+<footer class="footer-store">
+    <h3>Acceptem els següents mètodes de pagament</h3>
+    <ul>
+        <li><i class="fa-brands fa-cc-visa"></i></li>
+        <li><i class="fa-brands fa-cc-mastercard"></i></li>
+        <li><i class="fa-brands fa-cc-amex"></i></li>
+        <li><i class="fa-brands fa-paypal"></i></li>
+        <li><i class="fa-brands fa-apple-pay"></i></li>
+        <li><i class="fa-brands fa-google-pay"></i></li>
+    </ul>
+</footer>
+{% endif %}
+
 <footer>
     <div class="footer-text">
         <p>© <script>document.write(new Date().getFullYear())</script> per <a href="https://www.github.com/Adrig3/tongoliki">Tongoliki</a>, un grup d'estudiants <a href="https://www.santjosepobrer.es">de Sant Josep Obrer</a>.</p>
