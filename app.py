@@ -399,7 +399,7 @@ def add_user():
         db.session.commit()
         return redirect(url_for('mostrar_inicio'))
 
-    return render_template("tienda/tienda_register.html")
+    return render_template("tienda/auth/tienda_register.html")
 
 
 # admin tienda
