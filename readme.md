@@ -158,7 +158,7 @@ Producto
 
 Carrito
 
-![Carrito](static/img/teenda/UML/carrito.jpg)
+![Carrito](static/img/tenda/UML/carrito.jpg)
 ---
 
 Login
