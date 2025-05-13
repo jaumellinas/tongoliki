@@ -8,29 +8,39 @@
     <link rel="shortcut icon" href="{{ url_for('static',filename='img/main/favicon.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/login.css') }}">
     <script src="https://kit.fontawesome.com/c3c63f74a9.js" crossorigin="anonymous"></script>
-    <title>Login - RCD Mallorca</title>
+    <title>Registre - RCD Mallorca</title>
 </head>
 <body>
     <div class="bg-container"></div>
     <div class="login-container">
-        {% if error == "badlogin" %}
+        {% if error == "campos_vacios" %}
         <div class="alert">
-            <i class="fa-solid fa-circle-exclamation"></i> L'autenticació ha fallat. Torna a intentar-ho.
+            <i class="fa-solid fa-circle-exclamation"></i> No pots deixar camps buits.
+        </div>
+
+        {% elif error == "usuario_existe" %}
+        <div class="alert">
+            <i class="fa-solid fa-circle-exclamation"></i> Ja existeix un usuari amb aquest correu electrònic.
+        </div>
+
+        {% elif error == "password_corto" %}
+        <div class="alert">
+            <i class="fa-solid fa-circle-exclamation"></i> La contrasenya ha de tenir almenys 8 caràcters.
         </div>
         {% endif %}
 
         <img src="/static/img/main/logo.png" class="logo">
-        <h2>Iniciar sessió</h2>
-        <form action="{{ url_for('get_login') }}" method="post">
+        <h2>Registra't</h2>
+        <form action="{{ url_for('add_user') }}" method="post">
             <div class="input-group">
-                <label for="email">Correu electrònic</label>
-                <input type="email" name="email" id="email" placeholder="p.ex bea@rcdmallorca.es" required>
+                <label for="mail">Correu electrònic</label>
+                <input type="mail" name="mail" id="mail" placeholder="p.ex bea@rcdmallorca.es" required>
             </div>
             <div class="input-group">
                 <label for="password">Contrasenya</label>
                 <input type="password" name="password" id="password" placeholder="••••••••••" required>
             </div>
-            <button type="submit" class="login-button">Iniciar sessió</button>
+            <button type="submit" class="login-button">Crear usuari</button>
         </form>
     </div>
 </body>

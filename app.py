@@ -386,7 +386,43 @@ def mostrar_inicio():
     productos = Producto.query.order_by(Producto.id.asc()).all()
     return render_template("tienda/index.html", pagina = pagina, productos = productos, user_login = user_login)
 
-# PRODUCTOS
+# REGISTRO USUARIO
+@app.route('/register', methods=['GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        mail = request.form.get('mail')
+        password = request.form.get('password')
+
+        if not mail or not password:
+            return render_template("/auth/register.html", error="campos_vacios")
+        
+        user_exists = Usuario.query.filter_by(mail=mail).first()
+        if user_exists:
+            return render_template("/auth/register.html", error="usuario_existe")
+        
+        if len(password) < 8:
+            return render_template("/auth/register.html", error="password_corto")
+        
+        new_user = Usuario(
+            mail = mail,
+            password = password,
+            is_admin = False
+        )
+        
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('mostrar_inicio'))
+
+    return render_template("/auth/register.html")
+
+# ADMIN TIENDA
+@app.route('/tenda/admin', methods=["GET", "POST"])
+def get_productos_admin():
+    productos = Producto.query.order_by(Producto.id.asc()).all()
+    usuarios = Usuario.query.order_by(Usuario.id.asc()).all()
+    return render_template("tienda/plantillas_back/admin.html", productos=productos, usuarios=usuarios)
+
+# LEER TODOS LOS PRODUCTOS
 @app.route('/tenda/productes', methods=['GET'])
 def mostrar_productos():
     pagina = "store"
@@ -396,7 +432,7 @@ def mostrar_productos():
     productos = Producto.query.order_by(Producto.id.asc()).all()
     return render_template("tienda/productes.html", pagina = pagina, productos = productos, user_login = user_login)
 
-# PRODUCTO ESPECÍFICO
+# LEER PRODUCTO ESPECÍFICO
 @app.route('/tenda/producte/<int:id>', methods=['GET', 'POST'])
 def mostrar_producto(id):
     global user_login
@@ -407,37 +443,7 @@ def mostrar_producto(id):
         return "producto no encontrado", 404
     return render_template("tienda/producte.html", pagina = pagina, producto = producto, user_login = user_login)
 
-# REGISTRO USUARIO
-@app.route('/registre', methods=['GET', 'POST'])
-def add_user():
-    if request.method == 'POST':
-        mail = request.form.get('mail')
-        password = request.form.get('password')
-        is_admin = False
-        
-        
-        new_user = Usuario(
-            mail=mail,
-            password=password,
-            is_admin=False
-        )
-        
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('mostrar_inicio'))
-
-    return render_template("tienda/auth/tienda_register.html")
-
-# ADMIN TIENDA
-@app.route('/tenda/admin', methods=["GET", "POST"])
-def get_productos_admin():
-    productos = Producto.query.order_by(Producto.id.asc()).all()
-    usuarios = Usuario.query.order_by(Usuario.id.asc()).all()
-    return render_template("tienda/plantillas_back/admin.html", productos=productos, usuarios=usuarios)
-
-
-# formulario para añadir productos
-
+# CREAR PRODUCTO
 @app.route('/tenda/add_producto', methods=['GET', 'POST'])
 def add_producto():
     if request.method == 'POST':
@@ -458,25 +464,12 @@ def add_producto():
 
     return render_template("tienda/formularios_back/add_producto.html")
 
-
-# borrar productos
-@app.route('/tenda/borrar_producto/<int:id>', methods=['GET', 'POST'])
-def borrar_producto(id):
-    producto = Producto.query.get(id)
-    if not producto:
-        return "producto no encontrado", 404
-    db.session.delete(producto)
-    db.session.commit()
-    return redirect(url_for('get_productos_admin'))
-
-
-
-# editar productos
+# EDITAR PRODUCTO
 @app.route('/editar_producto/<int:id>', methods=['GET', 'POST'])
 def editar_producto(id):
     producto = Producto.query.get(id)
     if not producto:
-        return "producto no encontrado", 404
+        return "Producto no encontrado.", 404
     if request.method == 'POST':
         producto.name = request.form.get('name')
         producto.desc = request.form.get('desc')
@@ -486,7 +479,17 @@ def editar_producto(id):
     
     return render_template("tienda/formularios_back/editar_producto.html", producto=producto)
 
-# añadir productos al carrito
+# BORRAR PRODUCTO
+@app.route('/tenda/borrar_producto/<int:id>', methods=['GET', 'POST'])
+def borrar_producto(id):
+    producto = Producto.query.get(id)
+    if not producto:
+        return "Producto no encontrado.", 404
+    db.session.delete(producto)
+    db.session.commit()
+    return redirect(url_for('get_productos_admin'))
+
+# ADD A CARRITO
 @app.route('/añadir_al_carrito/<int:producto_id>', methods=['GET', 'POST'])
 def añadir_al_carrito(producto_id):
     global user_login
@@ -499,7 +502,13 @@ def añadir_al_carrito(producto_id):
     
     return redirect(url_for('mostrar_inicio'))
 
-# CARRITO
+
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
+
+# VISUALIZAR CARRITO
 @app.route('/tenda/carrito', methods=['GET', 'POST'])
 def ver_carrito():
     global user_login
@@ -563,9 +572,3 @@ def ver_carrito():
         return render_template("tienda/carrito.html", productos_en_carrito=productos_en_carrito, precio_total=precio_total)
 
     return render_template("tienda/carrito.html", productos_en_carrito=productos_en_carrito)
-
-
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
