@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from datetime import datetime
@@ -12,6 +12,7 @@ URL_SUPABASE = os.getenv("URL_SUPABASE")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = URL_SUPABASE
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = os.getenv("SECRET_KEY")
 db = SQLAlchemy(app)
 
 class Persona(db.Model):
@@ -88,7 +89,6 @@ def get_plantilla():
 
 @app.route('/login', methods=['GET', 'POST'])
 def get_login():
-    global user_login
     if request.method == "POST":
         email_get = request.form.get('email')
         password_get = request.form.get('password')
@@ -97,11 +97,12 @@ def get_login():
 
         if user:
             if user: 
-                user_login = True
+                session['user_login'] = True
                 if user.is_admin:
-                    return redirect(url_for('get_choice', user_login=user_login))
+                    session['is_admin'] = user.is_admin
+                    return redirect(url_for('get_choice'))
                 else:
-                    return redirect(url_for('mostrar_inicio', user_login=user_login))
+                    return redirect(url_for('mostrar_inicio'))
         else:
             return render_template("auth/login.html", error="badlogin")
         
@@ -109,7 +110,10 @@ def get_login():
 
 @app.route('/choice', methods=['GET'])
 def get_choice():
-    return render_template("auth/choice.html", user_login = user_login)
+    if session.get('is_admin'):
+        return render_template("auth/choice.html")
+    else:
+        return redirect(url_for('get_index'))
 
 @app.route('/admin', methods=["GET", "POST"])
 def get_personas_admin():
@@ -120,7 +124,10 @@ def get_personas_admin():
     partidos = Partido.query.order_by(Partido.id.asc()).all()
     videos = Video.query.all()
 
-    return render_template("admin/landing.html", accion=accion, tipo=tipo, personas=personas, equipos=equipos, partidos=partidos, videos=videos)
+    if not session.get('is_admin'):
+        return redirect(url_for('get_index'))
+    else:
+        return render_template("admin/landing.html", accion = accion, tipo = tipo, personas = personas, equipos = equipos, partidos = partidos, videos = videos)
 
 @app.route('/forms')
 def get_forms():
@@ -373,15 +380,12 @@ def borrar_video(id):
 # ----------- TIENDA ------------
 
 # ÍNDEX
-user_login = False
-
 @app.route('/tenda', methods=['GET', 'POST'])
 def mostrar_inicio():
-    global user_login
     pagina = "store"
 
     productos = Producto.query.order_by(Producto.id.asc()).all()
-    return render_template("tienda/index.html", pagina = pagina, productos = productos, user_login = user_login)
+    return render_template("tienda/index.html", pagina = pagina, productos = productos)
 
 # REGISTRO USUARIO
 @app.route('/register', methods=['GET', 'POST'])
@@ -417,28 +421,29 @@ def add_user():
 def get_productos_admin():
     productos = Producto.query.order_by(Producto.id.asc()).all()
     usuarios = Usuario.query.order_by(Usuario.id.asc()).all()
-    return render_template("admin/tienda.html", productos=productos, usuarios=usuarios)
+
+    if not session.get('is_admin'):
+        return redirect(url_for('mostrar_inicio'))
+    else:
+        return render_template("admin/tienda.html", productos=productos, usuarios=usuarios)
 
 # LEER TODOS LOS PRODUCTOS
 @app.route('/tenda/productes', methods=['GET'])
 def mostrar_productos():
     pagina = "store"
-    
-    global user_login
 
     productos = Producto.query.order_by(Producto.id.asc()).all()
-    return render_template("tienda/productes.html", pagina = pagina, productos = productos, user_login = user_login)
+    return render_template("tienda/productes.html", pagina = pagina, productos = productos)
 
 # LEER PRODUCTO ESPECÍFICO
 @app.route('/tenda/producte/<int:id>', methods=['GET', 'POST'])
 def mostrar_producto(id):
-    global user_login
     pagina = "store"
 
     producto = Producto.query.get(id)
     if not producto:
         return "producto no encontrado", 404
-    return render_template("tienda/producte.html", pagina = pagina, producto = producto, user_login = user_login)
+    return render_template("tienda/producte.html", pagina = pagina, producto = producto)
 
 # CREAR PRODUCTO
 @app.route('/tenda/add_producto', methods=['GET', 'POST'])
@@ -489,25 +494,26 @@ def borrar_producto(id):
     return redirect(url_for('get_productos_admin'))
 
 # ADD A CARRITO
-@app.route('/añadir_al_carrito/<int:producto_id>', methods=['GET', 'POST'])
-def añadir_al_carrito(producto_id):
-    global user_login
-
-    if user_login:
+@app.route('/add_al_carrito/<int:producto_id>', methods=['GET', 'POST'])
+def add_al_carrito(producto_id):
+    if session.get('user_login'):
         producto = Producto.query.get(producto_id)
+        
         if producto:
             producto.in_cart = True
             db.session.commit()
     
-    return redirect(url_for('mostrar_inicio'))
+        return redirect(url_for('mostrar_inicio'))
+    
+    else:
+        return redirect(url_for('get_login'))
 
 # VISUALIZAR CARRITO
 @app.route('/tenda/carrito', methods=['GET', 'POST'])
 def ver_carrito():
-    global user_login
     pagina = "store"
 
-    if not user_login:
+    if not session.get('user_login'):
         return redirect(url_for('mostrar_inicio'))
 
     productos_en_carrito = Producto.query.filter_by(in_cart=True).all()
@@ -562,15 +568,13 @@ def ver_carrito():
             else:
                 precio_total = None
 
-        return render_template("tienda/carrito.html", pagina = pagina, user_login = user_login, productos_en_carrito = productos_en_carrito, precio_total = precio_total, descuento_aplicado = descuento_aplicado, codigo_descuento = codigo_descuento)
+        return render_template("tienda/carrito.html", pagina = pagina, productos_en_carrito = productos_en_carrito, precio_total = precio_total, descuento_aplicado = descuento_aplicado, codigo_descuento = codigo_descuento)
 
-    return render_template("tienda/carrito.html", pagina = pagina, user_login = user_login, productos_en_carrito = productos_en_carrito)
+    return render_template("tienda/carrito.html", pagina = pagina, productos_en_carrito = productos_en_carrito)
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    global user_login
-    user_login = False
-    
+    session.clear()
     return redirect(url_for('mostrar_inicio'))
 
 if __name__ == "__main__":

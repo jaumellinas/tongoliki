@@ -20,12 +20,12 @@
                 <ul>
                     <li><a href="/">TORNAR A LA PÀGINA PRINCIPAL</a></li>
                 </ul>
-                {% if user_login %}
+                {% if session.user_login %}
                 <ul>
                     <li><a href="/logout">TANCAR SESSIÓ</a></li>
                 </ul>
                 {% endif %}
-                {% if not user_login %}
+                {% if not session.user_login %}
                 <ul>
                     <li><a href="/login">LOGIN</a></li>
                     <li><a href="/register">REGISTRE</a></li>
@@ -45,7 +45,7 @@
                     <li><a href="/tenda#newsletter">Newsletter</a></li>
                 </ul>
                 
-                {% if user_login %}
+                {% if session.user_login %}
                 <a href="/tenda/carrito">
                     <button class="boton-login"><i class="fa-solid fa-cart-shopping"></i></button>
                 </a>
@@ -102,7 +102,7 @@
                     <li><a href="/tenda#promos">En promoció</a></li>
                     <li><a href="/tenda#tendes">Tendes oficials</a></li>
                     <li><a href="/tenda#newsletter">Newsletter</a></li>
-                    {% if not user_login %}
+                    {% if not session.user_login %}
                     <ul class="links-2-mobile">
                         <li><a href="/"><i class="fa-solid fa-house"></i> Pàgina principal</a></li>
                         <li><a href="/login"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a></li>

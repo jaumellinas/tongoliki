@@ -42,9 +42,9 @@ body {
         <h3>{{producto.collection}}</h3>
         <h2>{{producto.price}} €</h2>
 
-        {% if user_login == True %}
+        {% if session.user_login %}
         <button>
-            <a href="{{ url_for('añadir_al_carrito', producto_id = producto.id) }}">AFEGIR A LA CISTELLA</a>
+            <a href="{{ url_for('add_al_carrito', producto_id = producto.id) }}">AFEGIR A LA CISTELLA</a>
         </button>
         {% else %}
         <div class="alerta-nologin">
