@@ -2,6 +2,26 @@
 
 {% block title %}{{producto.name}} - RCD Mallorca{% endblock %}
 
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+    const navbarLinks = document.querySelectorAll('.navbar-menu a');
+
+    menuToggle.addEventListener('click', () => {
+        navbarMenu.classList.toggle('active');
+    });
+
+    navbarLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navbarMenu.classList.remove('active');
+        });
+    });
+});
+</script>
+{% endblock %}
+
 {% block styles %}
 <style>
 body {
@@ -13,7 +33,6 @@ body {
 {% endblock %}
 
 {% block content %}
-{% include "components/navbar.html" %}
 
 <div class="player">
   <div class="player-container">

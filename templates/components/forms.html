@@ -170,6 +170,37 @@
             <button type="submit">Afegir</button>
         </form>
         {% endblock %}
+    {% elif tipo == "productos" %}
+        {% block add_producto %}
+        <form action="{{ url_for('add_producto') }}" method="post">
+            <h1><i class="fa-solid fa-bag-shopping"></i> Afegir producte</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="desc">Descripció</label>
+                    <input type="text" id="desc" name="desc" required />
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="elemento">
+                    <label for="price">Col·leció</label>
+                    <input type="text" id="collection" name="collection" required />
+                </div>
+
+                <div class="elemento">
+                    <label for="price">Preu</label>
+                    <input type="text" id="price" name="price" required />
+                </div>
+            </div>
+
+            <button type="submit">Afegir</button>
+        </form>
+        {% endblock %}
     {% endif %}
 
 {% elif accion == "edit" %}
@@ -335,6 +366,38 @@
                 <div class="elemento">
                     <label for="identificador">Identificador</label>
                     <input type="text" id="identificador" name="identificador" value="{{video.identificador}}" required>
+                </div>
+            </div>
+
+            <button type="submit">Editar</button>
+        </form>
+        {% endblock %}
+
+    {% elif tipo == "productos" %}
+        {% block edit_producto %}
+        <form action="{{ url_for('editar_producto', id=producto.id) }}" method="post">
+            <h1><i class="fa-solid fa-bag-shopping"></i> Editar producte</h1>
+            <div class="fila">
+                <div class="elemento">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" value="{{ producto.name }}" required>
+                </div>
+
+                <div class="elemento">
+                    <label for="desc">Descripció</label>
+                    <input type="text" id="desc" name="desc" value="{{ producto.desc }}" required />
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="elemento">
+                    <label for="price">Col·leció</label>
+                    <input type="text" id="collection" name="collection" value="{{ producto.collection }}" required />
+                </div>
+
+                <div class="elemento">
+                    <label for="price">Preu</label>
+                    <input type="text" id="price" name="price" value="{{ producto.price }}" required />
                 </div>
             </div>
 

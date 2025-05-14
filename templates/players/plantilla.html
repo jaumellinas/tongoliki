@@ -12,9 +12,28 @@
 </style>
 {% endblock %}
 
-{% block content %}
-{% include "components/navbar.html" %}
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
 
+    menuToggle.addEventListener('click', () => {
+        navbarMenu.classList.toggle('active');
+
+        if (navbarMenu.classList.contains('active')) {
+            menuToggle.classList.remove('fa-bars');
+            menuToggle.classList.add('fa-times');
+        } else {
+            menuToggle.classList.remove('fa-times');
+            menuToggle.classList.add('fa-bars');
+        }
+    });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
 <div class="contenedor-plantilla-v2">
     <h1>Porters</h1>
     <ul>

@@ -1,34 +1,102 @@
-<form method="POST">
-  <h2>Carrito de compras</h2>
+{% extends "components/base.html" %}
 
-  {% for producto in productos_en_carrito %}
-  <div class="producto">
-    <h3>{{ producto.name }}</h3>
-    <p>Precio: ${{ producto.price }}</p>
-    <label for="qty_{{ producto.id }}">Cantidad:</label>
-    <input
-      type="number"
-      id="qty_{{ producto.id }}"
-      name="qty_{{ producto.id }}"
-      value="{{ producto.qty }}"
-      min="1"
-    />
-    <button type="submit" name="actualizar" value="{{ producto.id }}">
-      Actualizar cantidad
-    </button>
-    <button type="submit" name="eliminar" value="{{ producto.id }}">
-      Eliminar
-    </button>
-  </div>
-  {% endfor %}
+{% block title %}Cistella - RCD Mallorca{% endblock %}
 
-  <label for="codigo_descuento">Código de descuento: </label>
-  <input type="text" id="codigo_descuento" name="codigo_descuento" />
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+    const navbarLinks = document.querySelectorAll('.navbar-menu a');
 
-  <button type="submit" name="aplicar_descuento">Aplicar descuento</button> <br>
-  <button type="submit" name="checkout">Checkout</button>
-</form>
+    menuToggle.addEventListener('click', () => {
+        navbarMenu.classList.toggle('active');
+    });
 
-{% if precio_total is not none %}
-<h3>Total a pagar: ${{ precio_total }}</h3>
-{% endif %}
+    navbarLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navbarMenu.classList.remove('active');
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block styles %}
+<style>
+body {
+  height: 100%;
+  min-height: 100%;
+  background-color: #F7F9F9;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="cart">
+        <div class="cart-wrapper">
+            {% if not productos_en_carrito %}
+            <div class="cart-empty">
+                <img src="../../static/img/tenda/static/var.gif" alt="">
+                <h2>La teva cistella està buida</h2>
+                <div class="cart-empty-text">
+                    <p>Has iniciat sessió però no has afegit res a la cistella.</p>
+                    <p>Afegeix productes a la cistella per a començar el procés de compra.</p>
+                </div>
+                <div class="cart-empty-buttons">
+                    <a href="/tenda" class="cart-empty-button">Tornar a l'inici</a>
+                    <a href="/tenda#promos" class="cart-empty-button">Promocions</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if productos_en_carrito %}
+            <h1>La teva cistella</h1>
+            <form method="POST">
+                <div class="cart-holder">
+                    <div class="cart-products">
+                        {% for producto in productos_en_carrito %}
+                        <div class="cart-product">
+                            <img src="../static/img/tenda/products/{{ producto.id }}.webp">
+                            <div class="cart-product-info">
+                                <h3>{{ producto.name }}</h3>
+                                <b>{{ producto.price }} €</b>
+                                <div class="product-quantity">
+                                    <label for="qty_{{ producto.id }}">Quantitat:</label>
+                                    <input type="number" id="qty_{{ producto.id }}" name="qty_{{ producto.id }}" value="{{ producto.qty }}" min="1"/>
+                                        <div class="product-buttons">
+                                            <button type="submit" name="actualizar" value="{{ producto.id }}">Validar</button>
+                                            <button type="submit" name="eliminar" value="{{ producto.id }}">Eliminar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                <div class="cart-checkout">
+                    <div class="cart-discount">
+                        <p>Tens un descompte?</p>
+                        <div class="discount-holder">
+                            <form method="POST">
+                                <input type="text" id="codigo_descuento" name="codigo_descuento" class="input-discount"/>
+                                <button type="submit" name="aplicar_descuento" class="checkout-button">Aplicar</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="cart-total">
+                        <div class="cart-total-price">
+                            <h2>Total a pagar</h2>
+                            <h3>{{ precio_total }} € (IVA inclòs)</h3>
+                        </div>
+
+                        <button type="submit" name="checkout" class="checkout-button">Checkout</button>
+                    </div>
+                </div>
+            {% endif %}
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

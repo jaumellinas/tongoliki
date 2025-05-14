@@ -35,13 +35,10 @@ class Partido(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
-
     local_team_id = db.Column(db.Integer, db.ForeignKey('equipo.id'), nullable=False)
     visitor_team_id = db.Column(db.Integer, db.ForeignKey('equipo.id'), nullable=False)
-
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.String(5), nullable=False)
-
     local_team = db.relationship('Equipo', foreign_keys=[local_team_id], backref='partidos_local')
     visitor_team = db.relationship('Equipo', foreign_keys=[visitor_team_id], backref='partidos_visitantes')
 
@@ -56,7 +53,7 @@ class Video(db.Model):
     identificador = db.Column(db.String(100), nullable=False)
 
 class Producto(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
     desc = db.Column(db.String(100), nullable=False)
     collection = db.Column(db.String(100), nullable=False)
@@ -123,7 +120,7 @@ def get_personas_admin():
     partidos = Partido.query.order_by(Partido.id.asc()).all()
     videos = Video.query.all()
 
-    return render_template("admin/admin_panel.html", accion=accion, tipo=tipo, personas=personas, equipos=equipos, partidos=partidos, videos=videos)
+    return render_template("admin/landing.html", accion=accion, tipo=tipo, personas=personas, equipos=equipos, partidos=partidos, videos=videos)
 
 @app.route('/forms')
 def get_forms():
@@ -378,7 +375,7 @@ def borrar_video(id):
 # ÍNDEX
 user_login = False
 
-@app.route('/tenda/', methods=['GET', 'POST'])
+@app.route('/tenda', methods=['GET', 'POST'])
 def mostrar_inicio():
     global user_login
     pagina = "store"
@@ -420,7 +417,7 @@ def add_user():
 def get_productos_admin():
     productos = Producto.query.order_by(Producto.id.asc()).all()
     usuarios = Usuario.query.order_by(Usuario.id.asc()).all()
-    return render_template("tienda/plantillas_back/admin.html", productos=productos, usuarios=usuarios)
+    return render_template("admin/tienda.html", productos=productos, usuarios=usuarios)
 
 # LEER TODOS LOS PRODUCTOS
 @app.route('/tenda/productes', methods=['GET'])
@@ -449,12 +446,14 @@ def add_producto():
     if request.method == 'POST':
         name = request.form.get('name')
         desc = request.form.get('desc')
+        collection = request.form.get('collection')
         price = request.form.get('price')
         
         
         new_producto = Producto(
             name=name,
             desc=desc,
+            collection=collection,
             price=price
         )
         
@@ -462,7 +461,7 @@ def add_producto():
         db.session.commit()
         return redirect(url_for('mostrar_inicio'))
 
-    return render_template("tienda/formularios_back/add_producto.html")
+    return render_template("components/forms.html", accion = "add", tipo = "productos")
 
 # EDITAR PRODUCTO
 @app.route('/editar_producto/<int:id>', methods=['GET', 'POST'])
@@ -477,7 +476,7 @@ def editar_producto(id):
         db.session.commit()
         return redirect(url_for('get_productos_admin'))
     
-    return render_template("tienda/formularios_back/editar_producto.html", producto=producto)
+    return render_template("components/forms.html", accion = "edit", tipo = "productos", producto = producto)
 
 # BORRAR PRODUCTO
 @app.route('/tenda/borrar_producto/<int:id>', methods=['GET', 'POST'])
@@ -502,22 +501,16 @@ def añadir_al_carrito(producto_id):
     
     return redirect(url_for('mostrar_inicio'))
 
-
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
-
 # VISUALIZAR CARRITO
 @app.route('/tenda/carrito', methods=['GET', 'POST'])
 def ver_carrito():
     global user_login
+    pagina = "store"
 
     if not user_login:
         return redirect(url_for('mostrar_inicio'))
 
     productos_en_carrito = Producto.query.filter_by(in_cart=True).all()
-    promos = Promo.query.all()
     
     precio_total = None
     descuento_aplicado = 0
@@ -569,6 +562,18 @@ def ver_carrito():
             else:
                 precio_total = None
 
-        return render_template("tienda/carrito.html", productos_en_carrito=productos_en_carrito, precio_total=precio_total)
+        return render_template("tienda/carrito.html", pagina = pagina, user_login = user_login, productos_en_carrito = productos_en_carrito, precio_total = precio_total, descuento_aplicado = descuento_aplicado, codigo_descuento = codigo_descuento)
 
-    return render_template("tienda/carrito.html", productos_en_carrito=productos_en_carrito)
+    return render_template("tienda/carrito.html", pagina = pagina, user_login = user_login, productos_en_carrito = productos_en_carrito)
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    global user_login
+    user_login = False
+    
+    return redirect(url_for('mostrar_inicio'))
+
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)

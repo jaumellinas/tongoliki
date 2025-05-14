@@ -2,21 +2,70 @@
 
 {% block title %}Tenda - RCD Mallorca{% endblock %}
 
+{% block scripts %}
+<script>
+    // Volver arriba
+    document.addEventListener("DOMContentLoaded", function () {
+    const backToTopButton = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 300) { // Mostrar el botón después de 300px de scroll
+            backToTopButton.style.opacity = "1";
+            backToTopButton.style.visibility = "visible";
+        } else {
+            backToTopButton.style.opacity = "0";
+            backToTopButton.style.visibility = "hidden";
+        }
+    });
+
+    backToTopButton.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+    const navbarLinks = document.querySelectorAll('.navbar-menu a');
+
+    menuToggle.addEventListener('click', () => {
+        navbarMenu.classList.toggle('active');
+    });
+
+    navbarLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navbarMenu.classList.remove('active');
+        });
+    });
+});
+</script>
+{% endblock %}
+
 {% block content %}
-<header class="tenda-header">
-    {% include "components/navbar.html" %}
-    <div class="titular">
-        <div class="titular-text">
-            <h1>SEMPREAMUNT15</h1>
-        </div>
-        <div class="titular-link">
-            <p>Empra aquest codi promocional per a rebre un 15% de descompte a la teva primera comanda.</p>
-            <p><b>Cap amunt, sempre amunt!</b></p>
+    <header>
+        <button id="backToTop" class="back-to-top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+    </header>
+
+    <div class="cap-tenda">
+        <div class="titular">
+            <div class="titular-text">
+                <h1>SEMPREAMUNT15</h1>
+            </div>
+            <div class="titular-link">
+                <p>Empra aquest codi promocional per a rebre un 15% de descompte a la teva primera comanda.</p>
+                <p><b>Cap amunt, sempre amunt!</b></p>
+            </div>
         </div>
     </div>
-</header>
 
-<div class="coleccions">
+<div class="coleccions" id="coleccions">
     <div class="coleccions-wrapper">
         <h1>Col·leccions</h1>
 
@@ -48,7 +97,7 @@
     </div>
 </div>
 
-<div class="promos">
+<div class="promos" id="promos">
     <div class="promos-wrapper">
         <h1>En promoció</h1>
         <ul>
@@ -70,10 +119,14 @@
             {% endif %}
         {% endfor %}
         </ul>
+
+        <div class="promos-hint-mobile">
+            <i class="fa-solid fa-hand-point-right"></i> <p>Llisca per a veure els productes</p>
+        </div>
     </div>
 </div>
 
-<div class="tendes-oficials">
+<div class="tendes-oficials" id="tendes">
     <div class="tendes-wrapper">
         <div class="tendes-container">
             <div class="tendes-foto"></div>
@@ -86,7 +139,7 @@
     </div>
     </div>
 
-<div class="newsletter">
+<div class="newsletter" id="newsletter">
     <div class="newsletter-wrapper">
         <h1>Subscriu-te a la nostra newsletter</h1>
         <p>Rebràs les últimes novetats i ofertes exclusives</p>

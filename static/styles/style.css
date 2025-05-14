@@ -45,9 +45,12 @@ body {
 
 /* -- (1) Navbar -- */
 .contenedor-nav {
+    position: relative;
+    top: 0;
     width: 90%;
-    margin: 0 auto;
+    z-index: 10;
     padding-top: 40px;
+    margin: 0 auto;
 }
 
 /* -- (1.1) Navbar auxiliar -- */
@@ -145,20 +148,39 @@ body {
     transition: 0.3s;
 }
 
+/* -- Ocultar navbar responsive en ordenador */
+.navbar-menu {
+    display: none;
+}
+
+.navbar-mobile {
+    display: none;
+}
+
 /* -- (2) Header -- */
-header {
+.cap {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
     height: 100vh;
     background-image: 
         linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.8) 100%),
         url('../img/index/header.jpg');
-    background-position: bottom;
+    background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0 0 20px 0;
+    margin-top: -190px;
+    z-index: 1;
+    filter: grayscale(1);
+    transition: 1s;
+    cursor: pointer;
+}
+
+.cap:hover {
+    filter: grayscale(0);
+    transition: 1s;
 }
 
 /* -- (2.1) Titular header -- */
@@ -284,7 +306,7 @@ header {
     font-weight: 700;
 }
 
-/* -- Banner LALIGA -- */
+/* -- (3.1) Futuros partidos -- */
 .laliga-holder {
     width: 100%;
     display: flex;
@@ -349,15 +371,6 @@ header {
     margin-left: 5px;
 }
 
-.botones {
-    width: 93%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-}
-
 .carousel {
     width: 100%;
     overflow: hidden;
@@ -395,25 +408,6 @@ header {
     object-fit: cover;
     object-position: top;
     border-radius: 10px;
-}
-
-.jugador-previo, .jugador-siguiente {
-    width: 50px;
-    height: 50px;
-    padding: 10px;
-    background: #e12323;
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 20px;
-    transition: 0.3s;
-    z-index: 1;
-}
-
-.jugador-previo:hover, .jugador-siguiente:hover {
-    cursor: pointer;
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
-    transition: 0.3s;
 }
 
 .numero-jugador {
@@ -480,6 +474,41 @@ header {
     margin-left: 5px;
 }
 
+.carousel-link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* -- (4.1) Botones carousel -- */
+.botones {
+    width: 92.5vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+}
+
+.jugador-previo, .jugador-siguiente {
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    background: #e12323;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
+    z-index: 1;
+}
+
+.jugador-previo:hover, .jugador-siguiente:hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+    transition: 0.3s;
+}
+
 /* -- (5) RCD Mallorca TV -- */
 .videos {
     padding: 30px 0 30px 0;
@@ -542,7 +571,7 @@ header {
     transform: scale(1.02);
 }
 
-/* -- Carousel sponsors */
+/* -- (6) Sponsors */
 .contenedor-patrocinadores {
     width: 90%;
     margin: 0 auto;
@@ -556,40 +585,57 @@ header {
     text-align: center;
 }
 
-.carousel-sponsors {
-    margin: 30px;
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
-.carousel-track {
-    display: flex;
-    width: max-content;
-    animation: scrollSponsors 30s linear infinite;
-    justify-content: center;
-    align-items: center;
+.logos {
+  overflow: hidden;
+  padding: 30px 0;
+  background: white;
+  white-space: nowrap;
+  position: relative;
 }
 
-.carousel-sponsors:hover .carousel-track {
-    animation-play-state: paused;
+.logos:before,
+.logos:after {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  content: "";
+  z-index: 2;
 }
 
-.carousel-item {
-    flex: 0 0 auto;
-    margin-right: 30px;
+.logos:before {
+  left: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
 }
 
-.carousel-item img {
-    width: auto;
-    height: 50px;
-    object-fit: contain;
-    opacity: 75%;
-    transition: 0.3s;
+.logos:after {
+  right: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
 }
 
-.carousel-item img:hover {
-    opacity: 1;
-    cursor: pointer;
-    transition: 0.3s;
+.logos:hover .logos-slide {
+  animation-play-state: paused;
 }
+
+.logos-slide {
+  display: inline-block;
+  animation: 35s slide infinite linear;
+}
+
+.logos-slide img {
+  height: 50px;
+  margin: 0 40px;
+}
+
 
 /* -- TIENDA  -- */
 
@@ -617,7 +663,11 @@ header {
     gap: 20px;
 }
 
-.coleccions-item{
+.coleccions-items a {
+    text-decoration: none;
+}
+
+.coleccions-item {
     width: calc(40% - 40px);
     min-width: 300px;
     height: 100px;
@@ -634,126 +684,17 @@ header {
     transition: 0.3s;
 }
 
-.coleccions-item:hover{
+.coleccions-item:hover {
     cursor: pointer;
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
     transform: scale(1.02);
     transition: 0.3s;
 }
 
-.coleccions-item img{
+.coleccions-item img {
     width: 100px;
     height: auto;
     border-radius: 10px;
-}
-
-/* -- TIENDA PANEL ADMIN -- */
-.header-tienda-admin{
-    width: 100%;
-    margin-bottom: 10px;
-    background-color: #e12323;
-    color: #fff;
-}
-
-.header-tienda-admin h1{
-    font-size: 30px;
-    font-weight: 800;
-    text-align: center;
-    padding: 20px 0 20px 0;
-}
-
-.header-tienda-admin p{
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-.tienda-admin-botones{
-    display: flex;
-    margin: 0 auto;
-    width: 95%;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.tienda-admin-botones button{
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    padding: 10px 20px 10px 20px;
-    background-color: #e12323;
-    border-radius: 10px;
-    border: none;
-}
-
-.tienda-admin-botones button:hover{
-    background-color: #c11f1f;
-    transition: 0.3s;
-}
-
-.tienda-admin-productos{
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.tienda-admin-productos h2{
-    font-size: 26px;
-    font-weight: 800;
-    align-self: flex-start;
-}
-
-.tienda-admin-productos ul li{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 400;
-    padding: 10px 0 10px 0;
-}
-
-.tienda-admin-productos button{
-    color: #e12323;
-    text-decoration: none;
-    font-size: 14px;
-    padding: 10px 20px 10px 20px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    border: none;
-    transition: 0.3s;
-}
-
-.tienda-admin-productos button:hover{
-    background-color: #e12323;
-    color: white;
-    transition: 0.3s;
-}
-
-.tienda-admin-usuarios{
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.tienda-admin-usuarios h2{
-    font-size: 26px;
-    font-weight: 800;
-    align-self: flex-start;
-    padding: 20px 0 20px 0;
-}
-
-.tienda-admin-usuarios ul li{
-    width: 100%;
-    display: flex;
-    font-size: 18px;
-    font-weight: 400;
-    padding: 10px 0 10px 0;
 }
 
 /* -- Footer -- */
@@ -766,6 +707,10 @@ footer {
     justify-content: space-between;
     align-items: center;
     
+}
+
+.footer-text-mobile {
+    display: none;
 }
 
 .footer-wrapper {
@@ -896,6 +841,32 @@ footer img{
 
 /* -- Tenda -- */
 
+.cap-tenda {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.8) 100%),
+        url("../img/tenda/static/header.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0 0 20px 0;
+    margin-top: -190px;
+    z-index: 1;
+    filter: grayscale(1);
+    transition: 1s;
+    cursor: pointer;
+}
+
+.cap-tenda:hover {
+    filter: grayscale(0);
+    transition: 1s;
+}
+
 .tenda-header {
     width: 100%;
     height: 100vh;
@@ -998,6 +969,10 @@ footer img{
     list-style: none;
 }
 
+.promos-hint-mobile {
+    display: none;
+}
+
 .contenedor-datos-producto {
     display: flex;
     flex-direction: column;
@@ -1080,6 +1055,178 @@ footer img{
 
 .footer-store-wrapper ul i {
     font-size: 35px;
+}
+
+/* -- Carrito -- */
+.cart {
+    width: 90%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.cart-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-wrapper h1 {
+    margin: 20px 0;
+}
+
+.cart-total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.cart-holder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-products {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-empty {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin: 30px auto;
+}
+
+.cart-empty h2 {
+    font-size: 36px;
+    font-weight: 900;
+    margin-top: 20px;
+}
+
+.cart-empty p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.cart-empty img {
+    filter: grayscale(1);
+    width: 300px;
+    border-radius: 50%;
+}
+
+.cart-empty-text {
+    text-align: center;
+}
+
+.cart-empty-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.cart-empty-button {
+    background-color: #e12323;
+    color: white;
+    padding: 15px 30px;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.cart-empty-button:hover {
+    background-color: #c11f1f;
+    transition: all 0.3s;
+}
+
+.cart-product {
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.cart-product img {
+    height: 100%;
+    margin-right: 20px;
+}
+
+.cart-product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.product-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.product-buttons button, .checkout-button {
+    font-family: 'Inter Tight', Helvetica, sans-serif;
+    background-color: #e12323;
+    color: white;
+    padding: 8px 24px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.product-buttons button:hover, .checkout-button:hover {
+    background-color: #c11f1f;
+    transition: all 0.3s;
+}
+
+#codigo_descuento {
+    font-family: 'Inter Tight', Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 6px 22px;
+    border: 2px solid #e12323;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+input[type="number"] {
+    font-family: 'Inter Tight', Helvetica, sans-serif;
+    width: 40px;
+    border: 1px solid #444444; 
+    padding: 5px;
+    font-size: 16px;
+}
+
+.cart-checkout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
 /* -- Newsletter -- */
@@ -1251,5 +1398,364 @@ footer img{
     
     .newsletter-wrapper p {
         font-size: 18px;
+    }
+}
+
+/* --- MEDIA QUERIES MÒBIL --- */
+@media (max-width : 768px) {
+    /* --- NAVBAR --- */
+    .contenedor-nav {
+        display: none;
+    }
+
+    .navbar-mobile {
+        display: flex;
+        width: 100%;
+        height: 60px;
+        background: #e12323;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .navbar-mobile-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px 0 20px;
+    }
+
+    .navbar-mobile-container img {
+        width: auto;
+        height: 80%;
+    }
+
+    .navbar-mobile-container i {
+        font-size: 24px;
+        color: white;
+    }
+
+    .navbar-menu {
+        display: none;
+    }
+
+    .navbar-menu.active {
+        display: flex;
+        width: 100vw;
+        height: calc(100vh - 60px);
+        background: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+        bottom: 0;
+        transform: translateY(0);
+    }
+
+    .navbar-menu-container {
+        width: 80vw;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-menu-container ul {
+        position: sticky;
+        width: 100%;
+        height: 85%;
+        display: flex;
+        gap: 25px;
+        flex-direction: column;
+        list-style: none;
+        text-align: right;
+    }
+
+    .navbar-menu li {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+    .navbar-menu a {
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .navbar-menu a:hover {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: underline;
+        transition: 0.3s;
+    }
+
+    ul .social-mobile {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 30px;
+    }
+
+    .links-2-mobile {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    ul .links-2-mobile a {
+        font-size: 22px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+    }
+
+    ul .links-2-mobile li {
+        align-self: flex-end;
+    }
+
+    ul .links-2-mobile li i {
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    /* --- HEADER --- */
+    .cap {
+        margin-top: 0;
+    }
+
+    .titular-text {
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* --- PARTIDOS --- */
+    .partidos ul {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .partidos ul li {
+        width: 100%;
+    }
+
+    /* --- CAROUSEL --- */
+    .contenedor-plantilla ul {
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .contenedor-plantilla li {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 100%;
+        max-width: 100%;
+        scroll-snap-align: center;
+    }
+
+    .contenedor-imagen {
+        text-align: center;
+    }
+
+    .contenedor-imagen img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .numero-jugador {
+        margin: 20px 0 0 10px;;
+    }
+
+    .numero-jugador p {
+        font-size: 28px;
+    }
+
+    .botones {
+        display: none;
+    }
+
+    /* --- VÍDEOS --- */
+    .video-principal {
+        width: 95%;
+    }
+
+    .videos-pequeños {
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .video-pequeño {
+        width: 95%;
+    }
+
+    /* --- SPONSORS --- */
+    .contenedor-patrocinadores h2 {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    /* --- FOOTER --- */
+    .footer-text {
+        display: none;
+    }
+
+    .footer-text-mobile {
+        display: flex;
+    }
+
+    .footer-wrapper {
+        width: 80%;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .footer-link {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    footer img {
+        margin: 0;
+    }
+
+    footer p {
+        margin: 0;
+    }
+
+    /* --- PLANTILLA --- */
+    .contenedor-plantilla-v2 h1 {
+        margin-top: 80px;
+    }
+
+    .contenedor-plantilla-v2 ul {
+        width: fit-content;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 50px;
+        margin-bottom: 20px;
+    }
+
+    /* --- JUGADOR CONCRETO --- */
+    .player {
+        margin-top: 80px;
+    }
+    
+    .player-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .player-image {
+        width: 100%;
+        height: auto;
+        margin-top: 40px;
+    }
+
+    .player-data {
+        margin: 35px 50px 35px 50px;
+    }
+
+    .player-position {
+        margin-bottom: 20px;
+    }
+
+    .player-miscellaneous {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+
+/* --- TENDA --- */
+@media (max-width: 768px) {
+    /* --- BOTIGUES --- */
+    .cap-tenda {
+        margin-top: 0;
+    }
+
+    .titular {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .titular-text {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+
+    .titular-link {
+        font-size: 16px;
+        gap: 10px;
+    }
+
+    .coleccions-items {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
+    }
+
+    .coleccions-item {
+        width: 100%;
+        height: 100px;
+    }
+
+    .promos ul {
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .promos li {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 100%;
+        max-width: 100%;
+        scroll-snap-align: center;
+    }
+
+    .promos-wrapper ul {
+        display: flex;
+    }
+
+    .promos-hint-mobile {
+        display: flex;
+        gap: 5px;
+        margin: 20px 0 0 0;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .tendes-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .tendes-foto {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .tendes-text {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .cart {
+        margin-top: 80px;
     }
 }

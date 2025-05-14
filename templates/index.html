@@ -37,37 +37,9 @@
     }
 
     setInterval(nextSlide, 3000);
+</script>
 
-    // Carousel sponsors
-    document.addEventListener("DOMContentLoaded", function () {
-    const track = document.querySelector(".carousel-track.infinite");
-    const items = Array.from(track.children);
-    const itemWidth = items[0].offsetWidth;
-    const totalItems = items.length;
-
-    items.slice(0, 16).forEach(item => {
-        const clone = item.cloneNode(true);
-        track.appendChild(clone);
-    });
-
-    let scrollPosition = 0;
-
-    function moveCarousel() {
-        scrollPosition += 1; // Adjust speed by changing this value
-        track.style.transform = `translateX(-${scrollPosition}px)`;
-
-        // Reset position when reaching the cloned items
-        if (scrollPosition >= itemWidth * totalItems) {
-            scrollPosition = 0; // Reset to the start of the original items
-            track.style.transform = `translateX(0px)`;
-        }
-
-        requestAnimationFrame(moveCarousel);
-    }
-
-    moveCarousel();
-    });
-
+<script>
     // Volver arriba
     document.addEventListener("DOMContentLoaded", function () {
     const backToTopButton = document.getElementById("backToTop");
@@ -88,142 +60,160 @@
             behavior: "smooth"
         });
     });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+    const navbarLinks = document.querySelectorAll('.navbar-menu a');
+
+    menuToggle.addEventListener('click', () => {
+        navbarMenu.classList.toggle('active');
+    });
+
+    navbarLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navbarMenu.classList.remove('active');
+        });
+    });
 });
 </script>
+
 <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
 {% endblock %}
 
 {% block content %}
-<header>
-    {% include "components/navbar.html" %}
-    <button id="backToTop" class="back-to-top">
-        <i class="fa-solid fa-arrow-up"></i>
-    </button>
-    <div class="titular">
-        <div class="titular-text">
-            <h1>Sempre Mallorca!</h1>
-        </div>
-        <div class="titular-link">
-            <a href="#"><p>Llegir més <i class="fa-solid fa-arrow-right"></i></p></a>
+    <header>
+        <button id="backToTop" class="back-to-top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+    </header>
+
+    <div class="cap">
+        <div class="titular">
+            <div class="titular-text">
+                <h1>Cap amunt, sempre amunt!</h1>
+            </div>
+            <div class="titular-link">
+                <a href="#"><p>Llegir més <i class="fa-solid fa-arrow-right"></i></p></a>
+            </div>
         </div>
     </div>
-</header>
-<main>
-    <div id="partits" class="partidos">
-        <div class="contenedor-partidos">
-            <h1>Pròxims partits</h1>
-            <div class="partidos">
-                <ul>
-                    {% for partido in partidos %}
-                    <li>
-                        <div class="partido">
-                            <h2>{{ partido.name }}</h2>
-                            <p class="ubicacion">{{ partido.location }}</p>
-                            <div class="partido-datos">
-                                <div class="equipo">
-                                    <img src="../static/img/teams//{{ partido.local_team.abbreviation }}.png" alt="">
-                                    <p>{{ partido.local_team.abbreviation }}</p>
+
+    <main>
+        <div id="partits" class="partidos">
+            <div class="contenedor-partidos">
+                <h1>Pròxims partits</h1>
+                <div class="partidos">
+                    <ul>
+                        {% for partido in partidos %}
+                        <li>
+                            <div class="partido">
+                                <h2>{{ partido.name }}</h2>
+                                <p class="ubicacion">{{ partido.location }}</p>
+                                <div class="partido-datos">
+                                    <div class="equipo">
+                                        <img src="../static/img/teams//{{ partido.local_team.abbreviation }}.png" alt="">
+                                        <p>{{ partido.local_team.abbreviation }}</p>
+                                    </div>
+                                    <div class="tiempo">
+                                        <p class="fecha">{{ partido.date.strftime("%d/%m/%Y") }}</p>
+                                        <p class="hora">{{ partido.time }}</p>
+                                    </div>
+                                    <div class="equipo">
+                                        <img src="../static/img/teams//{{ partido.visitor_team.abbreviation }}.png" alt="">
+                                        <p>{{ partido.visitor_team.abbreviation }}</p>
+                                    </div>
                                 </div>
-                                <div class="tiempo">
-                                    <p class="fecha">{{ partido.date.strftime("%d/%m/%Y") }}</p>
-                                    <p class="hora">{{ partido.time }}</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="laliga-holder">
+                    <div class="banner-laliga">
+                        <a href="https://www.laliga.com"><img src="../static/img/index/laliga.png"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="plantilla" class="plantilla">
+            <div class="botones">
+                <button class="jugador-previo"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="jugador-siguiente"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            <div class="contenedor-plantilla">
+                <h1>La nostra plantilla</h1>
+                <div class="carousel">
+                    <ul>
+                        {% for persona in personas %}
+                        <li>
+                            <div class="contenedor-imagen">
+                                <div class="numero-jugador">
+                                    <p>{{ persona.number }}</p>
                                 </div>
-                                <div class="equipo">
-                                    <img src="../static/img/teams//{{ partido.visitor_team.abbreviation }}.png" alt="">
-                                    <p>{{ partido.visitor_team.abbreviation }}</p>
-                                </div>
+                                <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
                             </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            
-            <div class="laliga-holder">
-                <div class="banner-laliga">
-                    <a href="https://www.laliga.com"><img src="../static/img/index/laliga.png"></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="plantilla" class="plantilla">
-        <div class="botones">
-            <button class="jugador-previo"><i class="fa-solid fa-arrow-left"></i></button>
-            <button class="jugador-siguiente"><i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-        <div class="contenedor-plantilla">
-            <h1>La nostra plantilla</h1>
-            <div class="carousel">
-                <ul>
-                    {% for persona in personas %}
-                    <li>
-                        <div class="contenedor-imagen">
-                            <div class="numero-jugador">
-                                <p>{{ persona.number }}</p>
+                            <div class="contenedor-datos">
+                                <h2>{{ persona.display_name }}</h2>
+                                <h3>{{ persona.position }}</h3>
+                                <a href="{{ url_for('get_persona_by_id', id = persona.id) }}"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
                             </div>
-                            <img src="../static/img/players/card/{{ persona.number }}.jpg" alt="">
-                        </div>
-                        <div class="contenedor-datos">
-                            <h2>{{ persona.display_name }}</h2>
-                            <h3>{{ persona.position }}</h3>
-                            <a href="{{ url_for('get_persona_by_id', id = persona.id) }}"><button>VEURE FITXA<i class="fa-solid fa-arrow-right"></i></button></a>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <a href="/plantilla">Veure tota la plantilla <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-    </div>
-
-    <div id="videos" class="videos">
-        <div class="contenedor-videos">
-            <h1>RCD Mallorca TV</h1>
-            <div class="videos-wrapper">
-                <div class="video-principal">
-                    <lite-youtube videoid="{{ videos[0].identificador }}"></lite-youtube>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-            </div>
-            <div class="videos-pequeños">
-                <div class="video-pequeño">
-                    <lite-youtube videoid="{{ videos[1].identificador }}"></lite-youtube>
-                </div>
-
-                <div class="video-pequeño">
-                    <lite-youtube videoid="{{ videos[2].identificador }}"></lite-youtube>
-                </div>
-
-                <div class="video-pequeño">
-                    <lite-youtube videoid="{{ videos[3].identificador }}"></lite-youtube>
+                <div class="carousel-link">
+                    <a href="/plantilla">Veure tota la plantilla <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="patrocinadors" class="patrocinadores">
-        <div class="contenedor-patrocinadores">
-            <h2>Moltes gràcies als nostres patrocinadors!</h2>
-            <div class="carousel-sponsors">
-                <div class="carousel-track infinite">
-                    {% for arxiu in sponsors %}
-                        {% if arxiu.endswith('.png') %}
-                            <div class="carousel-item">
-                                <img src="../static/img/sponsors/{{ arxiu }}">
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+        <div id="videos" class="videos">
+            <div class="contenedor-videos">
+                <h1>RCD Mallorca TV</h1>
+                <div class="videos-wrapper">
+                    <div class="video-principal">
+                        <lite-youtube videoid="{{ videos[0].identificador }}"></lite-youtube>
+                    </div>
+                </div>
+                <div class="videos-pequeños">
+                    <div class="video-pequeño">
+                        <lite-youtube videoid="{{ videos[1].identificador }}"></lite-youtube>
+                    </div>
 
-                    {% for arxiu in sponsors %}
-                        {% if arxiu.endswith('.jpg') %}
-                            <div class="carousel-item">
-                                <img src="../static/img/sponsors/{{ arxiu }}">
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                    <div class="video-pequeño">
+                        <lite-youtube videoid="{{ videos[2].identificador }}"></lite-youtube>
+                    </div>
+
+                    <div class="video-pequeño">
+                        <lite-youtube videoid="{{ videos[3].identificador }}"></lite-youtube>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+
+        <div id="patrocinadors" class="patrocinadores">
+            <div class="contenedor-patrocinadores">
+                <h2>Moltes gràcies als nostres patrocinadors!</h2>
+                <div class="logos">
+                    <div class="logos-slide">
+                        {% for arxiu in sponsors %}
+                        <img src="../static/img/sponsors/{{ arxiu }}">
+                        {% endfor %}
+                    </div>
+
+                    <div class="logos-slide">
+                        {% for arxiu in sponsors %}
+                        <img src="../static/img/sponsors/{{ arxiu }}">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}

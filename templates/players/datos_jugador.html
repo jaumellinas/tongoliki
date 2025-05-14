@@ -2,6 +2,27 @@
 
 {% block title %}{{persona.display_name}} - RCD Mallorca{% endblock %}
 
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+
+    menuToggle.addEventListener('click', () => {
+        navbarMenu.classList.toggle('active');
+
+        if (navbarMenu.classList.contains('active')) {
+            menuToggle.classList.remove('fa-bars');
+            menuToggle.classList.add('fa-times');
+        } else {
+            menuToggle.classList.remove('fa-times');
+            menuToggle.classList.add('fa-bars');
+        }
+    });
+    });
+</script>
+{% endblock %}
+
 {% block styles %}
 <style>
 body {
@@ -13,7 +34,6 @@ body {
 {% endblock %}
 
 {% block content %}
-{% include "components/navbar.html" %}
 
 <div class="player">
   <div class="player-container">
