@@ -1,172 +1,322 @@
-![Mockup](static/img/mockup.png)
-
-# Proyecto página RCD Mallorca
-
-## Integrantes
-- Irene Fontcuberta León
-- Jaume Llinàs Sansó
-- Daniel Cobo Palao
-- Adrià Garí Sagrera
+<div align="center">
+    <br/>
+    <p>
+        <img src="static/img/mockup.png" title="Mockup" alt="Mockup de la web" width="750" />
+        <h1>RCD Mallorca</h1>
+    </p>
+    <p>
+        <b>Rediseño de la página web oficial del RCD Mallorca</b>
+        <br>
+        Proyecto final - GS Desarrollo de Aplicaciones Multiplataforma
+        <br>
+        Irene Fontcuberta León · Jaume Llinàs Sansó · Daniel Cobo Palao · Adrià Garí Sagrera
+    </p>
+</div>
 
 ---
 
-## 📝 Explicación del proyecto
+## Índice
 
-Este proyecto consiste en una página web dedicada al club de fútbol **RCD Mallorca**. Ha sido desarrollada utilizando el framework **Flask**, trabajando con tecnologías como **Python**, **HTML** y **CSS**.
+1. [Descripción general](#descripción-general)
+2. [Estructura del proyecto](#estructura-del-proyecto)
+3. [Requisitos](#requisitos)
+4. [Organización del equipo](#organización-del-equipo)
+5. [Despliegue en local](#despliegue-en-local)
+6. [Base de datos](#base-de-datos)
+7. [Acceso al backoffice](#acceso-al-backoffice)
+8. [Tienda del club](#tienda-del-club)
 
-El objetivo es mostrar una web informativa y funcional sobre el club, con apartados dinámicos como vídeos, plantilla de jugadores, y un backoffice de administración (zona privada) para modificar o eliminar el contenido.
+---
 
-- Los archivos relacionados con el **frontend** se encuentran en el directorio `/templates` y los estilos en la carpeta `/static`.
+## Descripción general
+
+> [!NOTE]
+> Este proyecto está desarrollado con el framework **Flask**, utilizando **Python**, **HTML** y **CSS**.
+
+La web del **RCD Mallorca** es una aplicación informativa sobre el club, con secciones dinámicas como vídeos, plantilla de jugadores y un backoffice de administración (zona privada) para gestionar el contenido.
+
+- El **frontend** se encuentra en el directorio `/templates`, con los estilos en `/static`.
 - Toda la lógica está centralizada en el archivo `app.py`.
 
----
-
-## 👥 Organización del equipo
-
-El grupo se ha organizado en dos departamentos para dividir responsabilidades:
-
-### 🎨 Frontend
-- **Integrantes**: Jaume e Irene  
-- **Responsabilidades**:
-  - Diseño visual del sitio web.
-  - Creación y maquetación de páginas HTML.
-  - Desarrollo de estilos con CSS para lograr una estética coherente y adaptada al tema del RCD Mallorca.
-  - Estructuración del contenido para una buena experiencia de usuario.
-
-### ⚙️ Backend
-- **Integrantes**: Dani y Adri  
-- **Responsabilidades**:
-  - Implementación de la lógica de la aplicación con Flask.
-  - Gestión de rutas y sesiones.
-  - Conexión con la base de datos Supabase.
-  - Buenas prácticas de programación y legibilidad del código.
+> [!IMPORTANT]
+> Es necesario configurar el archivo `.env` con la URL de conexión a Supabase antes de ejecutar el proyecto. En la versión entregable, dicho secreto ya está incluido.
 
 ---
 
-## 🚀 Ejecución del proyecto
+## Estructura del proyecto
+```
+tongoliki/
+├── static/
+│   ├── img/
+│   │   ├── index/
+│   │   │   ├── header.jpg
+│   │   │   ├── header.png
+│   │   │   ├── header2.png
+│   │   │   ├── header3.jpg
+│   │   │   ├── laliga.png
+│   │   │   ├── sonmoix.jpg
+│   │   │   └── videos.jpg
+│   │   ├── login/
+│   │   │   └── bg.jpg
+│   │   ├── main/
+│   │   │   ├── favicon.png
+│   │   │   └── logo.png
+│   │   ├── players/
+│   │   │   ├── card/
+│   │   │   │   ├── 1.jpg
+│   │   │   │   ├── 10.jpg
+│   │   │   │   ├── 11.jpg
+│   │   │   │   ├── 12.jpg
+│   │   │   │   ├── 13.jpg
+│   │   │   │   ├── 14.jpg
+│   │   │   │   ├── 16.jpg
+│   │   │   │   ├── 17.jpg
+│   │   │   │   ├── 18.jpg
+│   │   │   │   ├── 2.jpg
+│   │   │   │   ├── 20.jpg
+│   │   │   │   ├── 21.jpg
+│   │   │   │   ├── 22.jpg
+│   │   │   │   ├── 23.jpg
+│   │   │   │   ├── 24.jpg
+│   │   │   │   ├── 25.jpg
+│   │   │   │   ├── 27.jpg
+│   │   │   │   ├── 3.jpg
+│   │   │   │   ├── 32.jpg
+│   │   │   │   ├── 5.jpg
+│   │   │   │   ├── 6.jpg
+│   │   │   │   ├── 7.jpg
+│   │   │   │   ├── 8.jpg
+│   │   │   │   └── 9.jpg
+│   │   │   ├── page/
+│   │   │       ├── 1.jpg
+│   │   │       ├── 10.jpg
+│   │   │       ├── 11.jpg
+│   │   │       ├── 12.jpg
+│   │   │       ├── 13.jpg
+│   │   │       ├── 14.jpg
+│   │   │       ├── 16.jpg
+│   │   │       ├── 17.jpg
+│   │   │       ├── 18.jpg
+│   │   │       ├── 2.jpg
+│   │   │       ├── 20.jpg
+│   │   │       ├── 21.jpg
+│   │   │       ├── 22.jpg
+│   │   │       ├── 23.jpg
+│   │   │       ├── 24.jpg
+│   │   │       ├── 25.jpg
+│   │   │       ├── 27.jpg
+│   │   │       ├── 3.jpg
+│   │   │       ├── 5.jpg
+│   │   │       ├── 6.jpg
+│   │   │       ├── 7.jpg
+│   │   │       ├── 8.jpg
+│   │   │       └── 9.jpg
+│   │   ├── sponsors/
+│   │   │   ├── 1.png
+│   │   │   ├── 10.png
+│   │   │   ├── 11.png
+│   │   │   ├── 12.png
+│   │   │   ├── 13.png
+│   │   │   ├── 14.png
+│   │   │   ├── 15.png
+│   │   │   ├── 2.png
+│   │   │   ├── 3.png
+│   │   │   ├── 4.png
+│   │   │   ├── 5.png
+│   │   │   ├── 6.png
+│   │   │   ├── 7.png
+│   │   │   ├── 8.png
+│   │   │   └── 9.png
+│   │   ├── teams/
+│   │   │   ├── BET.png
+│   │   │   ├── CEL.png
+│   │   │   ├── FCB.png
+│   │   │   ├── GIR.png
+│   │   │   ├── LEG.png
+│   │   │   ├── MLL.png
+│   │   │   ├── OSA.png
+│   │   │   ├── RAY.png
+│   │   │   └── REA.png
+│   │   ├── tenda/
+│   │   │   ├── UML/
+│   │   │   │   ├── carrito.jpg
+│   │   │   │   ├── clases.jpg
+│   │   │   │   ├── login.jpg
+│   │   │   │   ├── producto.jpg
+│   │   │   │   └── registro.jpg
+│   │   │   ├── products/
+│   │   │   │   ├── 1.webp
+│   │   │   │   ├── 2.webp
+│   │   │   │   ├── 3.webp
+│   │   │   │   ├── 4.webp
+│   │   │   │   ├── 5.webp
+│   │   │   │   ├── 6.webp
+│   │   │   │   ├── 7.webp
+│   │   │   │   └── 8.webp
+│   │   │   ├── static/
+│   │   │       ├── header.jpg
+│   │   │       └── tendes.webp
+│   │   └── mockup.png
+│   ├── styles/
+│       ├── admin.css
+│       ├── forms.css
+│       └── style.css
+├── templates/
+│   ├── admin/
+│   │   └── admin_panel.html
+│   ├── auth/
+│   │   ├── choice.html
+│   │   └── login.html
+│   ├── components/
+│   │   ├── base.html
+│   │   ├── forms.html
+│   │   └── navbar.html
+│   ├── players/
+│   │   ├── datos_jugador.html
+│   │   └── plantilla.html
+│   ├── tienda/
+│   │   ├── auth/
+│   │   │   └── tienda_register.html
+│   │   ├── formularios_back/
+│   │   │   ├── add_producto.html
+│   │   │   └── editar_producto.html
+│   │   ├── plantillas_back/
+│   │   │   └── admin.html
+│   │   ├── carrito.html
+│   │   ├── index.html
+│   │   ├── producte.html
+│   │   └── productes.html
+│   ├── index.html
+│   └── plantilla.html
+├── app.py
+├── readme.md
+├── requirements.txt
+└── vercel.json
+```
 
-### 1. Instalación de dependencias
-Antes de ejecutar el proyecto, asegúrate de tener un entorno virtual y de instalar las dependencias necesarias con:
+---
 
+## Requisitos
+
+- Python 3.10+
+- pip
+- Entorno virtual (recomendado)
+- Cuenta y proyecto activo en **Supabase**
+
+**Dependencias principales (`requirements.txt`):**
+
+- flask
+- python-dotenv
+- supabase
+
+---
+
+## Organización del equipo
+
+El equipo se ha dividido en dos departamentos:
+
+### · Frontend
+**Integrantes:** Jaume Llinàs e Irene Fontcuberta
+
+- Diseño visual del sitio web
+- Creación y maquetación de páginas HTML
+- Desarrollo de estilos CSS con estética coherente al tema del RCD Mallorca
+- Estructuración del contenido para una buena experiencia de usuario
+
+### · Backend
+**Integrantes:** Daniel Cobo y Adrià Garí
+
+- Implementación de la lógica de la aplicación con Flask
+- Gestión de rutas y sesiones
+- Conexión con la base de datos Supabase
+- Buenas prácticas de programación y legibilidad del código
+
+---
+
+## Despliegue en local
+
+### 1. Clonar el repositorio
+```bash
+git clone <url-del-repositorio>
+cd rcd-mallorca
+```
+
+### 2. Crear y activar el entorno virtual
+```bash
+python -m venv venv
+
+# En macOS/Linux:
+source venv/bin/activate
+
+# En Windows:
+venv\Scripts\activate
+```
+
+### 3. Instalar dependencias
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Ejecución
-Puedes iniciar el servidor con:
+### 4. Configurar el archivo `.env`
 
+Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+```env
+SUPABASE_URL=https://<tu-proyecto>.supabase.co
+SUPABASE_KEY=<tu-clave-secreta>
+```
+
+> [!IMPORTANT]
+> En la versión entregable, este archivo ya está incluido y configurado. No es necesario crearlo manualmente.
+
+### 5. Ejecutar el servidor
 ```bash
 flask run
 ```
-O bien, desde Visual Studio Code, seleccionando el archivo app.py y haciendo clic en el botón de Play (▶️).
-Asegúrate de tener configurada la variable de entorno FLASK_APP=app.py si ejecutas manualmente.
 
-### 3. Configuración del archivo '.env'
-Es necesario crear un archivo llamado '.env' en la raíz del proyecto. Este archivo debe contener la URL de conexión a la base de datos de Supabase. En nuestro caso, dicho secreto de entorno se encuentra ya creado **en la versión entregable del proyecto**.
+O bien, desde **Visual Studio Code**, abriendo `app.py` y dándole al play.
 
----
+> [!TIP]
+> Si Flask no reconoce la aplicación, asegúrate de tener configurada la variable de entorno:
+> ```bash
+> export FLASK_APP=app.py   # macOS/Linux
+> set FLASK_APP=app.py      # Windows
+> ```
 
-## 🛢️ Base de datos
-
-La base de datos utilizada está alojada en la nube, utilizando el servicio Supabase, que permite gestionar tablas, autenticación y almacenamiento de datos.
-
----
-
-## 📋 Diagramas UML
-
-Hemos creado unos diagramas UML, concretamente de clases y de estado, para facilitar la documentación del proyecto.
-
-
-Diagrama de Clases
-
-![Diagrama de Clases](static/img/UML/diagrama_clases.jpg)
-
-
-Diagrama de Estado de esas clases
-
-![Diagrama de Estado](static/img/UML/entidades_diagrama_estado.jpg)
-
-
-Diagrama de Estado del login (backoffice)
-
-![Diagrama de Estado del Login](static/img/UML/login_diagrama_estado.jpg)
+La aplicación estará disponible en `http://127.0.0.1:5000`.
 
 ---
 
-## 🔐 Acceso al backoffice (modo prueba)
+## Base de datos
 
-Para acceder al panel de administración (zona privada), puedes usar las siguientes credenciales de prueba:
-
-- **Correo**: tongoliki@gmail.com
-
-- **Contraseña**: 12345  
-<br><br>
-# 🛍️ Tienda del proyecto RCD Mallorca! ⚽
-
-Esta sección del proyecto es un subproyecto donde hacemos nuestra **réplica** de la **tienda del RCD Mallorca**. En este apartado, contamos con una modificación en los integrantes, puesto que uno de ellos no participa en él.
-
-## Integrantes:
-- Adrià Garí Sagrera
-- Jaume Llinàs Sansó
-- Irene Fontcuberta León
-
-## Explicación del subproyecto
-
-En esta ocasión, estamos recreando la tienda del RCD Mallorca, donde continuamos utilizando lo mismo que en el proyecto principal: Flask como framework principal, Python, HTML y CSS. 
-
-Todos lo relacionado al **frontend** de esta tienda se encontrará dentro de la ruta `/templates/tienda` y sus estilos en `/static/styles` usando el archivo CSS principal. En el caso del **backend** todo se encuentra en el propio archivo `app.py` junto con el proyecto principal.
-
-
-## Funciones de los equipos
-
-Como en el caso anterior, hemos dividido el equipo en dos departamentos:
-
-### 🎨 Frontend:
-- **Integrantes**: Jaume Llinàs e Irene Fontcuberta
-- **Responsabilidades**:
-  - Diseño visual de la tienda, carrito y páginas login/register
-  - Maquetaciones y 'mockups'
-  - Cuidar la experiencia de usuario
-  - Cuidar la imagen de marca
-
-### ⚙️ Backend: 
-- **Integrantes**: Adrià Garí
-- **Responsabilidades**:
-  - Creación de las clases, objetos y modelos
-  - Métodos y funciones de la página web
-  - Implementación de lógica
-  - Funciones Login/Register
-  - Implementar un carrito
-
-
-## Diagramas UML
-
-También hemos creado unos diagramas UML para nuestra tienda!
-
-### Diagrama de Clases
-
-![Diagrama de Clases](static/img/tenda/UML/clases.jpg)
+La base de datos está alojada en la nube mediante **Supabase**, que proporciona gestión de tablas, autenticación y almacenamiento de datos de forma sencilla e integrada con Flask.
 
 ---
 
-### Diagramas de Estado
+## Acceso al backoffice
 
-Producto
+| Campo | Valor |
+|-------|-------|
+| Correo | `tongoliki@gmail.com` |
+| Contraseña | `12345` |
 
-![Producto](static/img/tenda/UML/producto.jpg)
 ---
 
-Carrito
+## Tienda del club
 
-![Carrito](static/img/tenda/UML/carrito.jpg)
----
+Este proyecto incluye un **subproyecto** que es una réplica de la tienda oficial del RCD Mallorca.
 
-Login
+**Integrantes:** Adrià Garí · Jaume Llinàs · Irene Fontcuberta
 
-![Login](static/img/tenda/UML/login.jpg)
----
+El frontend de la tienda se encuentra en `/templates/tienda` y comparte los estilos del proyecto principal en `/static/styles`. La lógica de backend está integrada en el mismo `app.py`.
 
-Registro
+### Equipos
 
-![Registro](static/img/tenda/UML/registro.jpg)
----
+**· Frontend** — Jaume Llinàs e Irene Fontcuberta
+- Diseño visual de la tienda, carrito y páginas de login/registro
+- Maquetaciones y mockups
+- Experiencia de usuario e imagen de marca
+
+**· Backend** — Adrià Garí
+- Clases, objetos y modelos de datos
+- Lógica de la tienda y del carrito
+- Funciones de login y registro
